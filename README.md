@@ -1,6 +1,9 @@
 # API Documentation for Handsontable
 
 ## Installation
+
+Prerequisites: you need to have Ruby and Sass installed on your machine.
+
 Install the npm dependencies by typing:
 ```sh
 npm install
