@@ -23,6 +23,6 @@ assignees: ''
 ### Your environment
 <!--- [recommended if applies, for example: demo]  -->
 
-* HyperFormula version:
+* Handsontable version:
 * Browser Name and version:
 * Operating System:
