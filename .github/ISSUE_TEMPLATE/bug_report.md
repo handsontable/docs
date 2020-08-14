@@ -12,7 +12,7 @@ assignees: ''
 <!--- [mandatory] Describe the actual behavior and expected behavior -->
 
 ### Links
-<!--- [mandatory] Add a link (or links) to the page that should be improved or the mistake is on-->
+<!--- [mandatory] Add a link (or links) to the page that should be improved or contains a mistake -->
 
 ### Steps to reproduce
 <!--- [recommended] Provide steps to reproduce this issue -->
