@@ -220,7 +220,7 @@ CustomEditor.prototype.beginEditing = function() {};</code></pre>
     this.editorDiv.style.display = '';
   }
 }</code></pre>
-    <p>This method does need to return any value.</p>
+    <p>This method does not need to return any value.</p>
     <h4 id="close-">close()</h4>
     <p>Hides the editor after cell value has been changed. In most cases this method can be as simple as:</p>
     <pre><code class="lang-js">class CustomEditor extends TextEditor {
@@ -228,7 +228,7 @@ CustomEditor.prototype.beginEditing = function() {};</code></pre>
     this.editorDiv.style.display = 'none';
   }
 }</code></pre>
-    <p>This method does need to return any value.</p>
+    <p>This method does not need to return any value.</p>
     <h4 id="focus-">focus()</h4>
     <p>Focuses the editor. This method is called when user wants to close the editor by selecting another cell and the value
       in editor does not validate (and <code>allowInvalid</code> is <code>false</code>). In most cases this method can be as
@@ -238,7 +238,7 @@ CustomEditor.prototype.beginEditing = function() {};</code></pre>
     this.editorInput.focus();
   }
 }</code></pre>
-    <p>This method does need to return any value.</p>
+    <p>This method does not need to return any value.</p>
     <h3 id="common-editor-properties">Common editor properties</h3>
     <p>All of the undermentioned properties are available in editor instance through <code>this</code> object (e.g. <code>this.instance</code>).
     </p>
