@@ -14,6 +14,7 @@
     <ul>
       <li><a href="#page-columns">Read-only columns</a></li>
       <li><a href="#page-cells">Read-only specific cells</a></li>
+      <li><a href="#page-comments">Read-only comments</a></li>
     </ul>
   </div>
 
@@ -107,6 +108,51 @@
           }
         });</script>
     </div>
+    <div class="example-container clearfix head-gap" name="cells">
+      <h3 id="page-comments">Read-only comments</h3>
+      <p>This example makes the comment attached to a cell that contain the word "Tesla" read only.</p>
+      <p>You can compare it with the comment inside a cell with "Honda" wording</p>
+
+      <div data-jsfiddle="example3">
+        <div id="example3" class="hot"></div>
+      </div>
+
+      <div class="codeLayout">
+        <div class="buttons">
+          <button class="jsFiddleLink" data-runfiddle="example3">
+            <i class="fa fa-jsfiddle"></i>
+            Edit
+          </button>
+          <button class="dump" name="dump" data-dump="#example3" data-instance="hot3"
+                  title="Print current data source to console">
+            <i class="fa fa-terminal"></i>
+            Log to console
+          </button>
+        </div>
+        <script data-jsfiddle="example3">
+            function getData() {
+              return [
+                ['', 'Tesla', 'Toyota', 'Honda', 'Ford'],
+                ['2018', 10, 11, 12, 13, 15, 16],
+                ['2019', 10, 11, 12, 13, 15, 16],
+                ['2020', 10, 11, 12, 13, 15, 16],
+              ];
+            }
+            var container = document.getElementById('example3'),
+            hot3;
+
+            hot3 = new Handsontable(container, {
+              data: getData(),
+              rowHeaders: true,
+              colHeaders: true,
+              contextMenu: true,
+              comments: true,
+              cell: [
+                {row: 0, col: 1, comment: {value: 'A read-only comment.', readOnly: true}},
+                {row: 0, col: 3, comment: {value: 'You can edit this comment!'}}
+              ]
+          });</script>
+      </div>
   </div>
   <p class="gap-top-xsmall">
     <a href="https://github.com/handsontable/docs/edit/<?js= version ?>/tutorials/read-only.html" class="edit-doc" target="_blank">
