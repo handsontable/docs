@@ -171,15 +171,17 @@ columns: [
             for (var i = changes.length - 1; i >= 0; i--) {
               // gently don't accept the word "foo" (remove the change at index i)
               if (changes[i][3] === 'foo') {
-                changes.splice(i, 1);
+              changes.splice(i, 1);
               }
               // if any of pasted cells contains the word "nuke", reject the whole paste
               else if (changes[i][3] === 'nuke') {
                 return false;
               }
               // capitalise first letter in column 1 and 2
-              else if ((changes[i][1] === 'name.first' || changes[i][1] === 'name.last') && (changes[i][3] && changes[i][3].charAt(0))) {
-                changes[i][3] = changes[i][3].charAt(0).toUpperCase() + changes[i][3].slice(1);
+              else if ((changes[i][1] === 'name.first' || changes[i][1] === 'name.last')) {
+                if(changes[i][3] !== null){
+          	      changes[i][3] = changes[i][3].charAt(0).toUpperCase() + changes[i][3].slice(1);
+                }
               }
             }
           },
@@ -188,6 +190,8 @@ columns: [
               example1console.innerText = JSON.stringify(changes);
             }
           },
+          rowHeaders: true,
+          contextMenu: true,
           colHeaders: ['ID', 'First name', 'Last name', 'IP', 'E-mail'],
           columns: [
             {data: 'id', type: 'numeric'},
