@@ -171,7 +171,7 @@ columns: [
             for (var i = changes.length - 1; i >= 0; i--) {
               // gently don't accept the word "foo" (remove the change at index i)
               if (changes[i][3] === 'foo') {
-              changes.splice(i, 1);
+                changes.splice(i, 1);
               }
               // if any of pasted cells contains the word "nuke", reject the whole paste
               else if (changes[i][3] === 'nuke') {
