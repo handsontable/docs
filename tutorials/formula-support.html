@@ -137,10 +137,9 @@
           },
         });</script>
     </div>
-
-    <strong>Updating custom variables</strong>
+    <p><strong>Updating custom variables</strong></p>
     <p>
-      At some point, you may want to update custom variables values. To do so, you need to use both <code>setVariable</code> and one of
+      At some point, you may want to update the custom variable's value. To do so, you need to use both <code>setVariable</code> and one of
       <code>recalculate*</code> methods.
     </p>
     <div data-jsfiddle="example3">
@@ -164,9 +163,9 @@
       </div>
       <script data-jsfiddle="example3" data-dont-display="true">
         var data = [
-        ['Travel ID', 'Destination', 'Base price', 'Price with an extra cost'],
+        ['Travel ID', 'Destination', 'Base price', 'Price with extra cost'],
         ['154', 'Rome', 400, '=ROUND(ADDITIONAL_COST+C2;0)'],
-        ['155', 'Moscov', 300, '=ROUND(ADDITIONAL_COST+C3;0)'],
+        ['155', 'Athens', 300, '=ROUND(ADDITIONAL_COST+C3;0)'],
         ['156', 'Warsaw', 150, '=ROUND(ADDITIONAL_COST+C4;0)']
         ];</script>
       <script data-jsfiddle="example3">
@@ -178,6 +177,7 @@
           data: data,
           contextMenu: false,
           colHeaders: true,
+          rowHeaders: true,
           formulas: {
             variables: {
               // set the initial value
