@@ -143,10 +143,10 @@
       <code>recalculate*</code> methods.
     </p>
     <div data-jsfiddle="example3">
-      <div id="hot">
+      <div id="example3" class="hot">
       </div>
       <input id="calculate-field" name="calculate-field" title="Extra cost" type="number" value="" placeholder="Extra cost">
-      <button onclick="calculateNewPrice()" id="calculate">Calculate price</button>
+      <button onclick="calculateNewPrice()" id="calculate" class="intext-btn">Calculate price</button>
     </div>
 
     <div class="codeLayout">
@@ -173,7 +173,7 @@
         var inputBox = document.getElementById("calculate-field")
         var calculateButton = document.getElementById("calculate")
 
-        var hot3 = new Handsontable(hot, {
+        var hot3 = new Handsontable(example3, {
           data: data,
           contextMenu: false,
           colHeaders: true,
