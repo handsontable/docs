@@ -30,12 +30,13 @@
         <li><code>batch</code></li>
         <li><code>beforeRowMove</code></li>
         <li><code>CollapsibleColumns</code></li>
+        <li><code>ColumnSorting</code></li>
         <li><code>data binding</code></li>
         <li><code>dragColumns</code></li>
         <li><code>dragRows</code></li>
         <li><code>Filters</code></li>
         <li><code>finalIndex</code></li>
-        <li><code>GanttChart ColumnSorting</code></li>
+        <li><code>GanttChart</code></li>
         <li><code>HiddenColumns</code></li>
         <li><code>insert</code></li>
         <li><code>isMovePossible</code></li>
@@ -53,6 +54,7 @@
         <li><code>populateFromArray</code></li>
         <li><code>RecordTranslator</code></li>
         <li><code>setDataAtCell</code></li>
+        <li><code>setDataAtRowProp</code></li>
         <li><code>skipLengthCache</code></li>
         <li><code>toPhysicalColumn</code></li>
         <li><code>toPhysicalRow</code></li>
@@ -77,8 +79,8 @@
       <p>If you use <strong>Handsontable</strong> with Angular:</p>
       <p><code>npm install handsontable@8 @handsontable/angular@6</code></p>
 
-    <h3>Breaking changes of 8.0.0</h3>
-    <h3>Removals of hooks</h3>
+    <h2 style="margin-top:60px">Breaking changes of 8.0.0</h2>
+    <h3 style="margin:0">Removals of hooks</h3>
     <p>Hooks related to the visual and physical indexes were removed since new architecture for indexes management was
       introduced. To achieve the same functionality we suggest using the API. What is more, internal calls in the
       component's code to these hooks were removed and replaced with corresponding API methods. The following examples
@@ -254,6 +256,22 @@ hiddenColumns: true</code></pre>
 
       <p>It is also worth to mention that <code>getSourceData</code> will return a clone of the entire dataset, when run without arguments  - <code>getSourceData()</code>.
         However, if a row/column range is provided: <code>getSourceData(0, 0, 10, 10)</code>, it will filter the dataset with the <code>columns</code> and/or <code>dataSchema</code> options, and return only the columns configured to be visible.
+
+      <p>Before it was also possible to extend the row-object by <code>setDataAtRowProp()</code> method when working with <strong>an array of objects as source data</strong>.
+        Since 8.0.0 the only way to do that is to use <code>setSourceDataAtCell</code>.</p>
+      <p>Check the following example:</p>
+      <pre>
+        <code class="lang-js">const hot = new Handsontable(container, {
+  data: [
+    { model: 'Roadster', company: 'Tesla' },
+    { model: 'i3', company: 'BMW' },
+  ],
+});
+
+hot.setDataAtRowProp(0, 'available', true) // This usage will throw an error in 8.0.0.
+hot.setSourceDataAtCell(0, 'available', true) // This usage will set a new property in 8.0.0
+        </code>
+      </pre>
 
       <h3>Changes in ManualRowMove and ManualColumnMove plugins behavior</h3>
 

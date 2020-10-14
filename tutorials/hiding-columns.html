@@ -29,6 +29,8 @@
     <p>
       The plugin allows displaying hidden column indicators in the headers, to notify the user which columns have been hidden.<br>
       To enable them, set the <code>indicators</code> property in the plugin's configuration object to <code>true</code>.
+      <br><br><strong>Important note</strong>: if you want to use both <code>nestedHeaders</code> and <code>hiddenColumns</code> alongside <code>indicators</code> you need
+      to enable <code>colHeaders</code> option. Otherwise, the <code>indicators</code> will not appear.
       <br><br> See <a href="#examples">the examples section</a> for more details.
     </p>
     <p>
@@ -40,7 +42,6 @@
       <code>hidden_columns_show</code> and <code>hidden_columns_hide</code>.
       <br><br> See <a href="#examples">the examples section</a> for more details.
     </p>
-
     <h3 id="examples">Example</h3>
     <div data-jsfiddle="example1">
       <div>

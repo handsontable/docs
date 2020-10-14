@@ -1,6 +1,38 @@
 <div class="static-content">
 
   <div class="example-container clearfix">
+    <h3>8.1.0</h3>
+    <p>Released on 1st of October, 2020</p>
+    <strong>Added</strong>
+    <ul>
+      <li>Added support for resizing non-contiguous selected rows and columns. (<a href="https://github.com/handsontable/handsontable/issues/7162" target="_blank">#7162</a>)</li>
+      <li>Added e2e tests and reorganized already existing ones. (<a href="https://github.com/handsontable/handsontable/issues/6491" target="_blank">#6491</a>)</li>
+    </ul>
+    <strong>Changed</strong>
+    <ul>
+      <li>Updated dependencies to meet security requirements. (<a href="https://github.com/handsontable/handsontable/issues/7222" target="_blank">#7222</a>)</li>
+      <li>Improved performance for <code>TrimRows</code>, <code>HiddenRows</code> and <code>HiddenColumns</code> plugins for big datasets with many trimmed/hidden indexes. (<a href="https://github.com/handsontable/handsontable/issues/7223" target="_blank">#7223</a>)</li>
+    </ul>
+    <strong>Fixed</strong>
+    <ul>
+      <li>Fixed an issue where the value did not show if the first part of the merged area was hidden. (<a href="https://github.com/handsontable/handsontable/issues/6871" target="_blank">#6871</a>)</li>
+      <li>Fixed an issue where after selecting the top-left element, resizing the row range was not possible. (<a href="https://github.com/handsontable/handsontable/issues/7162" target="_blank">#7162</a>)</li>
+      <li>Fixed a bug introduced within (<a href="https://github.com/handsontable/handsontable/issues/6871" target="_blank">#6871</a>)</li>
+      <li>Fixed an issue where column headers were cut off after hiding and revealing the columns with the <code>HiddenColumns</code> plugin. (<a href="https://github.com/handsontable/handsontable/issues/6395" target="_blank">#6395</a>)</li>
+      <li>Fixed an issue where a redundant row was added during copy/paste operations in some cases. (<a href="https://github.com/handsontable/handsontable/issues/5961" target="_blank">#5961</a>)</li>
+      <li>Fixed an issue where too many values were pasted after a column was hidden. (<a href="https://github.com/handsontable/handsontable/issues/6743" target="_blank">#6743</a>)</li>
+      <li>Fixed a bug where an attempt to move collapsed parent rows, with the <code>NestedRows</code> plugin enabled, resulted in an error. (<a href="https://github.com/handsontable/handsontable/issues/7132" target="_blank">#7132</a>)</li>
+      <li>Fixed an issue where, after column or row alteration, Handsontable threw an error if <code>ColumnSummary</code> was enabled without defined row ranges. (<a href="https://github.com/handsontable/handsontable/issues/7174" target="_blank">#7174</a>)</li>
+      <li>Fixed an issue where using <code>updateSettings</code> was breaking column sorting in specific cases. (<a href="https://github.com/handsontable/handsontable/issues/7228" target="_blank">#7228</a>)</li>
+      <li>Fixed an issue where, if <code>fixedColumnsLeft</code> was defined, rows had their left borders missing after disabling the row headers using <code>updateSettings</code>. (<a href="https://github.com/handsontable/handsontable/issues/5735" target="_blank">#5735</a>)</li>
+      <li>Fixed an issue where the Handsontable instance could fall into an infinite loop during vertical scrolling. It only happened when the scrollable element was the <code>window</code> object. (<a href="https://github.com/handsontable/handsontable/issues/7260" target="_blank">#7260</a>)</li>
+      <li>Fixed an issue with moving rows to the last row of the table when the <code>NestedRows</code> plugin was enabled. Repaired some other minor moving-related bugs as well. (<a href="https://github.com/handsontable/handsontable/issues/6067" target="_blank">#6067</a>)</li>
+      <li>Fixed an issue with adding an unnecessary extra empty line in cells on Safari. (<a href="https://github.com/handsontable/handsontable/issues/7262" target="_blank">#7262</a>)</li>
+      <li>Fixed an issue with clipped column headers when they were changed before or within usage of <code>updateSettings</code>. (<a href="https://github.com/handsontable/handsontable/issues/6004" target="_blank">#6004</a>)</li>
+    </ul>
+  </div>
+
+  <div class="example-container clearfix">
     <h3>8.0.0</h3>
     <p>Released on 5th of August, 2020</p>
     <strong>Major changes</strong>
@@ -56,6 +88,8 @@
       <li>The right mouse button (<code>RMB</code>) click on the corner when there is no data will show all options disabled. <a href="https://github.com/handsontable/handsontable/pull/6547" target="_blank">#6547</a>.</li>
       <li>Left mouse button (<code>LMB</code>) click on the top left corner will now select all cells along with their headers. <a href="https://github.com/handsontable/handsontable/pull/6547" target="_blank">#6547</a>.</li>
       <li>Removed the experimental <code>GanttChart</code> plugin. <a href="https://github.com/handsontable/handsontable/issues/7022" target="_blank">#7022</a>.</li>
+      <li>Adding properties which were not defined on initialization or by <code>updateSettings</code> to the source data is possible only by the usage of <code>setSourceDataAtCell</code>. <a href="https://github.com/handsontable/handsontable/issues/6664" target="_blank">#6664</a>.</li>
+      <li>Passing <code>columns</code> or <code>data</code> inside the <code>settings</code> object when calling the <code>updateSettings</code> method will result in resetting states corresponding to rows and columns (ie. row/column sequence, column width, row height, freezed columns etc.). The same behavior can be seen when using <code>loadData</code>. In such cases, it is assumed that a new dataset is introduced upon calling <code>updateSettings</code> or <code>loadData</code> .<a href="https://github.com/handsontable/handsontable/pull/6547" target="_blank">#6547</a>.</li>
     </ul>
     <strong>New features</strong>
     <ul>
@@ -88,6 +122,7 @@
       <li>The <code>CellMeta</code> manager was refactored for future features and improvements. <a href="https://github.com/handsontable/handsontable/issues/6233" target="_blank">#6233</a></li>
       <li>Rows can be resized to less than <code>rowHeights</code>. <a href="https://github.com/handsontable/handsontable/issues/6149" target="_blank">#6149</a></li>
       <li>Left mouse button (LMB) click on the corner will now select all cells. <a href="https://github.com/handsontable/handsontable/pull/6547" target="_blank">#6547</a></li>
+      <li>Passing <code>columns</code> or <code>data</code> inside the <code>settings</code> object when calling the <code>updateSettings</code> method will result in resetting states corresponding to rows and columns (ie. row/column sequence, column width, row height, freezed columns etc.). The same behavior can be seen when using <code>loadData</code>. In such cases, it is assumed that a new dataset is introduced upon calling <code>updateSettings</code> or <code>loadData</code> .<a href="https://github.com/handsontable/handsontable/pull/6547" target="_blank">#6547</a>.</li>
       <li>The right mouse button (<code>RMB</code>) click on the corner, column and row headers will show just some options, defined by newly created specification <a href="https://github.com/handsontable/handsontable/pull/7082" target="_blank">#7082</a></li>
       <li>Hidden indexes will no longer be rendered, as a consequence <code>afterRenderer</code>, <code>modifyColWidth</code>, <code>beforeStretchingColumnWidth</code> will be executable only on visible (meaning, rendered) rows and columns. <a href="https://github.com/handsontable/handsontable/pull/6547" target="_blank">#6547</a></li>
       <li>The <code>getColWidth</code> for hidden index will return 0 - it used to return 0.1 <a href="https://github.com/handsontable/handsontable/pull/6547" target="_blank">#6547</a></li>
@@ -300,6 +335,7 @@
       <li>Fixed an issue where resizing made rows shorter than expected and caused row misalignment. <a href="https://github.com/handsontable/handsontable/issues/6429" target="_blank">#6429</a></li>
       <li>Fixed an issue where Handsontable was missing rows when <code>preventOverflow</code> with <code>updateSettings</code> were used. <a href="https://github.com/handsontable/handsontable/issues/4303" target="_blank">#4303</a></li>
       <li>Fixed inconsistency between selecting all columns with <code>drag</code> and via a <code>CTRL/CMD + A</code> shortcut. <a href="https://github.com/handsontable/handsontable/issues/6327" target="_blank">#6327</a></li>
+      <li>Adding properties which were not defined on initialization or by <code>updateSettings</code> to the source data is possible only by the usage of <code>setSourceDataAtCell</code>. <a href="https://github.com/handsontable/handsontable/issues/6664" target="_blank">#6664</a>.</li>
     </ul>
   </div>
 

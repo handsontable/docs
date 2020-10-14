@@ -115,6 +115,12 @@
           document.execCommand('cut');
         });
       </script>
+      <br>
+      <div class="notification info"><strong>Note: </strong> Not all selection-related Handsontable
+        methods result in it gaining focus. Make sure your table instance is focused by calling
+        <a href="./Core.html#isListening"><code>hot.isListening();</code></a>
+        before copying or pasting data.
+      </div>
     </div>
 
     <h4 id="copy-cut-hooks">Hooks</h4>

@@ -9,6 +9,7 @@
     <div class="index-list">
       <ul>
         <li><a href="#column-settings">Declaring column settings</a></li>
+        <li><a href="#object-data-source">Object data source</a></li>
         <li><a href="#custom-renderer">Declaring a custom renderer as a component</a></li>
         <li><a href="#custom-editor">Declaring a custom editor as a component</a></li>
         <li><a href="#v-model">Using the renderer/editor components with <code>v-model</code></a></li>
@@ -61,6 +62,72 @@
           data: function() {
             return {
               hotData: Handsontable.helper.createSpreadsheetData(10, 10),
+              secondColumnSettings: {
+                title: 'Second column header'
+              }
+            }
+          },
+          components: {
+            HotTable,
+            HotColumn
+          }
+        });</script>
+    </div>
+    <h3 id="object-data-source">Object data source</h3>
+    <p>To work with an array of objects for the <code>hot-column</code> component you need to provide precise information about the data structure for columns.
+      To do so, refer to the data for a column in props as <code>data</code>.</p>
+
+    <div>
+      <div id="example2" class="hot">
+        <hot-table :data="hotData" license-key="non-commercial-and-evaluation">
+          <hot-column title="First column header"></hot-column>
+          <hot-column :settings="secondColumnSettings" read-only="true"></hot-column>
+        </hot-table>
+      </div>
+    </div>
+    <script type="text/x-hot-html" data-jsfiddle="example2">
+      <div id="example2" class="hot">
+        <hot-table :data="hotData">
+          <hot-column title="ID" data="id"></hot-column>
+          <hot-column :settings="secondColumnSettings" read-only="true" data="name"></hot-column>
+          <hot-column title="Price" data="payment.price"></hot-column>
+          <hot-column title="Currency" data="payment.currency"></hot-column>
+        </hot-table>
+      </div>
+    </script>
+<br><br>
+    <pre><code class="hljs html">&lt;hot-table :data="hotData"&gt;
+  &lt;hot-column title="ID" data="id"&gt;
+  &lt;/hot-column&gt;
+  &lt;hot-column :settings="secondColumnSettings" read-only="true" data="name"&gt;
+  &lt;/hot-column&gt;
+  &lt;hot-column title="Price" data="payment.price"&gt;
+  &lt;/hot-column&gt;
+  &lt;hot-column title="Currency" data="payment.currency"&gt;
+  &lt;/hot-column&gt;
+&lt;/hot-table&gt;</code></pre>
+
+    <div class="codeLayout">
+      <div class="buttons">
+        <button class="jsFiddleLink" data-runfiddle="example2">
+          <i class="fa fa-jsfiddle"></i>
+          Edit
+        </button>
+      </div>
+      <script type="text/babel" data-jsfiddle="example2" data-jsfiddle-panel_js="3">
+        import Vue from 'vue';
+        import { HotTable, HotColumn } from '@handsontable/vue';
+        import Handsontable from 'handsontable';
+
+        new Vue({
+          el: '#example2',
+          data: function() {
+            return {
+              hotData: [
+                {id: 1, name: 'Table tennis racket', payment: {price: 13, currency: 'PLN'}},
+                {id: 2, name: 'Outdoor game ball', payment: {price: 14, currency: 'USD'}},
+                {id: 3, name: 'Mountain bike', payment: {price: 300, currency: 'USD'}}
+              ],
               secondColumnSettings: {
                 title: 'Second column header'
               }
@@ -495,6 +562,6 @@
 <script data-jsfiddle="common" src="/docs/<?js= env.opts.query.version ?>/scripts/jsfiddle-fixer.js"></script>
 <script data-jsfiddle="common" src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.min.js"></script>
 <script data-jsfiddle="common" src="https://cdn.jsdelivr.net/npm/vue-color@2.7.0/dist/vue-color.min.js"></script>
-<script data-jsfiddle="common" src="https://cdn.jsdelivr.net/npm/@handsontable/vue@5.0.1/dist/vue-handsontable.min.js"></script>
+<script data-jsfiddle="common" src="https://cdn.jsdelivr.net/npm/@handsontable/vue@5.1.0/dist/vue-handsontable.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7/babel.min.js"></script>
 

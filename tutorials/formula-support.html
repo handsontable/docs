@@ -137,16 +137,16 @@
           },
         });</script>
     </div>
-
-    <h3 id="advanced-example">Advanced example</h3>
+    <p><strong>Updating custom variables</strong></p>
     <p>
-      The advanced example shows how to manage nested formulas. Also you can see how to set dependencies between different types of formulas.
+      At some point, you may want to update the custom variable's value. To do so, you need to use both <code>setVariable</code> and one of
+      <code>recalculate*</code> methods.
     </p>
-
     <div data-jsfiddle="example3">
-      <div>
-        <div id="example3" class="hot scroll-container"></div>
+      <div id="example3" class="hot">
       </div>
+      <input id="calculate-field" name="calculate-field" title="Extra cost" type="number" value="" placeholder="Extra cost">
+      <button onclick="calculateNewPrice()" id="calculate" class="intext-btn">Calculate price</button>
     </div>
 
     <div class="codeLayout">
@@ -162,6 +162,65 @@
         </button>
       </div>
       <script data-jsfiddle="example3" data-dont-display="true">
+        var data = [
+        ['Travel ID', 'Destination', 'Base price', 'Price with extra cost'],
+        ['154', 'Rome', 400, '=ROUND(ADDITIONAL_COST+C2;0)'],
+        ['155', 'Athens', 300, '=ROUND(ADDITIONAL_COST+C3;0)'],
+        ['156', 'Warsaw', 150, '=ROUND(ADDITIONAL_COST+C4;0)']
+        ];</script>
+      <script data-jsfiddle="example3">
+        var example3 = document.getElementById('example3');
+        var inputBox = document.getElementById("calculate-field")
+        var calculateButton = document.getElementById("calculate")
+
+        var hot3 = new Handsontable(example3, {
+          data: data,
+          contextMenu: false,
+          colHeaders: true,
+          rowHeaders: true,
+          formulas: {
+            variables: {
+              // set the initial value
+              ADDITIONAL_COST: 0,
+            }
+          }
+        });
+
+        var formulasPlugin = hot3.getPlugin('formulas');
+
+        function calculateNewPrice(){
+          // set variable and its value
+          formulasPlugin.setVariable('ADDITIONAL_COST', parseInt(inputBox.value));
+          // recalculate all formulas
+          formulasPlugin.recalculateFull();
+        }
+        </script>
+    </div>
+
+    <h3 id="advanced-example">Advanced example</h3>
+    <p>
+      The advanced example shows how to manage nested formulas. Also you can see how to set dependencies between different types of formulas.
+    </p>
+
+    <div data-jsfiddle="example4">
+      <div>
+        <div id="example4" class="hot scroll-container"></div>
+      </div>
+    </div>
+
+    <div class="codeLayout">
+      <div class="buttons">
+        <button class="jsFiddleLink" data-runfiddle="example4">
+          <i class="fa fa-jsfiddle"></i>
+          Edit in jsFiddle
+        </button>
+        <button class="dump" name="dump" data-dump="#example4" data-instance="hot4"
+                title="Print current data source to console">
+          <i class="fa fa-terminal"></i>
+          Log to console
+        </button>
+      </div>
+      <script data-jsfiddle="example4" data-dont-display="true">
         var data = [
           ['Example #1 (looking for particular words in a sentence)', '', '', '', '', '', '', ''],
           ['Text', 'yellow', 'red', 'blue', 'green', 'pink', 'gray'],
@@ -181,10 +240,10 @@
           ['Ken Siuk', 'ken@gmailtr.com', '=RIGHT(B16, LEN(B16) - FIND(EMAIL_SPLITTER, B16))', '', '', '', ''],
           ['Marcin Kowalski', 'ken@gmailtr.pl', '=RIGHT(B17, LEN(B17) - FIND(EMAIL_SPLITTER, B17))', '', '', '', ''],
         ];</script>
-      <script data-jsfiddle="example3">
-        var example3 = document.getElementById('example3');
+      <script data-jsfiddle="example4">
+        var example4 = document.getElementById('example4');
 
-        var hot3 = new Handsontable(example3, {
+        var hot4 = new Handsontable(example4, {
           data: data,
           colHeaders: true,
           rowHeaders: true,

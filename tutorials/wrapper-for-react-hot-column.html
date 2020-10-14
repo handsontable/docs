@@ -12,6 +12,7 @@
       <ul>
         <li><a href="#column-settings">Declaring column settings</a></li>
         <li><a href="#custom-renderer">Declaring a custom renderer as a component</a></li>
+        <li><a href="#object-data-source">Object data source</a></li>
         <li><a href="#custom-editor">Declaring a custom editor as a component</a></li>
         <li><a href="#context">Using the renderer/editor components with React's Context</a></li>
         <li><a href="#advanced-example">A more advanced example</a></li>
@@ -42,6 +43,14 @@
     </div>
 
     <iframe src="https://codesandbox.io/embed/declaring-column-settings-hexfj?fontsize=14" title="Declaring a custom renderer as a component" allow="geolocation; microphone; camera; midi; vr; accelerometer; gyroscope; payment; ambient-light-sensor; encrypted-media; usb" style="width:100%; height:360px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+
+    <h3 id="custom-renderer">Object data source</h3>
+    <p>When you use object data binding for <code>HotColumn</code> you need to provide precise information about the data structure for columns.
+      To do so, refer to the data for a column in props as <code>data</code>, for example, <code> &#x3C;HotColumn data=&#x22;id&#x22; /&#x3E; </code>.
+    </p>
+    <p>You can read more on this topic on the <a href="https://handsontable.com/docs/tutorial-data-sources.html#page-object.html">data source page</a>.</p>
+
+    <iframe src="https://codesandbox.io/embed/object-data-source-b9799?fontsize=14&hidenavigation=1&theme=dark" style="width:100%; height:360px; border:0; border-radius: 4px; overflow:hidden;" title="Object data source" allow="geolocation; microphone; camera; midi; vr; accelerometer; gyroscope; payment; ambient-light-sensor; encrypted-media; usb" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
     <h3 id="custom-editor">Declaring a custom editor as a component</h3>
     <p>You can also utilize the React components to create custom editors. To do so, you'll need to create a component compatible with
