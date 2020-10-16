@@ -79,7 +79,7 @@
       </div>
       <script data-jsfiddle="example2">
         var
-          hiddenData = [
+          allData = [
             ['', 'Tesla', 'Nissan', 'Toyota', 'Honda', 'Mazda', 'Ford'],
             ['2017', 10, 11, 12, 13, 15, 16],
             ['2018', 10, 11, 12, 13, 15, 16],
@@ -91,12 +91,12 @@
           hot2;
 
         hot2 = new Handsontable(container, {
-          data: hiddenData,
+          data: allData,
           colHeaders: true,
           minSpareRows: 1,
           columns: [
             {data: 0},
-            {data: 2},
+            {data: 2}, // skip the second column
             {data: 3},
             {data: 4},
             {data: 5},
