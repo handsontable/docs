@@ -319,6 +319,9 @@
           "wrapper-for-react-hot-column": {
             "title": "Using the HotColumn component"
           },
+          "wrapper-for-react-setting-up-a-locale": {
+            "title": "Setting up a locale"
+          },
           "wrapper-for-react-custom-context-menu-example": {
             "title": "Custom Context Menu example"
           },
