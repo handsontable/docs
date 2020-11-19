@@ -77,20 +77,31 @@
 
     } else if (key === 'handsontable-pro') {
       ns = 'Handsontable';
+
+    } else if (/^handsontable\/dist\/.+\.css$/.test(key)) { // ignore CSS imports
+      ns = '';
+
+    } else if (key === 'numbro') {
+      ns = 'numbro';
+
+    } else if (key === 'numbro/dist/languages.min.js') {
+      ns = 'numbro.allLanguages';
     }
 
     var moduleToReturn = window;
 
-    ns.split('.').forEach(function(n) {
-      moduleToReturn = moduleToReturn[n];
-    });
-
-    if (typeof moduleToReturn === 'undefined') {
-      moduleToReturn = window.exports;
-
+    if (ns !== '') {
       ns.split('.').forEach(function(n) {
         moduleToReturn = moduleToReturn[n];
       });
+
+      if (typeof moduleToReturn === 'undefined') {
+        moduleToReturn = window.exports;
+
+        ns.split('.').forEach(function(n) {
+          moduleToReturn = moduleToReturn[n];
+        });
+      }
     }
 
     return moduleToReturn;
