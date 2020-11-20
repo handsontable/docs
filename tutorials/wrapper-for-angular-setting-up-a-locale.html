@@ -1,0 +1,106 @@
+<div class="static-content">
+  <div class="example-container clearfix">
+
+    <h3>
+      An example of Handsontable with locales setup in Angular.
+    </h3>
+    <div>
+      <app-root></app-root>
+    </div>
+    <script type="text/x-hot-html" data-jsfiddle="example1">
+      <app-root></app-root>
+    </script>
+
+    <div class="codeLayout">
+      <div class="buttons">
+        <button class="jsFiddleLink" data-runfiddle="example1">
+          <i class="fa fa-jsfiddle"></i>
+          Edit
+        </button>
+      </div>
+      <script type="text/typescript" data-jsfiddle="example1" data-jsfiddle-panel_js="4">
+        // app.component.ts
+        import { Component } from '@angular/core';
+        import Handsontable from 'handsontable';
+        import 'handsontable/languages/de-DE';
+
+        import numbro from "numbro";
+        import languages from "numbro/dist/languages.min";
+
+        numbro.registerLanguage(languages["ja-JP"]);
+        numbro.registerLanguage(languages["tr-TR"]);
+
+        numbro.setLanguage("ja-JP");
+        numbro.setLanguage("tr-TR");
+
+        // define formats
+        const formatJP = {
+          pattern: "0,0.00 $",
+          culture: "ja-JP"
+        };
+
+        const formatTR = {
+          pattern: "0,0.00 $",
+          culture: "tr-TR"
+        };
+
+        @Component({
+          selector: 'app-root',
+          template: `
+          <div>
+            <hot-table
+              class="hot"
+              [data]="dataset"
+              [colHeaders]="true"
+                <hot-column data="productName" [readOnly]="true" title="Product Name"></hot-column>
+                <hot-column data="JP_price" title="Price in Japan" type="numeric" numericFormat={formatJP}></hot-column>
+                <hot-column data="TR_price" title="Price in Turkey" type="numeric" numericFormat={formatTR}></hot-column>
+            </hot-table>
+          </div>
+          `,
+        })
+        class AppComponent {
+          dataset: any[] = [
+            {productName: "Product A", JP_price: 1.32, TR_price: 'Wall Street'},
+            {productName: "Product B", JP_price: 2.22, TR_price: 'Pennsylvania Avenue'},
+            {productName: "Product C", JP_price: 3.1, TR_price: 'Broadway'},
+          ];
+        }
+
+        // app.module.ts
+        import { NgModule } from '@angular/core';
+        import { BrowserModule } from '@angular/platform-browser';
+        import { HotTableModule } from '@handsontable/angular';
+
+        @NgModule({
+          imports:      [ BrowserModule, HotTableModule ],
+          declarations: [ AppComponent ],
+          bootstrap:    [ AppComponent ]
+        })
+        class AppModule { }
+
+        // bootstrap
+        import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+
+        platformBrowserDynamic().bootstrapModule(AppModule).catch(err => { console.error(err) });</script>
+        <p>
+          The same example you can find <a href="https://stackblitz.com/edit/handsontable-angular" target="_blank">here</a>.
+        </p>
+    </div>
+  </div>
+    <p>
+      <a href="https://github.com/handsontable/docs/edit/<?js= version ?>/tutorials/wrapper-for-angular-examples.html"
+         class="edit-doc" target="_blank">Edit this page</a>
+    </p>
+</div>
+<script data-jsfiddle="common" src="/docs/<?js= env.opts.query.version ?>/scripts/jsfiddle-fixer.js"></script>
+<script data-jsfiddle="common" src="https://cdn.jsdelivr.net/npm/rxjs@6/bundles/rxjs.umd.js"></script>
+<script data-jsfiddle="common" src="https://cdn.jsdelivr.net/npm/core-js@2/client/core.min.js"></script>
+<script data-jsfiddle="common" src="https://cdn.jsdelivr.net/npm/zone.js@0.9/dist/zone.min.js"></script>
+<script data-jsfiddle="common" src="https://cdn.jsdelivr.net/npm/@angular/compiler@8/bundles/compiler.umd.min.js"></script>
+<script data-jsfiddle="common" src="https://cdn.jsdelivr.net/npm/@angular/core@8/bundles/core.umd.min.js"></script>
+<script data-jsfiddle="common" src="https://cdn.jsdelivr.net/npm/@angular/common@8/bundles/common.umd.min.js"></script>
+<script data-jsfiddle="common" src="https://cdn.jsdelivr.net/npm/@angular/platform-browser@8/bundles/platform-browser.umd.min.js"></script>
+<script data-jsfiddle="common" src="https://cdn.jsdelivr.net/npm/@angular/platform-browser-dynamic@8/bundles/platform-browser-dynamic.umd.min.js"></script>
+<script data-jsfiddle="common" src="https://cdn.jsdelivr.net/npm/@handsontable/angular@6.0.1/bundles/handsontable-angular.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/typescript/3.4.5/typescript.min.js"></script>
