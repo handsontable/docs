@@ -55,7 +55,6 @@
         </hot-table>
       </div>
     </script>
-    <p>A <code>div</code> element of <code>id="example"</code> where the <code>@handsontable/vue</code> component will be rendered. HTML file:</p>
     <div class="codeLayout">
       <script type="text/html">
         <div id="example1" class="hot">
@@ -72,8 +71,8 @@
         </button>
       </div>
       <script type="text/babel" data-jsfiddle="example1" data-jsfiddle-panel_js="3">
+      import Vue from 'vue';
       import { HotTable, HotColumn } from "@handsontable/vue";
-
       import "handsontable/dist/handsontable.min.css";
       import numbro from "numbro";
       import languages from "numbro/dist/languages.min.js";
