@@ -385,6 +385,9 @@
           "wrapper-for-vue-hot-column": {
             "title": "Using the hot-column component"
           },
+          "wrapper-for-vue-setting-up-a-locale": {
+            "title": "Setting up a locale"
+          },
           "wrapper-for-vue-custom-id-class-style": {
             "title": "Custom ID, Class, Style and other attributes"
           },
