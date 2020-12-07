@@ -1,0 +1,114 @@
+<div class="static-content">
+
+  <div class="index-list">
+
+    <ul>
+      <li><a href="#page-suspend-feature">Suspend rendering feature</a></li>
+      <li><a href="#page-suspend-api">API methods</a></li>
+      <li><a href="#page-suspend-demo">Supsend - an example</a></li>
+    </ul>
+  </div>
+
+  <div class="example-container head-gap clearfix" name="suspend-feature">
+    <h3 id="page-suspend-feature">Suspend rendering feature</h3>
+    <p>Suspend/batch operation might be useful if you want to improve the performance. Batching several costly operation can result in
+    shorter render times, even up to two or three-fold times. By using API methods for suspending and batching you can descrese the
+    number of reflows, it will reduce the number of render cycles for CRUD operations resulting in less layout trashing overall,
+    less freezes, and a more responsive feel.
+
+    Please note that this is advanced feature that can improve the perfromance but
+    should be used with some caution. Misuse can result in some flickering, glitches or
+    other visual disortion.
+    </p>
+
+  <div class="example-container head-gap clearfix" name="suspend-api">
+    <h3 id="page-suspend-api">Suspend API methods</h3>
+    <p>Suspend methods</p>
+
+    <p>batch</p>
+
+
+    <code>
+      hot.batch(() => {
+        hot.alter('insert_row', 5, 45);
+        hot.alter('insert_col', 10, 40);
+        hot.setDataAtCell(1, 1, 'x');
+        hot.setDataAtCell(2, 2, 'c');
+        hot.setDataAtCell(3, 3, 'v');
+        hot.setDataAtCell(4, 4, 'b');
+        hot.setDataAtCell(5, 5, 'n');
+        hot.selectCell(0, 0);
+        // The table will be rendered once after executing the callback
+      });
+    </code>
+
+
+    <p>suspend</p>
+
+    <pre>
+      <code class="lang-js">
+        hot.suspendRender();
+        hot.alter('insert_row', 5, 45);
+        hot.setDataAtCell(1, 1, 'x');
+        hot.resumeRender(); // It re-renders the table internally
+      </code>
+    </pre>
+
+    <pre>
+      <code class="lang-js">
+        hot.batchRender(() => {
+          hot.alter('insert_row', 5, 45);
+          hot.setDataAtCell(1, 1, 'x');
+          // The table will be rendered once after executing the callback
+        });
+      </code>
+    </pre>
+
+  <div class="example-container clearfix" name="suspend-demo">
+    <h3 id="page-suspend-demo">Preview of built-in and custom cell types</h3>
+    <p>Suspend demo</p>
+      <div data-jsfiddle="example1">
+        <div id="example1" class="hot"></div>
+      </div>
+
+      <div class="codeLayout">
+        <div class="buttons">
+          <button class="jsFiddleLink" data-runfiddle="example1">
+            <i class="fa fa-jsfiddle"></i>
+            Edit
+          </button>
+          <button class="dump" name="dump" data-dump="#example1" data-instance="hot1"
+                  title="Print current data source to console">
+            <i class="fa fa-terminal"></i>
+            Log to console
+          </button>
+        </div>
+        <script data-jsfiddle="example1">
+          var
+            data = [
+              ['', 'Tesla', 'Nissan', 'Toyota', 'Honda', 'Mazda', 'Ford'],
+              ['2017', 10, 11, 12, 13, 15, 16],
+              ['2018', 10, 11, 12, 13, 15, 16],
+              ['2019', 10, 11, 12, 13, 15, 16],
+              ['2020', 10, 11, 12, 13, 15, 16],
+              ['2021', 10, 11, 12, 13, 15, 16]
+            ],
+            container1 = document.getElementById('example1'),
+            hot1;
+
+          hot1 = new Handsontable(container1, {
+            data: data,
+            startRows: 5,
+            startCols: 5,
+            colHeaders: true,
+            minSpareRows: 1
+          });</script>
+      </div>
+  </div>
+
+  <p class="gap-top-xsmall">
+    <a href="https://github.com/handsontable/docs/edit/<?js= version ?>/tutorials/cell-types.html" class="edit-doc" target="_blank">
+      Edit this page
+    </a>
+  </p>
+</div>

@@ -73,6 +73,9 @@
           "cell-function": {
             "title": "Cell function"
           },
+          "suspending-operations": {
+            "title": "Suspend/batch operations"
+          },
           "testing": {
             "title": "Testing"
           },
