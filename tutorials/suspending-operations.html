@@ -11,58 +11,110 @@
 
   <div class="example-container head-gap clearfix" name="suspend-feature">
     <h3 id="page-suspend-feature">Suspend rendering feature</h3>
-    <p>Suspend/batch operation might be useful if you want to improve the performance. Batching several costly operation can result in
-    shorter render times, even up to two or three-fold times. By using API methods for suspending and batching you can descrese the
-    number of reflows, it will reduce the number of render cycles for CRUD operations resulting in less layout trashing overall,
-    less freezes, and a more responsive feel.
+    <p>Suspend/batch operation might be useful if you want to improve the performance.
+      Batching several costly operations can decrease the number of reflows and render cycles for CRUD operations.
+      It results in less layout trashing, fewer freezes, and a more responsive feel.
 
-    Please note that this is advanced feature that can improve the perfromance but
-    should be used with some caution. Misuse can result in some flickering, glitches or
-    other visual disortion.
+      There are several API methods that allows supsending:
+      - suspendRender and resumeRender pair
+      - batchRender
+      - suspendExecution and resumeExecution pair
+      - batchExecution
+      - batch
+
+      Please note that this is an advanced feature which can improve the performance but should be used with caution.
+      Misuse can result in some flickering, glitches, or other visual distortion.
     </p>
 
   <div class="example-container head-gap clearfix" name="suspend-api">
     <h3 id="page-suspend-api">Suspend API methods</h3>
-    <p>Suspend methods</p>
+    <p>Suspend rendering</p>
 
-    <p>batch</p>
-
-
-    <code>
-      hot.batch(() => {
-        hot.alter('insert_row', 5, 45);
-        hot.alter('insert_col', 10, 40);
-        hot.setDataAtCell(1, 1, 'x');
-        hot.setDataAtCell(2, 2, 'c');
-        hot.setDataAtCell(3, 3, 'v');
-        hot.setDataAtCell(4, 4, 'b');
-        hot.setDataAtCell(5, 5, 'n');
-        hot.selectCell(0, 0);
-        // The table will be rendered once after executing the callback
-      });
-    </code>
-
-
-    <p>suspend</p>
-
-    <pre>
-      <code class="lang-js">
-        hot.suspendRender();
-        hot.alter('insert_row', 5, 45);
-        hot.setDataAtCell(1, 1, 'x');
-        hot.resumeRender(); // It re-renders the table internally
-      </code>
-    </pre>
-
-    <pre>
-      <code class="lang-js">
-        hot.batchRender(() => {
+    <p>
+      <p>suspendRender and resumeRender</p>
+      To suspend the rendering process you can use suspendRender method just before the actions you want to postpone.
+      There is a small drawback to this manual approach - you need to remember to actually resume the process
+      with the resumeRender method.
+      <pre>
+        <code class="lang-js">
+          hot.suspendRender(); // suspend rendering
           hot.alter('insert_row', 5, 45);
           hot.setDataAtCell(1, 1, 'x');
-          // The table will be rendered once after executing the callback
-        });
-      </code>
-    </pre>
+          hot.resumeRender(); // remember to resume rendering
+        </code>
+      </pre>
+
+      <p>batchRender </p>
+      Batching the render is less prone to human errors. You don't have to remember about resuming the operations.
+      The drawback is - it doesn't support async operations.
+      <pre>
+        <code class="lang-js">
+          hot.batchRender(() => {
+            hot.alter('insert_row', 5, 45);
+            hot.setDataAtCell(1, 1, 'x');
+            // The table will be rendered once after executing the callback
+          });
+        </code>
+      </pre>
+    </p>
+
+    <p>Suspend execution</p>
+
+    <p>
+      <p>suspendExecution and resumeExecution</p>
+      Note: Term "execution" refer refers to all operations different than DOM rendering. urrently, only the indexes recalculation allows to postpone the process.
+      To suspend the execution you can use suspendRender method just before the actions you want to postpone.
+      There is a small drawback to this manual approach - you need to remember to actually resume the process
+      with the resumeRender method.
+      <pre>
+        <code class="lang-js">
+          hot.suspendExecution();
+          const filters = hot.getPlugin('filters');
+
+          filters.addCondition(2, 'contains', ['3']);
+          filters.filter();
+          hot.getPlugin('columnSorting').sort({ column: 1, sortOrder: 'desc' });
+          hot.resumeExecution(); // It updates the cache internally
+        </code>
+      </pre>
+
+      <p>batchExecution </p>
+      Batching the execution is less prone to human errors. You don't have to remember about resuming the operations.
+      The drawback is - it doesn't support async operations.
+      <pre>
+        <code class="lang-js">
+          hot.batchExecution(() => {
+            const filters = hot.getPlugin('filters');
+
+            filters.addCondition(2, 'contains', ['3']);
+            filters.filter();
+            hot.getPlugin('columnSorting').sort({ column: 1, sortOrder: 'desc' });
+            // The table cache will be recalculated once after executing the callback
+          });
+        </code>
+      </pre>
+    </p>
+
+    <p>Batch render and execution</p>
+
+    <p>
+      <pre>
+        <code class="lang-js">
+          hot.batch(() => {
+            hot.alter('insert_row', 5, 45);
+            hot.setDataAtCell(1, 1, 'x');
+
+            const filters = hot.getPlugin('filters');
+
+            filters.addCondition(2, 'contains', ['3']);
+            filters.filter();
+            hot.getPlugin('columnSorting').sort({ column: 1, sortOrder: 'desc' });
+            // The table cache will be recalculated and table render will be called once after executing the callback
+          });
+        </code>
+      </pre>
+
+    </p>
 
   <div class="example-container clearfix" name="suspend-demo">
     <h3 id="page-suspend-demo">Preview of built-in and custom cell types</h3>
