@@ -84,8 +84,13 @@
     } else if (key === 'numbro') {
       ns = 'numbro';
 
-    } else if (key === 'numbro/dist/languages.min.js') {
+    } else if (/^numbro\/dist\/languages\.min(\.js)?$/.test(key)) {
       ns = 'numbro.allLanguages';
+
+    } else if (/^numbro\/languages\/(.+)$/.test(key)) {
+      var match = key.match(/^numbro\/languages\/(.+)$/);
+
+      ns = 'numbro.allLanguages.' + match[1];
     }
 
     var moduleToReturn = window;
