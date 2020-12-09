@@ -14,111 +14,124 @@
     <p>Suspend/batch operation might be useful if you want to improve the performance.
       Batching several costly operations can decrease the number of reflows and render cycles for CRUD operations.
       It results in less layout trashing, fewer freezes, and a more responsive feel.
+      <br>
+      This feature enables suspending of rendering, execution or both. Rendering refers to DOM rendering, the term
+      execution refers to all operations that are different from DOM rendering. Currently only the indexes recalculation allows to postpone the process.
 
-      There are several API methods that allows supsending:
-      - suspendRender and resumeRender pair
-      - batchRender
-      - suspendExecution and resumeExecution pair
-      - batchExecution
-      - batch
-
+      <br>
+      There are several <strong>API methods</strong> which allow suspending:
+    </p>
+    <ul>
+      <li><code>suspendRender</code> and <code>resumeRender</code> pair</li>
+      <li><code>batchRender</code></li>
+      <li><code>suspendExecution</code> and <code>resumeExecution</code> pair</li>
+      <li><code>batchExecution</code></li>
+      <li><code>batch</code></li>
+    </ul>
+    <p>
       Please note that this is an advanced feature which can improve the performance but should be used with caution.
       Misuse can result in some flickering, glitches, or other visual distortion.
     </p>
 
   <div class="example-container head-gap clearfix" name="suspend-api">
     <h3 id="page-suspend-api">Suspend API methods</h3>
-    <p>Suspend rendering</p>
+    <h4>Suspend rendering</h4>
 
     <p>
-      <p>suspendRender and resumeRender</p>
-      To suspend the rendering process you can use suspendRender method just before the actions you want to postpone.
-      There is a small drawback to this manual approach - you need to remember to actually resume the process
-      with the resumeRender method.
+      <strong>suspendRender</strong> and <strong>resumeRender</strong>
+      <br>
+      To suspend the rendering process you can use <code>suspendRender</code> method just before the actions you want to postpone.
+      There is a small drawback to this manual approach - you need to remember to resume the process
+      with the <code>resumeRender</code> method.
       <pre>
         <code class="lang-js">
-          hot.suspendRender(); // suspend rendering
-          hot.alter('insert_row', 5, 45);
-          hot.setDataAtCell(1, 1, 'x');
-          hot.resumeRender(); // remember to resume rendering
+hot.suspendRender(); // suspend rendering
+hot.alter('insert_row', 5, 45);
+hot.setDataAtCell(1, 1, 'x');
+hot.resumeRender(); // remember to resume rendering
         </code>
       </pre>
 
-      <p>batchRender </p>
+      <p><strong>batchRender</strong> </p>
       Batching the render is less prone to human errors. You don't have to remember about resuming the operations.
-      The drawback is - it doesn't support async operations.
+      However, there is a drawback: it doesn't support async operations.
       <pre>
         <code class="lang-js">
-          hot.batchRender(() => {
-            hot.alter('insert_row', 5, 45);
-            hot.setDataAtCell(1, 1, 'x');
-            // The table will be rendered once after executing the callback
-          });
+hot.batchRender(() => {
+hot.alter('insert_row', 5, 45);
+hot.setDataAtCell(1, 1, 'x');
+// The table will be rendered once after executing the callback
+});
         </code>
       </pre>
     </p>
 
-    <p>Suspend execution</p>
+    <h4>Suspend execution</h4>
 
     <p>
-      <p>suspendExecution and resumeExecution</p>
-      Note: Term "execution" refer refers to all operations different than DOM rendering. urrently, only the indexes recalculation allows to postpone the process.
-      To suspend the execution you can use suspendRender method just before the actions you want to postpone.
+      <p><strong>suspendExecution</strong> and <strong>resumeExecution</strong></p>
+      To suspend the execution you can use the <code>suspendRender</code> method just before the actions you want to postpone.
       There is a small drawback to this manual approach - you need to remember to actually resume the process
-      with the resumeRender method.
+      with the <code>resumeRender</code> method.
       <pre>
         <code class="lang-js">
-          hot.suspendExecution();
-          const filters = hot.getPlugin('filters');
+hot.suspendExecution();
+const filters = hot.getPlugin('filters');
 
-          filters.addCondition(2, 'contains', ['3']);
-          filters.filter();
-          hot.getPlugin('columnSorting').sort({ column: 1, sortOrder: 'desc' });
-          hot.resumeExecution(); // It updates the cache internally
+filters.addCondition(2, 'contains', ['3']);
+filters.filter();
+hot.getPlugin('columnSorting').sort({ column: 1, sortOrder: 'desc' });
+hot.resumeExecution(); // It updates the cache internally
         </code>
       </pre>
 
-      <p>batchExecution </p>
+      <p><strong>batchExecution</strong> </p>
       Batching the execution is less prone to human errors. You don't have to remember about resuming the operations.
       The drawback is - it doesn't support async operations.
       <pre>
         <code class="lang-js">
-          hot.batchExecution(() => {
-            const filters = hot.getPlugin('filters');
+hot.batchExecution(() => {
+  const filters = hot.getPlugin('filters');
 
-            filters.addCondition(2, 'contains', ['3']);
-            filters.filter();
-            hot.getPlugin('columnSorting').sort({ column: 1, sortOrder: 'desc' });
-            // The table cache will be recalculated once after executing the callback
-          });
+  filters.addCondition(2, 'contains', ['3']);
+  filters.filter();
+  hot.getPlugin('columnSorting').sort({ column: 1, sortOrder: 'desc' });
+  // The table cache will be recalculated once after executing the callback
+});
         </code>
       </pre>
     </p>
 
-    <p>Batch render and execution</p>
+    <h4>Batch render and execution</h4>
 
     <p>
+      This method supsends both rendering and other operations.
+      It is universal and especially useful if you want to batch multiple API calls within the application.
       <pre>
         <code class="lang-js">
-          hot.batch(() => {
-            hot.alter('insert_row', 5, 45);
-            hot.setDataAtCell(1, 1, 'x');
+hot.batch(() => {
+  hot.alter('insert_row', 5, 45);
+  hot.setDataAtCell(1, 1, 'x');
 
-            const filters = hot.getPlugin('filters');
+  const filters = hot.getPlugin('filters');
 
-            filters.addCondition(2, 'contains', ['3']);
-            filters.filter();
-            hot.getPlugin('columnSorting').sort({ column: 1, sortOrder: 'desc' });
-            // The table cache will be recalculated and table render will be called once after executing the callback
-          });
+  filters.addCondition(2, 'contains', ['3']);
+  filters.filter();
+  hot.getPlugin('columnSorting').sort({ column: 1, sortOrder: 'desc' });
+  // The table cache will be recalculated and table render will be called once after executing the callback
+});
         </code>
       </pre>
 
     </p>
 
   <div class="example-container clearfix" name="suspend-demo">
-    <h3 id="page-suspend-demo">Preview of built-in and custom cell types</h3>
-    <p>Suspend demo</p>
+    <h3 id="page-suspend-demo">Live demo of suspend feature</h3>
+    <p>The following examples show how much the <code>batch</code> method can decrease render time.
+      Both of the examples share the same dataset and operations. The first one prints render time
+      without batch, the second uses batch.
+
+    </p>
       <div data-jsfiddle="example1">
         <div id="example1" class="hot"></div>
       </div>
@@ -136,26 +149,101 @@
           </button>
         </div>
         <script data-jsfiddle="example1">
-          var
-            data = [
-              ['', 'Tesla', 'Nissan', 'Toyota', 'Honda', 'Mazda', 'Ford'],
-              ['2017', 10, 11, 12, 13, 15, 16],
-              ['2018', 10, 11, 12, 13, 15, 16],
-              ['2019', 10, 11, 12, 13, 15, 16],
-              ['2020', 10, 11, 12, 13, 15, 16],
-              ['2021', 10, 11, 12, 13, 15, 16]
-            ],
-            container1 = document.getElementById('example1'),
-            hot1;
+              var now = null;
 
-          hot1 = new Handsontable(container1, {
-            data: data,
-            startRows: 5,
-            startCols: 5,
-            colHeaders: true,
-            minSpareRows: 1
-          });</script>
+              function startLog() {
+                if (now === null) {
+                  now = Date.now();
+                }
+              }
+
+              function printLog() {
+                const elapsedTime = Date.now() - now;
+
+                log.appendChild(document.createElement('br'));
+                log.appendChild(document.createTextNode(`It took: ${elapsedTime}ms`));
+                now = null;
+              }
+
+              startLog();
+                hot.alter('insert_row', 1, 2);
+                hot.alter('insert_col', 1, 2);
+                hot.setDataAtCell(1, 1, 'X');
+                hot.setDataAtCell(2, 2, 'Y');
+                hot.setDataAtCell(3, 3, 'Z');
+                hot.setCellMeta(3, 3, 'className', 'green-bg');
+                hot.setCellMeta(3, 4, 'className', 'green-bg');
+                hot.setCellMeta(4, 3, 'className', 'green-bg');
+                hot.setCellMeta(4, 4, 'className', 'green-bg');
+              printLog();
+              var hot = new Handsontable(document.getElementById('example1'), {
+                data: Handsontable.helper.createSpreadsheetData(1000, 25),
+                width: 700,
+                height: 300,
+                rowHeaders: true,
+                colHeaders: true,
+              });
+          </script>
       </div>
+
+      <p>Batch method used:
+
+      </p>
+        <div data-jsfiddle="example2">
+          <div id="example2" class="hot"></div>
+        </div>
+
+        <div class="codeLayout">
+          <div class="buttons">
+            <button class="jsFiddleLink" data-runfiddle="example2">
+              <i class="fa fa-jsfiddle"></i>
+              Edit
+            </button>
+            <button class="dump" name="dump" data-dump="#example2" data-instance="hot2"
+                    title="Print current data source to console">
+              <i class="fa fa-terminal"></i>
+              Log to console
+            </button>
+          </div>
+          <script data-jsfiddle="example2">
+              var now = null;
+
+              function startLog() {
+                if (now === null) {
+                  now = Date.now();
+                }
+              }
+
+              function printLog() {
+                const elapsedTime = Date.now() - now;
+
+                log.appendChild(document.createElement('br'));
+                log.appendChild(document.createTextNode(`It took: ${elapsedTime}ms`));
+                now = null;
+              }
+
+              startLog();
+              hot.batch(() => {
+                hot.alter('insert_row', 1, 2);
+                hot.alter('insert_col', 1, 2);
+                hot.setDataAtCell(1, 1, 'X');
+                hot.setDataAtCell(2, 2, 'Y');
+                hot.setDataAtCell(3, 3, 'Z');
+                hot.setCellMeta(3, 3, 'className', 'green-bg');
+                hot.setCellMeta(3, 4, 'className', 'green-bg');
+                hot.setCellMeta(4, 3, 'className', 'green-bg');
+                hot.setCellMeta(4, 4, 'className', 'green-bg');
+              })
+              printLog();
+              var hot = new Handsontable(document.getElementById('example2'), {
+                data: Handsontable.helper.createSpreadsheetData(1000, 25),
+                width: 700,
+                height: 300,
+                rowHeaders: true,
+                colHeaders: true,
+              });
+          </script>
+        </div>
   </div>
 
   <p class="gap-top-xsmall">
