@@ -128,12 +128,14 @@ hot.batch(() => {
   <div class="example-container clearfix" name="suspend-demo">
     <h3 id="page-suspend-demo">Live demo of suspend feature</h3>
     <p>The following examples show how much the <code>batch</code> method can decrease render time.
-      Both of the examples share the same dataset and operations. The first one prints render time
-      without batch, the second uses batch.
+      Both of the examples share the same dataset and operations. The first one shows how much time lapsed
+      when the <code>batch</code> method was used. You can run the seond example to check how much it takes
+      to render without the <code>batch</code> method.
 
     </p>
       <div data-jsfiddle="example1">
         <div id="example1" class="hot"></div>
+        <button id="alterButton1">Alter the table!</button>
         <p id="log1"></p>
       </div>
 
@@ -150,54 +152,114 @@ hot.batch(() => {
           </button>
         </div>
         <style data-jsfiddle="example1">
-          .handsontable .green-bg {
-            background-color: green;
-          }
+            .handsontable .green-bg {
+              background-color: #2ECC40;
+            }
+
+            .handsontable .red-bg {
+              background-color: #FF4136;
+            }
+
+            #alterButton {
+              background-color: #104ACC;
+              color: #F5F5F5;
+              border: #E0E0E0;
+              padding: 10px;
+              border-radius: 3px;
+            }
+
+            #alterButton:hover {
+              background-color: #0039B5;
+            }
+
+            #alterButton:disabled{
+              background-color: grey;
+            }
+
+            #log {
+              font-weight: bold;
+            }
         </style>
         <script data-jsfiddle="example1">
-              var now = null;
-
-              function startLog() {
-                if (now === null) {
-                  now = Date.now();
-                }
+            let now = null;
+            function startLog() {
+              if (now === null) {
+                now = Date.now();
               }
+            }
 
-              function printLog() {
-                const elapsedTime = Date.now() - now;
+            function printLog() {
+              const elapsedTime = Date.now() - now;
+              log.appendChild(document.createTextNode(`All operations took: ${elapsedTime}ms`));
+              now = null;
+            }
 
-                log1.appendChild(document.createElement('br'));
-                log1.appendChild(document.createTextNode(`It took: ${elapsedTime}ms`));
-                now = null;
-              }
+            var data1 = [
+              [1, 'Gary Nash', 'Speckled trousers', 'S', 1, 'yes'],
+              [2, 'Gloria Brown', '100% Stainless sweater', 'M', 2, 'no'],
+              [3, 'Ronald Carver', 'Sunny T-shirt', 'S', 1, 'no'],
+              [4, 'Samuel Watkins', 'Floppy socks', 'S', 3, 'no'],
+              [5, 'Stephanie Huddart', 'Bushy-bush cap', 'XXL', 1, 'no'],
+              [6, 'Madeline McGillivray', 'Long skirt', 'L', 1, 'no'],
+              [7, 'Jai Moor', 'Happy dress', 'XS', 1, 'no'],
+              [8, 'Ben Lower', 'Speckled trousers', 'M', 1, 'no'],
+              [9, 'Ali Tunbridge', 'Speckled trousers', 'M', 2, 'no'],
+              [10, 'Archie Galvin', 'Regular shades', 'uni', 10, 'no']
+            ];
 
-              var hot = new Handsontable(document.getElementById('example1'), {
-                data: Handsontable.helper.createSpreadsheetData(1000, 25),
-                width: 700,
-                height: 300,
-                rowHeaders: true,
-                colHeaders: true,
-              });
+            var data2 = [
+              [11, 'Gavin Elle', 'Floppy socks', 'XS', 3, 'yes'],
+            ];
+            var data3 = [
+              [12, 'Gary Erre', 'Happy dress', 'M', 1, 'no'],
+              [13, 'Anna Moon', 'Unicorn shades', 'uni', 200, 'no'],
+              [14, 'Elise Eli', 'Regular shades', 'uni', 1, 'no']
+            ];
 
-              startLog();
-                hot.alter('insert_row', 1, 2);
-                hot.alter('insert_col', 1, 2);
-                hot.setDataAtCell(1, 1, 'X');
-                hot.setDataAtCell(2, 2, 'Y');
-                hot.setDataAtCell(3, 3, 'Z');
-                hot.setCellMeta(3, 3, 'className', 'green-bg');
-                hot.setCellMeta(3, 4, 'className', 'green-bg');
-                hot.setCellMeta(4, 3, 'className', 'green-bg');
-                hot.setCellMeta(4, 4, 'className', 'green-bg');
-              printLog();
+            const hot = new Handsontable(document.getElementById('example1'), {
+              data: data1,
+              width: 700,
+              height: 300,
+              colHeaders: ['ID', 'Customer name', 'Product name', 'Size', 'qty', 'Return'],
+            });
+
+
+            var alterButton = document.getElementById("alterButton1");
+
+            Handsontable.dom.addEvent(alterButton, 'click', function() {
+              alterTable();
+            });
+
+            function alterTable() {
+            startLog();
+            hot.batch(() => {
+              hot.alter('insert_row', 10, 10);
+              hot.alter('insert_col', 6, 1);
+              hot.populateFromArray(10, 0, data2);
+              hot.populateFromArray(11, 0, data3);
+              hot.setCellMeta(2, 2, 'className', 'green-bg');
+              hot.setCellMeta(4, 2, 'className', 'green-bg');
+              hot.setCellMeta(5, 2, 'className', 'green-bg');
+              hot.setCellMeta(6, 2, 'className', 'green-bg');
+              hot.setCellMeta(8, 2, 'className', 'green-bg');
+              hot.setCellMeta(9, 2, 'className', 'green-bg');
+              hot.setCellMeta(10, 2, 'className', 'green-bg');
+              hot.alter('remove_col', 6, 1);
+              hot.setCellMeta(0, 5, 'className', 'red-bg');
+              hot.setCellMeta(10, 5, 'className', 'red-bg');
+            })
+            printLog();
+            alterButton.disabled = 'true';
+            }
           </script>
       </div>
 
-      <p>Batch method used:
+      <p>No<code>batch</code> used. The results are very same but it takes longer.
 
       </p>
         <div data-jsfiddle="example2">
           <div id="example2" class="hot"></div>
+          <button id="alterButton2">Alter the table!</button>
           <p id="log2"></p>
         </div>
 
@@ -215,47 +277,104 @@ hot.batch(() => {
           </div>
           <style data-jsfiddle="example2">
             .handsontable .green-bg {
-              background-color: green;
+              background-color: #2ECC40;
+            }
+
+            .handsontable .red-bg {
+              background-color: #FF4136;
+            }
+
+            #alterButton {
+              background-color: #104ACC;
+              color: #F5F5F5;
+              border: #E0E0E0;
+              padding: 10px;
+              border-radius: 3px;
+            }
+
+            #alterButton:hover {
+              background-color: #0039B5;
+            }
+
+            #alterButton:disabled{
+              background-color: grey;
+            }
+
+            #log {
+              font-weight: bold;
             }
           </style>
           <script data-jsfiddle="example2">
-
-              var now = null;
-
-              function startLog() {
-                if (now === null) {
-                  now = Date.now();
-                }
+            let now = null;
+            function startLog() {
+              if (now === null) {
+                now = Date.now();
               }
+            }
 
-              function printLog() {
-                const elapsedTime = Date.now() - now;
+            function printLog() {
+              const elapsedTime = Date.now() - now;
+              log.appendChild(document.createTextNode(`All operations took: ${elapsedTime}ms`));
+              now = null;
+            }
 
-                log2.appendChild(document.createElement('br'));
-                log2.appendChild(document.createTextNode(`It took: ${elapsedTime}ms`));
-                now = null;
-              }
+            var data1 = [
+              [1, 'Gary Nash', 'Speckled trousers', 'S', 1, 'yes'],
+              [2, 'Gloria Brown', '100% Stainless sweater', 'M', 2, 'no'],
+              [3, 'Ronald Carver', 'Sunny T-shirt', 'S', 1, 'no'],
+              [4, 'Samuel Watkins', 'Floppy socks', 'S', 3, 'no'],
+              [5, 'Stephanie Huddart', 'Bushy-bush cap', 'XXL', 1, 'no'],
+              [6, 'Madeline McGillivray', 'Long skirt', 'L', 1, 'no'],
+              [7, 'Jai Moor', 'Happy dress', 'XS', 1, 'no'],
+              [8, 'Ben Lower', 'Speckled trousers', 'M', 1, 'no'],
+              [9, 'Ali Tunbridge', 'Speckled trousers', 'M', 2, 'no'],
+              [10, 'Archie Galvin', 'Regular shades', 'uni', 10, 'no']
+            ];
 
-              var hot = new Handsontable(document.getElementById('example2'), {
-                data: Handsontable.helper.createSpreadsheetData(1000, 25),
-                width: 700,
-                height: 300,
-                rowHeaders: true,
-                colHeaders: true,
-              });
-              startLog();
-              hot.batch(() => {
-                hot.alter('insert_row', 1, 2);
-                hot.alter('insert_col', 1, 2);
-                hot.setDataAtCell(1, 1, 'X');
-                hot.setDataAtCell(2, 2, 'Y');
-                hot.setDataAtCell(3, 3, 'Z');
-                hot.setCellMeta(3, 3, 'className', 'green-bg');
-                hot.setCellMeta(3, 4, 'className', 'green-bg');
-                hot.setCellMeta(4, 3, 'className', 'green-bg');
-                hot.setCellMeta(4, 4, 'className', 'green-bg');
-              })
-              printLog();
+            var data2 = [
+              [11, 'Gavin Elle', 'Floppy socks', 'XS', 3, 'yes'],
+            ];
+            var data3 = [
+              [12, 'Gary Erre', 'Happy dress', 'M', 1, 'no'],
+              [13, 'Anna Moon', 'Unicorn shades', 'uni', 200, 'no'],
+              [14, 'Elise Eli', 'Regular shades', 'uni', 1, 'no']
+            ];
+
+            const hot = new Handsontable(document.getElementById('example2'), {
+              data: data1,
+              width: 700,
+              height: 300,
+              colHeaders: ['ID', 'Customer name', 'Product name', 'Size', 'qty', 'Return'],
+            });
+
+
+            var alterButton = document.getElementById("alterButton2");
+
+            Handsontable.dom.addEvent(alterButton, 'click', function() {
+              alterTable();
+            });
+
+            function alterTable() {
+            startLog();
+            hot.batch(() => {
+              hot.alter('insert_row', 10, 10);
+              hot.alter('insert_col', 6, 1);
+              hot.populateFromArray(10, 0, data2);
+              hot.populateFromArray(11, 0, data3);
+              hot.setCellMeta(2, 2, 'className', 'green-bg');
+              hot.setCellMeta(4, 2, 'className', 'green-bg');
+              hot.setCellMeta(5, 2, 'className', 'green-bg');
+              hot.setCellMeta(6, 2, 'className', 'green-bg');
+              hot.setCellMeta(8, 2, 'className', 'green-bg');
+              hot.setCellMeta(9, 2, 'className', 'green-bg');
+              hot.setCellMeta(10, 2, 'className', 'green-bg');
+              hot.alter('remove_col', 6, 1);
+              hot.setCellMeta(0, 5, 'className', 'red-bg');
+              hot.setCellMeta(10, 5, 'className', 'red-bg');
+            })
+            printLog();
+            alterButton.disabled = 'true';
+            }
           </script>
         </div>
   </div>
