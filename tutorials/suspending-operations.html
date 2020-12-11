@@ -134,6 +134,7 @@ hot.batch(() => {
     </p>
       <div data-jsfiddle="example1">
         <div id="example1" class="hot"></div>
+        <p id="log1"></p>
       </div>
 
       <div class="codeLayout">
@@ -165,8 +166,8 @@ hot.batch(() => {
               function printLog() {
                 const elapsedTime = Date.now() - now;
 
-                log.appendChild(document.createElement('br'));
-                log.appendChild(document.createTextNode(`It took: ${elapsedTime}ms`));
+                log1.appendChild(document.createElement('br'));
+                log1.appendChild(document.createTextNode(`It took: ${elapsedTime}ms`));
                 now = null;
               }
 
@@ -197,6 +198,7 @@ hot.batch(() => {
       </p>
         <div data-jsfiddle="example2">
           <div id="example2" class="hot"></div>
+          <p id="log2"></p>
         </div>
 
         <div class="codeLayout">
@@ -229,8 +231,8 @@ hot.batch(() => {
               function printLog() {
                 const elapsedTime = Date.now() - now;
 
-                log.appendChild(document.createElement('br'));
-                log.appendChild(document.createTextNode(`It took: ${elapsedTime}ms`));
+                log2.appendChild(document.createElement('br'));
+                log2.appendChild(document.createTextNode(`It took: ${elapsedTime}ms`));
                 now = null;
               }
 
