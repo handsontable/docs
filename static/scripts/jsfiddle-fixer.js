@@ -77,20 +77,36 @@
 
     } else if (key === 'handsontable-pro') {
       ns = 'Handsontable';
+
+    } else if (/^handsontable\/dist\/.+\.css$/.test(key)) { // ignore CSS imports
+      ns = '';
+
+    } else if (key === 'numbro') {
+      ns = 'numbro';
+
+    } else if (/^numbro\/dist\/languages\.min(\.js)?$/.test(key)) {
+      ns = 'numbro.allLanguages';
+
+    } else if (/^numbro\/languages\/(.+)$/.test(key)) {
+      var match = key.match(/^numbro\/languages\/(.+)$/);
+
+      ns = 'numbro.allLanguages.' + match[1];
     }
 
     var moduleToReturn = window;
 
-    ns.split('.').forEach(function(n) {
-      moduleToReturn = moduleToReturn[n];
-    });
-
-    if (typeof moduleToReturn === 'undefined') {
-      moduleToReturn = window.exports;
-
+    if (ns !== '') {
       ns.split('.').forEach(function(n) {
         moduleToReturn = moduleToReturn[n];
       });
+
+      if (typeof moduleToReturn === 'undefined') {
+        moduleToReturn = window.exports;
+
+        ns.split('.').forEach(function(n) {
+          moduleToReturn = moduleToReturn[n];
+        });
+      }
     }
 
     return moduleToReturn;

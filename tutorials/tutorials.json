@@ -322,6 +322,9 @@
           "wrapper-for-react-hot-column": {
             "title": "Using the HotColumn component"
           },
+          "wrapper-for-react-setting-up-a-locale": {
+            "title": "Setting up a locale"
+          },
           "wrapper-for-react-custom-context-menu-example": {
             "title": "Custom Context Menu example"
           },
@@ -355,6 +358,9 @@
           "wrapper-for-angular-custom-id": {
             "title": "Custom ID"
           },
+          "wrapper-for-angular-setting-up-a-locale": {
+            "title": "Setting up a locale"
+          },
           "wrapper-for-angular-custom-context-menu-example": {
             "title": "Custom Context Menu example"
           },
@@ -384,6 +390,9 @@
           },
           "wrapper-for-vue-hot-column": {
             "title": "Using the hot-column component"
+          },
+          "wrapper-for-vue-setting-up-a-locale": {
+            "title": "Setting up a locale"
           },
           "wrapper-for-vue-custom-id-class-style": {
             "title": "Custom ID, Class, Style and other attributes"

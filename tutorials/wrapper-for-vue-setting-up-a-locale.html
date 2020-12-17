@@ -1,0 +1,135 @@
+<div class="static-content">
+  <div class="example-container clearfix">
+    <h3>
+      <p>
+        An example of Handsontable with locales setup in Vue.
+      </p>
+    </h3>
+    <div>
+      <div id="example1">
+        <hot-table :data="hotData">
+          <hot-column
+            title="Product name"
+            data="productName"
+            width="120"
+          ></hot-column>
+          <hot-column
+            title="Price in Japan"
+            type="numeric"
+            :numericFormat="formatJP"
+            data="JP_price"
+            width="120"
+          ></hot-column>
+          <hot-column
+            title="Price in Turkey"
+            data="TR_price"
+            type="numeric"
+            :numericFormat="formatTR"
+            width="120"
+          ></hot-column>
+        </hot-table>
+      </div>
+    </div>
+    <script type="text/x-hot-html" data-jsfiddle="example1">
+      <div id="example1">
+        <hot-table :data="hotData">
+          <hot-column
+            title="Product name"
+            data="productName"
+            width="120"
+          ></hot-column>
+          <hot-column
+            title="Price in Japan"
+            type="numeric"
+            :numericFormat="formatJP"
+            data="JP_price"
+            width="120"
+          ></hot-column>
+          <hot-column
+            title="Price in Turkey"
+            data="TR_price"
+            type="numeric"
+            :numericFormat="formatTR"
+            width="120"
+          ></hot-column>
+        </hot-table>
+      </div>
+    </script>
+    <div class="codeLayout">
+      <script type="text/html">
+        <div id="example1" class="hot">
+          <hot-table :settings="hotSettings"></hot-table>
+        </div>
+      </script>
+    </div>
+    <p>An implementation of the <code>@handsontable/vue</code> component. JS file:</p>
+    <div class="codeLayout">
+      <div class="buttons">
+        <button class="jsFiddleLink" data-runfiddle="example1">
+          <i class="fa fa-jsfiddle"></i>
+          Edit
+        </button>
+      </div>
+      <script type="text/babel" data-jsfiddle="example1" data-jsfiddle-panel_js="3">
+      import Vue from 'vue';
+      import { HotTable, HotColumn } from '@handsontable/vue';
+      import 'handsontable/dist/handsontable.min.css';
+      import numbro from 'numbro';
+      import languages from 'numbro/dist/languages.min.js';
+
+      // register needed languages
+      numbro.registerLanguage(languages['ja-JP']);
+      numbro.registerLanguage(languages['tr-TR']);
+
+      // define formats
+      const formatJP = {
+        pattern: '0,0.00 $',
+        culture: 'ja-JP',
+      };
+
+      const formatTR = {
+        pattern: '0,0.00 $',
+        culture: 'tr-TR',
+      };
+
+      new Vue({
+        el: '#example1',
+        data: function () {
+          return {
+            formatJP,
+            formatTR,
+            hotData: [
+              {
+                productName: 'Product A',
+                JP_price: 1.32,
+                TR_price: 100.56,
+              },
+              {
+                productName: 'Product B',
+                JP_price: 2.22,
+                TR_price: 453.5,
+              },
+              {
+                productName: 'Product C',
+                JP_price: 3.1,
+                TR_price: 678.1,
+              },
+            ],
+          };
+        },
+      components: {
+        HotTable,
+        HotColumn,
+      },
+      });</script>
+    </div>
+  </div>
+    <p>
+      <a href="https://github.com/handsontable/docs/edit/<?js= version ?>/tutorials/wrapper-for-vue-setting-up-a-locale.html"
+         class="edit-doc" target="_blank">Edit this page</a>
+    </p>
+</div>
+<script data-jsfiddle="common" src="/docs/<?js= env.opts.query.version ?>/scripts/jsfiddle-fixer.js"></script>
+<script data-jsfiddle="common" src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.min.js"></script>
+<script data-jsfiddle="common" src="https://cdn.jsdelivr.net/npm/@handsontable/vue@5.1.0/dist/vue-handsontable.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7/babel.min.js"></script>
