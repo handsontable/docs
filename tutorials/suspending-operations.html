@@ -10,39 +10,49 @@
   </div>
 
   <div class="example-container head-gap clearfix" name="suspend-feature">
-    <h3 id="page-suspend-feature">Suspend rendering feature</h3>
-    <p>Suspend/batch operation might be useful if you want to improve the performance.
+    <h3 id="page-suspend-feature">Suspending operations</h3>
+    <p>Suspending (also called "batching") operations might be useful if you want to work on improving the performance.
       Batching several costly operations can decrease the number of reflows and render cycles for CRUD operations.
       It results in less layout trashing, fewer freezes, and a more responsive feel.
       <br>
-      This feature enables suspending of rendering, execution or both. Rendering refers to DOM rendering, the term
-      execution refers to all operations that are different from DOM rendering. Currently only the indexes recalculation allows to postpone the process.
-
-      <br>
       There are several <strong>API methods</strong> which allow suspending:
     </p>
+
     <ul>
-      <li><code>suspendRender</code> and <code>resumeRender</code> pair</li>
+      <li><code>suspendRender</code> and <code>resumeRender</code></li>
       <li><code>batchRender</code></li>
-      <li><code>suspendExecution</code> and <code>resumeExecution</code> pair</li>
+      <li><code>suspendExecution</code> and <code>resumeExecution</code></li>
       <li><code>batchExecution</code></li>
       <li><code>batch</code></li>
     </ul>
+
     <p>
-      Please note that this is an advanced feature which can improve the performance but should be used with caution.
+    By using these methods you can suspend:
+    <ul>
+      <li>rendering</li>
+      <li>execution</li>
+      <li>both rendering and the execution.</li>
+    </ul>
+
+    <br>
+      Term "rendering" refers directly to DOM rendering, the term
+      "execution" refers to all operations that are different from DOM rendering.
+      Currently only the indexes recalculation allows to postpone the process.
+    </p>
+    <p>
+      Note that this is an advanced feature which can improve the performance but should be used with caution.
       Misuse can result in some flickering, glitches, or other visual distortion.
     </p>
 
   <div class="example-container head-gap clearfix" name="suspend-api">
-    <h3 id="page-suspend-api">Suspend API methods</h3>
+    <h3 id="page-suspend-api">API methods</h3>
     <h4>Suspend rendering</h4>
 
     <p>
       <strong>suspendRender</strong> and <strong>resumeRender</strong>
       <br>
-      To suspend the rendering process you can use <code>suspendRender</code> method just before the actions you want to postpone.
-      There is a small drawback to this manual approach - you need to remember to resume the process
-      with the <code>resumeRender</code> method.
+      To suspend the rendering process you can use <code>suspendRender</code> method just before the actions you want to batch.
+      This is a manual approach - after suspending you have to remember to resume the process with the <code>resumeRender</code> method.
       <pre>
         <code class="lang-js">
 hot.suspendRender(); // suspend rendering
@@ -53,8 +63,9 @@ hot.resumeRender(); // remember to resume rendering
       </pre>
 
       <p><strong>batchRender</strong> </p>
-      Batching the render is less prone to human errors. You don't have to remember about resuming the operations.
-      However, there is a drawback: it doesn't support async operations.
+      The <code>batchRender</code> method is less prone to human errors since the operations will be calculated after executing the callback.
+      You don't have to remember about resuming the operations.
+      However, there is a drawback to this method: it doesn't support async operations.
       <pre>
         <code class="lang-js">
 hot.batchRender(() => {
@@ -70,9 +81,8 @@ hot.setDataAtCell(1, 1, 'x');
 
     <p>
       <p><strong>suspendExecution</strong> and <strong>resumeExecution</strong></p>
-      To suspend the execution you can use the <code>suspendRender</code> method just before the actions you want to postpone.
-      There is a small drawback to this manual approach - you need to remember to actually resume the process
-      with the <code>resumeRender</code> method.
+      To suspend the rendering process you can use <code>suspendExecution</code> method just before the actions you want to batch.
+      This is a manual approach - after suspending you have to remember to resume the process with the <code>resumeExecution</code> method.
       <pre>
         <code class="lang-js">
 hot.suspendExecution();
@@ -86,8 +96,9 @@ hot.resumeExecution(); // It updates the cache internally
       </pre>
 
       <p><strong>batchExecution</strong> </p>
-      Batching the execution is less prone to human errors. You don't have to remember about resuming the operations.
-      The drawback is - it doesn't support async operations.
+      The <code>batchExecution</code> method is less prone to human errors since the operations will be calculated after executing the callback.
+      You don't have to remember about resuming the operations.
+      However, there is a drawback to this method: it doesn't support async operations.
       <pre>
         <code class="lang-js">
 hot.batchExecution(() => {
@@ -127,15 +138,14 @@ hot.batch(() => {
 
   <div class="example-container clearfix" name="suspend-demo">
     <h3 id="page-suspend-demo">Live demo of suspend feature</h3>
-    <p>The following examples show how much the <code>batch</code> method can decrease render time.
+    <p>The following examples show how much the <code>batch</code> method can decrease the render time.
       Both of the examples share the same dataset and operations. The first one shows how much time lapsed
-      when the <code>batch</code> method was used. You can run the seond example to check how much it takes
+      when the <code>batch</code> method was used. You can run the second example to check how much it takes
       to render without the <code>batch</code> method.
 
     </p>
       <div data-jsfiddle="example1">
         <div id="example1" class="hot"></div>
-        <button id="alterButton1">Alter the table!</button>
         <p id="log1"></p>
       </div>
 
@@ -158,22 +168,6 @@ hot.batch(() => {
 
             .handsontable .red-bg {
               background-color: #FF4136;
-            }
-
-            #alterButton {
-              background-color: #104ACC;
-              color: #F5F5F5;
-              border: #E0E0E0;
-              padding: 10px;
-              border-radius: 3px;
-            }
-
-            #alterButton:hover {
-              background-color: #0039B5;
-            }
-
-            #alterButton:disabled{
-              background-color: grey;
             }
 
             #log {
@@ -223,13 +217,6 @@ hot.batch(() => {
               colHeaders: ['ID', 'Customer name', 'Product name', 'Size', 'qty', 'Return'],
             });
 
-
-            var alterButton = document.getElementById("alterButton1");
-
-            Handsontable.dom.addEvent(alterButton, 'click', function() {
-              alterTable();
-            });
-
             function alterTable() {
             startLog();
             hot.batch(() => {
@@ -249,8 +236,8 @@ hot.batch(() => {
               hot.setCellMeta(10, 5, 'className', 'red-bg');
             })
             printLog();
-            alterButton.disabled = 'true';
             }
+            // alterTable();
           </script>
       </div>
 
@@ -259,7 +246,6 @@ hot.batch(() => {
       </p>
         <div data-jsfiddle="example2">
           <div id="example2" class="hot"></div>
-          <button id="alterButton2">Alter the table!</button>
           <p id="log2"></p>
         </div>
 
@@ -282,22 +268,6 @@ hot.batch(() => {
 
             .handsontable .red-bg {
               background-color: #FF4136;
-            }
-
-            #alterButton {
-              background-color: #104ACC;
-              color: #F5F5F5;
-              border: #E0E0E0;
-              padding: 10px;
-              border-radius: 3px;
-            }
-
-            #alterButton:hover {
-              background-color: #0039B5;
-            }
-
-            #alterButton:disabled{
-              background-color: grey;
             }
 
             #log {
@@ -347,16 +317,8 @@ hot.batch(() => {
               colHeaders: ['ID', 'Customer name', 'Product name', 'Size', 'qty', 'Return'],
             });
 
-
-            var alterButton = document.getElementById("alterButton2");
-
-            Handsontable.dom.addEvent(alterButton, 'click', function() {
-              alterTable();
-            });
-
             function alterTable() {
             startLog();
-            hot.batch(() => {
               hot.alter('insert_row', 10, 10);
               hot.alter('insert_col', 6, 1);
               hot.populateFromArray(10, 0, data2);
@@ -371,10 +333,9 @@ hot.batch(() => {
               hot.alter('remove_col', 6, 1);
               hot.setCellMeta(0, 5, 'className', 'red-bg');
               hot.setCellMeta(10, 5, 'className', 'red-bg');
-            })
             printLog();
-            alterButton.disabled = 'true';
             }
+            alterTable();
           </script>
         </div>
   </div>
