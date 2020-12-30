@@ -73,8 +73,8 @@
           "cell-function": {
             "title": "Cell function"
           },
-          "suspending-operations": {
-            "title": "Suspending operations"
+          "suspend-rendering": {
+            "title": "Suspend rendering"
           },
           "testing": {
             "title": "Testing"
