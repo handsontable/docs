@@ -58,6 +58,9 @@
       "developer-guide": {
         "title": "Developer guide",
         "children": {
+          "modularization": {
+            "title": "Modularization"
+          },
           "custom-build": {
             "title": "Custom build"
           },
