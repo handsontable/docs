@@ -28,112 +28,109 @@
 </br>
 
     This is a simple example that shows sample countries and cities and although it looks small it will generate over 345 KB (Gzipped):
-     <code class="lang-js">
-      // import a full build, all functionalities included
-      import Handsontable from 'handsontable';
+     <pre><code class="lang-js">
+// import a full build, all functionalities included
+import Handsontable from 'handsontable,
 
-      const container = document.createElement('div');
-      document.body.appendChild(container);
-      const hot = new Handsontable(container, {
-        colHeaders: true,
-        columns: [
-          { data: 'city' },
-          {
-            data: 'country',
-            type: 'dropdown',
-            source: ['Finland', 'France', 'Germany', 'Poland', 'United Kingdom'],
-          },
-        ],
-        data: [
-          {
-            city: "Fontainebleau",
-            country: "France",
-          },
-          {
-            city: "Milton",
-            country: "United Kingdom",
-          },
-          {
-            city: "Giedlarowa",
-            country: "Poland",
-          },
-          {
-            city: "Forssa",
-            country: "Finland",
-          },
-          {
-            city: "Halle",
-            country: "Germany",
-          }
-        ],
-        dropdownMenu: true,
-        filters: true,
-      });
-      </code>
+const container = document.createElement('div');
+document.body.appendChild(container);
+const hot = new Handsontable(container, {
+  colHeaders: true,
+  columns: [
+    { data: 'city' },
+    {
+      data: 'country',
+      type: 'dropdown',
+      source: ['Finland', 'France', 'Germany', 'Poland', 'United Kingdom'],
+    },
+  ],
+  data: [
+    {
+      city: "Fontainebleau",
+      country: "France",
+    },
+    {
+      city: "Milton",
+      country: "United Kingdom",
+    },
+    {
+      city: "Giedlarowa",
+      country: "Poland",
+    },
+    {
+      city: "Forssa",
+      country: "Finland",
+    },
+    {
+      city: "Halle",
+      country: "Germany",
+    }
+  ],
+  dropdownMenu: true,
+  filters: true,
+});
+      </code></pre>
       Thanks to modularization you can achieve exactly same result but it will generate less KB.
       These steps decreased the final bundle to 200 KB (Gzipped).
-      <code class="lang-js">
-        // import the base only
-        import Handsontable from 'handsontable/base';
+      <pre><code class="lang-js">
+// import the base only
+import Handsontable from 'handsontable/bas
+// choose cell types you want to use and import them
+import { registerCellType, DropdownCellType } from 'handsontable/cellType
+// choose plugins you want to use and import them
+import {
+  registerPlugin,
+  AutoColumnSize,
+  CopyPaste,
+  Filters,
+} from 'handsontable/plugins';
 
-        // choose cell types you want to use and import them
-        import { registerCellType, DropdownCellType } from 'handsontable/cellTypes';
+// register imported cell types and plugins
+registerCellType(DropdownCellType);
+registerPlugin(AutoColumnSize);
+registerPlugin(CopyPaste);
+registerPlugin(Filter
+// the rest of code remain exactly same as in the previous example!
+const container = document.createElement('div');
+document.body.appendChild(container);
 
-        // choose plugins you want to use and import them
-        import {
-          registerPlugin,
-          AutoColumnSize,
-          CopyPaste,
-          Filters,
-        } from 'handsontable/plugins';
+const hot = new Handsontable(container, {
+  colHeaders: true,
+  filters: true,
+  data: [
+    {
+      city: "Fontainebleau",
+      country: "France",
+    },
+    {
+      city: "Milton",
+      country: "United Kingdom",
+    },
+    {
+      city: "Giedlarowa",
+      country: "Poland",
+    },
+    {
+      city: "Forssa",
+      country: "Finland",
+    },
+    {
+      city: "Halle",
+      country: "Germany",
+    }
+  ],
+  dropdownMenu: true,
+  columns: [
+    { data: 'city' },
+    {
+      data: 'country',
+      type: 'dropdown',
+      source: ['Finland', 'France', 'Germany', 'Poland', 'United Kingdom'],
+    },
+  ]
+});
 
-        // register imported cell types and plugins
-        registerCellType(DropdownCellType);
-        registerPlugin(AutoColumnSize);
-        registerPlugin(CopyPaste);
-        registerPlugin(Filters);
-
-        // the rest of code remain exactly same as in the previous example!
-        const container = document.createElement('div');
-        document.body.appendChild(container);
-
-        const hot = new Handsontable(container, {
-          colHeaders: true,
-          filters: true,
-          data: [
-            {
-              city: "Fontainebleau",
-              country: "France",
-            },
-            {
-              city: "Milton",
-              country: "United Kingdom",
-            },
-            {
-              city: "Giedlarowa",
-              country: "Poland",
-            },
-            {
-              city: "Forssa",
-              country: "Finland",
-            },
-            {
-              city: "Halle",
-              country: "Germany",
-            }
-          ],
-          dropdownMenu: true,
-          columns: [
-            { data: 'city' },
-            {
-              data: 'country',
-              type: 'dropdown',
-              source: ['Finland', 'France', 'Germany', 'Poland', 'United Kingdom'],
-            },
-          ]
-        });
-
-      </code>
+      </code></pre>
       <p>
         You can go even further and optimize <strong>momentjs/locales</strong> by excluding unnecessary localizations and decrease the final bundle of the example to 150 KB (Gzipped).
         Eventually, over 56% of the final bundle size was saved!
@@ -151,15 +148,15 @@
         The very first step towards using the modules is learning which independent parts you can import and which of them are mandatory.
         First, you need to import the <strong>base</strong> which contains the core elements of the component. Without them, Handsontable cannot be built
         at all:
-        <code class="lang-js">
-          // this part is crucial to be imported
-          import Handsontable from 'handsontable/base';
-          </code>
+        <pre><code class="lang-js">
+// this part is crucial to be imported
+import Handsontable from 'handsontable/base';
+          </code></pre>
           If you had already an import of Handsontable just remove this line:
-          <code class="lang-js">
-            // you no longer need this import
-            import Handsontable from "handsontable";
-          </code>
+          <pre><code class="lang-js">
+// you no longer need this import
+import Handsontable from "handsontable";
+          </code></pre>
         The Handsontable <strong>base</strong> part includes:
         <ul>
           <li>moment.js</li>
@@ -185,36 +182,35 @@
         <h4>Importing plugins</h4>
         <p>
         To use a specific plugin you need to import it alongside registering method. For instance, try importing the <code>ContextMenu</code> plugin:
-        <code class="lang-js">
-          // remember to have the base imported
-          import Handsontable from "handsontable";
-
-          // import the method for registering a plugin
-          // import the ContextMenu plugin
-          import { registerPlugin, ContextMenu } from 'handsontable/plugins';
-        </code>
+        <pre><code class="lang-js">
+// remember to have the base imported
+import Handsontable from "handsontab
+// import the method for registering a plugin
+// import the ContextMenu plugin
+import { registerPlugin, ContextMenu } from 'handsontable/plugins';
+        </code></pre>
         Afterwards you need to use the <code>registerPlugin</code> method to register the <code>ContextMenu</code> plugin:
-        <code class="lang-js">
-          // register the plugin before using it
-          registerPlugin(ContextMenu);
-        </code>
+        <pre><code class="lang-js">
+// register the plugin before using it
+registerPlugin(ContextMenu);
+        </code></pre>
         Now, you can use the ContextMenu plugin, the full example looks like this:
-        <code class="lang-js">
-          import Handsontable from "handsontable";
-          import { registerPlugin, ContextMenu } from 'handsontable/plugins';
+        <pre><code class="lang-js">
+import Handsontable from "handsontable";
+import { registerPlugin, ContextMenu } from 'handsontable/plugins';
 
-          registerPlugin(ContextMenu);
+registerPlugin(ContextMenu);
 
-          // a placeholder for Handsontable
-          const container = document.createElement('div');
-          document.body.appendChild(container);
+// a placeholder for Handsontable
+const container = document.createElement('div');
+document.body.appendChild(container);
 
-          // use the context menu as you need
-          new Handsontable(container, {
-            contextMenu: true,
-            // rest of the component
-          });
-        </code>
+// use the context menu as you need
+new Handsontable(container, {
+  contextMenu: true,
+  // rest of the component
+});
+        </code></pre>
 
           </p>
       </p>
