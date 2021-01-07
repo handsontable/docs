@@ -148,8 +148,30 @@
   <div class="example-container clearfix">
       <h3 id="how-to-use">How to use modularization</h3>
       <p>
-        The very first step towards using the modules is aknowledging which parts can be imported as independent.
-        These are:
+        The very first step towards using the modules is learning which independent parts you can import and which of them are mandatory.
+        First, you need to import the <strong>base</strong> which contains the core elements of the component. Without them, Handsontable cannot be built
+        at all:
+        <code class="lang-js">
+          // this part is crucial to be imported
+          import Handsontable from 'handsontable/base';
+          </code>
+          If you had already an import of Handsontable just remove this line:
+          <code class="lang-js">
+            // you no longer need this import
+            import Handsontable from "handsontable";
+          </code>
+        The Handsontable <strong>base</strong> part includes:
+        <ul>
+          <li>moment.js</li>
+          <li>dompurify</li>
+          <li>core-js</li>
+          <li>core functionalities</li>
+          <li>"text" cell type</li>
+        </ul>
+
+        Having this set up you can ackowledge which elements you can import as needed.
+      </br>
+        Elements to be imported manually on demand:
         <ul>
           <li>plugins</li>
           <li>editors</li>
@@ -158,7 +180,43 @@
           <li>cell types</li>
           <li>locales</li>
           </ul>
+        The usecases may wary greatly, this guide will go through the categories and present one example for each.
 
+        <h4>Importing plugins</h4>
+        <p>
+        To use a specific plugin you need to import it alongside registering method. For instance, try importing the <code>ContextMenu</code> plugin:
+        <code class="lang-js">
+          // remember to have the base imported
+          import Handsontable from "handsontable";
+
+          // import the method for registering a plugin
+          // import the ContextMenu plugin
+          import { registerPlugin, ContextMenu } from 'handsontable/plugins';
+        </code>
+        Afterwards you need to use the <code>registerPlugin</code> method to register the <code>ContextMenu</code> plugin:
+        <code class="lang-js">
+          // register the plugin before using it
+          registerPlugin(ContextMenu);
+        </code>
+        Now, you can use the ContextMenu plugin, the full example looks like this:
+        <code class="lang-js">
+          import Handsontable from "handsontable";
+          import { registerPlugin, ContextMenu } from 'handsontable/plugins';
+
+          registerPlugin(ContextMenu);
+
+          // a placeholder for Handsontable
+          const container = document.createElement('div');
+          document.body.appendChild(container);
+
+          // use the context menu as you need
+          new Handsontable(container, {
+            contextMenu: true,
+            // rest of the component
+          });
+        </code>
+
+          </p>
       </p>
   </div>
 
