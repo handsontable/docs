@@ -3,50 +3,165 @@
     <p>This page presents a guide on using modules.</p>
     <ul>
       <li><a href="#introduction">Usefulness of modularization</a></li>
-      <li><a href="#how-to-use-basics">The basics of using built-in modules</a></li>
-      <li><a href="#how-to-use-plugin">Registering and using a plugin</a></li>
-      <li><a href="#how-to-use-validator">Registering and using a validator</a></li>
-      <li><a href="#how-to-use-renderer">Registering and using a renderer</a></li>
-      <li><a href="#how-to-use-cell-type">Registering and using a cell type</a></li>
-      <li><a href="#how-to-use-editor">Registering and using an editor</a></li>
-      <li><a href="#how-to-use-language">Registering and using an language</a></li>
+      <li><a href="#how-to-use">How to use modularization</a></li>
     </ul>
   </div>
 
   <div class="example-container clearfix">
     <h3 id="introduction">Usefulness of modularization</h3>
-    <p>The full version of Handsontable consists of all possible parts needed including dependencies, plugins, validators</p>
+    <p>The full version of Handsontable consists of multiple built-in modules such as plugins, renderers, editors, validators, and cell-types.
+      It also includes the whole rendering functionality and advanced data management. This is a compact tool with plenty of options available.
+    </br>
+      When you become familiar with Handsontable functionalities you may find out that some parts of it are essential in your application and some
+      of them stay idle most of the time.
+    </br>
+      Thanks to <strong><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules">modules</a></strong> the package could be split into
+      smaller pieces and you can <strong>import</strong> them as you need. Essentialy it was divided into two: the base and the optional part.
+    </br>
+      The base of Handsontable holds mandatory parts packed inside <code>handsontable/base</code>, and it includes vital parts for the component
+      to run. The rest is customizable based on what you want to import.
+    </br>
+     A mindful use of the modularization brings a lot of optimization to the application, yet, it only needs several lines of code.
+  </br>
+     Compare the following examples to see the difference in KB of the final build.
+     Note: this is an example in a nutshell, the next section shows how to do it step by step.
+</br>
+
+    This is a simple example that shows sample countries and cities and although it looks small it will generate over 345 KB (Gzipped):
+     <code class="lang-js">
+      // import a full build, all functionalities included
+      import Handsontable from 'handsontable';
+
+      const container = document.createElement('div');
+      document.body.appendChild(container);
+      const hot = new Handsontable(container, {
+        colHeaders: true,
+        columns: [
+          { data: 'city' },
+          {
+            data: 'country',
+            type: 'dropdown',
+            source: ['Finland', 'France', 'Germany', 'Poland', 'United Kingdom'],
+          },
+        ],
+        data: [
+          {
+            city: "Fontainebleau",
+            country: "France",
+          },
+          {
+            city: "Milton",
+            country: "United Kingdom",
+          },
+          {
+            city: "Giedlarowa",
+            country: "Poland",
+          },
+          {
+            city: "Forssa",
+            country: "Finland",
+          },
+          {
+            city: "Halle",
+            country: "Germany",
+          }
+        ],
+        dropdownMenu: true,
+        filters: true,
+      });
+      </code>
+      Thanks to modularization you can achieve exactly same result but it will generate less KB.
+      These steps decreased the final bundle to 200 KB (Gzipped).
+      <code class="lang-js">
+        // import the base only
+        import Handsontable from 'handsontable/base';
+
+        // choose cell types you want to use and import them
+        import { registerCellType, DropdownCellType } from 'handsontable/cellTypes';
+
+        // choose plugins you want to use and import them
+        import {
+          registerPlugin,
+          AutoColumnSize,
+          CopyPaste,
+          Filters,
+        } from 'handsontable/plugins';
+
+        // register imported cell types and plugins
+        registerCellType(DropdownCellType);
+        registerPlugin(AutoColumnSize);
+        registerPlugin(CopyPaste);
+        registerPlugin(Filters);
+
+        // the rest of code remain exactly same as in the previous example!
+        const container = document.createElement('div');
+        document.body.appendChild(container);
+
+        const hot = new Handsontable(container, {
+          colHeaders: true,
+          filters: true,
+          data: [
+            {
+              city: "Fontainebleau",
+              country: "France",
+            },
+            {
+              city: "Milton",
+              country: "United Kingdom",
+            },
+            {
+              city: "Giedlarowa",
+              country: "Poland",
+            },
+            {
+              city: "Forssa",
+              country: "Finland",
+            },
+            {
+              city: "Halle",
+              country: "Germany",
+            }
+          ],
+          dropdownMenu: true,
+          columns: [
+            { data: 'city' },
+            {
+              data: 'country',
+              type: 'dropdown',
+              source: ['Finland', 'France', 'Germany', 'Poland', 'United Kingdom'],
+            },
+          ]
+        });
+
+      </code>
+      <p>
+        You can go even further and optimize <strong>momentjs/locales</strong> by excluding unnecessary localizations and decrease the final bundle of the example to 150 KB (Gzipped).
+        Eventually, over 56% of the final bundle size was saved!
+      </br>
+        The graph present the change in KB size of the presented example - a full bundle, basic optimization and with optimized locales:
+        <img src="images/modularization_comparison.png" alt="modularization_comparison_graph" />
+        </p>
+
+    </p>
   </div>
 
   <div class="example-container clearfix">
-      <h3 id="how-to-use-basics">The basics of using built-in modules</h3>
-      <p>Content</p>
+      <h3 id="how-to-use">How to use modularization</h3>
+      <p>
+        The very first step towards using the modules is aknowledging which parts can be imported as independent.
+        These are:
+        <ul>
+          <li>plugins</li>
+          <li>editors</li>
+          <li>renderers</li>
+          <li>validators</li>
+          <li>cell types</li>
+          <li>locales</li>
+          </ul>
+
+      </p>
   </div>
 
-  <div class="example-container clearfix">
-    <h3 id="how-to-use-plugin">Registering and using a plugin</h3>
-    <p>Content</p>
-  </div>
-
-  <div class="example-container clearfix">
-    <h3 id="how-to-use-validator">Registering and using a validator</h3>
-    <p>Content</p>
-  </div>
-
-  <div class="example-container clearfix">
-    <h3 id="how-to-use-renderer">Registering and using a renderer</h3>
-    <p>Content</p>
-  </div>
-
-  <div class="example-container clearfix">
-    <h3 id="how-to-use-cell-typer">Registering and using a cell type</h3>
-    <p>Content</p>
-  </div>
-
-  <div class="example-container clearfix">
-    <h3 id="how-to-use-editor">Registering and using an editor</h3>
-    <p>Content</p>
-  </div>
 
   <div class="example-container clearfix" name="last">
       <h3 id="how-to-use-language">Registering and using an language</h3>
