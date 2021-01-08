@@ -181,10 +181,12 @@ import Handsontable from "handsontable";
 
         <h4>Importing plugins</h4>
         <p>
-        To use a specific plugin you need to import it alongside registering method. For instance, try importing the <code>ContextMenu</code> plugin:
+        To use a specific plugin you need to import it alongside the registering method. For instance, let's try adding the context menu.
+        </br>
+        Start with importing the base, <code>ContextMenu</code> and the <code>registerPlugin</code> method.
         <pre><code class="lang-js">
 // remember to have the base imported
-import Handsontable from "handsontab
+import Handsontable from 'handsontable/base';
 // import the method for registering a plugin
 // import the ContextMenu plugin
 import { registerPlugin, ContextMenu } from 'handsontable/plugins';
@@ -194,26 +196,223 @@ import { registerPlugin, ContextMenu } from 'handsontable/plugins';
 // register the plugin before using it
 registerPlugin(ContextMenu);
         </code></pre>
-        Now, you can use the ContextMenu plugin, the full example looks like this:
+        Now, you can use the <code>ContextMenu</code> plugin, the full example looks like this:
         <pre><code class="lang-js">
-import Handsontable from "handsontable";
+import Handsontable from 'handsontable/base';
 import { registerPlugin, ContextMenu } from 'handsontable/plugins';
 
 registerPlugin(ContextMenu);
 
-// a placeholder for Handsontable
+// a container for Handsontable
 const container = document.createElement('div');
 document.body.appendChild(container);
 
-// use the context menu as you need
+// switch the context menu on
 new Handsontable(container, {
   contextMenu: true,
-  // rest of the component
+  // rest of the settings
 });
         </code></pre>
-
+        And that is all! You can use the <code>ContextMenu</code> plugin.
           </p>
+
+          <h4>Importing editors</h4>
+          <p>
+            To use a specific editor you need to import it alongside the registering method. For instance, let's try adding the password editor.
+          </br>
+          Start with importing the base, <code>PasswordEditor</code> and the <code>registerEditor</code> method.
+            <pre><code class="lang-js">
+// remember to have the base imported
+import Handsontable from 'handsontable/base';
+// import the method for registering an editor
+// import the PasswordEditor
+import { registerEditor, PasswordEditor } from 'handsontable/editors';
+        </code></pre>
+        Afterwards you need to use the <code>registerEditor</code> method to register <code>PasswordEditor</code>:
+        <pre><code class="lang-js">
+// register the editor before using it
+registerEditor(PasswordEditor);
+        </code></pre>
+        Now, you can use <code>PasswordEditor</code>, the full example looks like this:
+        <pre><code class="lang-js">
+import Handsontable from 'handsontable/base';
+import { registerEditor, PasswordEditor } from 'handsontable/editors';
+registerEditor(PasswordEditor);
+
+// a container for Handsontable
+const container = document.createElement('div');
+document.body.appendChild(container)
+
+// use the editor as needed
+new Handsontable(container, {
+  columns: [
+    {
+      type: 'password',
+    },
+  ]
+  // rest of the settings
+});
+            </code></pre>
+            And that is all! You can use the password editor!
+              </p>
+
+          <h4>Importing renderers</h4>
       </p>
+      <p>
+        To use a specific renderer you need to import it alongside the registering method. For instance, let's try adding the autocomplete renderer.
+      </br>
+      Start with importing the base, <code>autocompleteRenderer</code> and the <code>registerRenderer</code> method.
+        <pre><code class="lang-js">
+// remember to have the base imported
+import Handsontable from 'handsontable/base';
+// import the method for registering a renderer
+// import the autocompleteRenderer
+import { registerRenderer, autocompleteRenderer } from 'handsontable/renderers';
+    </code></pre>
+    Afterwards you need to use the <code>registerRenderer</code> method to register <code>autocompleteRenderer</code>:
+    <pre><code class="lang-js">
+// register the renderer before using it
+registerRenderer(autocompleteRenderer);
+    </code></pre>
+    Now, you can use <code>autocompleteRenderer</code>, the full example looks like this:
+    <pre><code class="lang-js">
+import Handsontable from 'handsontable/base';
+import { registerRenderer, autocompleteRenderer } from 'handsontable/renderers';
+registerRenderer(autocompleteRenderer);
+
+// a container for Handsontable
+const container = document.createElement('div');
+document.body.appendChild(container);
+
+// use the renderer as you need
+new Handsontable(container, {
+  columns: [
+    {
+      renderer: 'autocomplete',
+    },
+  ],
+// rest of the settings
+});
+        </code></pre>
+        And that is all! You can use the autocomplete renderer!
+          </p>
+
+          <h4>Importing validators</h4>
+          <p>
+            To use a specific validator you need to import it alongside the registering method. For instance, let's try adding the numeric validator.
+          </br>
+          Start with importing the base, <code>numericValidator</code> and the <code>registerValidator</code> method.
+            <pre><code class="lang-js">
+// remember to have the base imported
+import Handsontable from 'handsontable/base';
+
+// import the method for registering a validator
+// import the numericValidator
+import { registerValidator, numericValidator } from 'handsontable/validators';
+    </code></pre>
+    Afterwards you need to use the <code>registerValidator</code> method to register <code>numericValidator</code>:
+    <pre><code class="lang-js">
+// register the validator before using it
+registerValidator(numericValidator);
+    </code></pre>
+    Now, you can use <code>numericValidator</code>, the full example looks like this:
+    <pre><code class="lang-js">
+import Handsontable from 'handsontable/base';
+import { registerValidator, numericValidator } from 'handsontable/validators';
+registerValidator(numericValidator);
+
+// a container for Handsontable
+const container = document.createElement('div');
+document.body.appendChild(container)
+
+// use the context menu as you need
+new Handsontable(container, {
+  columns: [
+    {
+      validator: 'numeric',
+    },
+  ]
+// rest of the settings
+});
+            </code></pre>
+            And that is all! You can use the numeric validator!
+              </p>
+              <h4>Importing cell types</h4>
+              <p>
+                To use a specific cell type you need to import it alongside the registering method. Let's try adding the checkbox cell type.
+              </br>
+              Start with importing the base, <code>CheckboxCellType</code> and the <code>registerCellType</code> method.
+                <pre><code class="lang-js">
+// remember to have the base imported
+import Handsontable from 'handsontable/base';
+
+// import the method for registering a cell type
+// import the CheckboxCellType
+import { registerCellType, CheckboxCellType } from 'handsontable/cellTypes';
+    </code></pre>
+    Afterwards you need to use the <code>registerCellType</code> method to register <code>CheckboxCellType</code>:
+    <pre><code class="lang-js">
+// register the cell type before using it
+registerCellType(CheckboxCellType);
+    </code></pre>
+    Now, you can use <code>CheckboxCellType</code>, the full example looks like this:
+    <pre><code class="lang-js">
+import Handsontable from 'handsontable/base';
+import { registerCellType, CheckboxCellType } from 'handsontable/cellTypes';
+registerCellType(CheckboxCellType);
+
+// a container for Handsontable
+const container = document.createElement('div');
+document.body.appendChild(container)
+
+// use the context menu as you need
+new Handsontable(container, {
+  columns: [
+    {
+      type: 'checkbox',
+    },
+  ]
+// rest of the settings
+});
+                </code></pre>
+                And that is all! You can use the checkbox cell type!
+                  </p>
+                  <h4>Importing locales</h4>
+                  <p>
+                    Importing locales works slightly different than in case of other elements. Let's try adding the PL-pl locale.
+                  </br>
+                  Start with importing the base and the language code:
+                    <pre><code class="lang-js">
+// remember to have the base imported
+import Handsontable from 'handsontable/base';
+
+// import the language code
+import { plPL} from 'handsontable/i18n/languages';
+    </code></pre>
+    Afterwards you need to register it:
+    <pre><code class="lang-js">
+Handsontable.languages.registerLanguageDictionary(plPL.languageCode, plPL);
+    </code></pre>
+    Now, you ccan use newly registered locale. The full example looks like this:
+    <pre><code class="lang-js">
+import Handsontable from 'handsontable/base';
+import { plPL} from 'handsontable/i18n/languages';
+
+Handsontable.languages.registerLanguageDictionary(plPL.languageCode, plPL);
+
+// a container for Handsontable
+const container = document.createElement('div');
+document.body.appendChild(container)
+
+// use the context menu as you need
+new Handsontable(container, {
+  language: 'pl-PL',
+// rest of the settings
+});
+                    </code></pre>
+                    And that is all! You can use the PL-pl locale!
+                      </p>
+  </p>
   </div>
 
 
