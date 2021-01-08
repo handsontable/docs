@@ -9,41 +9,43 @@
 
   <div class="example-container clearfix">
     <h3 id="introduction">Usefulness of modularization</h3>
-    <p>The full version of Handsontable consists of multiple built-in modules such as plugins, renderers, editors, validators, and cell-types.
+
+    <p>
+      The full version of Handsontable consists of multiple built-in modules such as plugins, renderers, editors, validators, and cell-types.
       It also includes the whole rendering functionality and advanced data management. This is a compact tool with plenty of options available.
-    </br>
+    </p>
+    <p>
       When you become familiar with Handsontable functionalities you may find out that some parts of it are essential in your application and some
       of them stay idle most of the time.
-    </br>
+    </p>
+    <p>
       Thanks to <strong><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules">modules</a></strong> the package could be split into
       smaller pieces and you can <strong>import</strong> them as you need. Essentialy it was divided into two: the base and the optional part.
-    </br>
+    </p>
+    <p>
       The base of Handsontable holds mandatory parts packed inside <code>handsontable/base</code>, and it includes vital parts for the component
       to run. The rest is customizable based on what you want to import.
-    </br>
+    </p>
+    <p>
      A mindful use of the modularization brings a lot of optimization to the application, yet, it only needs several lines of code.
-  </br>
+    </p>
+    <p>
      Compare the following examples to see the difference in KB of the final build.
      Note: this is an example in a nutshell, the next section shows how to do it step by step.
-</br>
-
+    </p>
+    <p>
+    <p>
     This is a simple example that shows sample countries and cities and although it looks small it will generate over 345 KB (Gzipped):
+    </p>
      <pre><code class="lang-js">
 // import a full build, all functionalities included
-import Handsontable from 'handsontable,
+import Handsontable from 'handsontable',
 
 const container = document.createElement('div');
 document.body.appendChild(container);
 const hot = new Handsontable(container, {
   colHeaders: true,
-  columns: [
-    { data: 'city' },
-    {
-      data: 'country',
-      type: 'dropdown',
-      source: ['Finland', 'France', 'Germany', 'Poland', 'United Kingdom'],
-    },
-  ],
+  filters: true,
   data: [
     {
       city: "Fontainebleau",
@@ -67,16 +69,26 @@ const hot = new Handsontable(container, {
     }
   ],
   dropdownMenu: true,
+  columns: [
+    { data: 'city' },
+    {
+      data: 'country',
+      type: 'dropdown',
+      source: ['Finland', 'France', 'Germany', 'Poland', 'United Kingdom'],
+    },
+  ],
   filters: true,
 });
       </code></pre>
+      <p>
       Thanks to modularization you can achieve exactly same result but it will generate less KB.
       These steps decreased the final bundle to 200 KB (Gzipped).
+      </p>
       <pre><code class="lang-js">
 // import the base only
-import Handsontable from 'handsontable/bas
+import Handsontable from 'handsontable/base';
 // choose cell types you want to use and import them
-import { registerCellType, DropdownCellType } from 'handsontable/cellType
+import { registerCellType, DropdownCellType } from 'handsontable/cellTypes';
 // choose plugins you want to use and import them
 import {
   registerPlugin,
@@ -90,6 +102,7 @@ registerCellType(DropdownCellType);
 registerPlugin(AutoColumnSize);
 registerPlugin(CopyPaste);
 registerPlugin(Filter
+
 // the rest of code remain exactly same as in the previous example!
 const container = document.createElement('div');
 document.body.appendChild(container);
@@ -134,12 +147,12 @@ const hot = new Handsontable(container, {
       <p>
         You can go even further and optimize <strong>momentjs/locales</strong> by excluding unnecessary localizations and decrease the final bundle of the example to 150 KB (Gzipped).
         Eventually, over 56% of the final bundle size was saved!
-      </br>
+      </p>
+      <p>
         The graph present the change in KB size of the presented example - a full bundle, basic optimization and with optimized locales:
         <img src="images/modularization_comparison.png" alt="modularization_comparison_graph" />
-        </p>
+      </p>
 
-    </p>
   </div>
 
   <div class="example-container clearfix">
@@ -148,16 +161,17 @@ const hot = new Handsontable(container, {
         The very first step towards using the modules is learning which independent parts you can import and which of them are mandatory.
         First, you need to import the <strong>base</strong> which contains the core elements of the component. Without them, Handsontable cannot be built
         at all:
+      </p>
         <pre><code class="lang-js">
 // this part is crucial to be imported
 import Handsontable from 'handsontable/base';
           </code></pre>
-          If you had already an import of Handsontable just remove this line:
+        <p>If you had already an import of Handsontable just remove this line:</p>
           <pre><code class="lang-js">
 // you no longer need this import
 import Handsontable from "handsontable";
           </code></pre>
-        The Handsontable <strong>base</strong> part includes:
+        <p>The Handsontable <strong>base</strong> part includes:
         <ul>
           <li>moment.js</li>
           <li>dompurify</li>
@@ -165,25 +179,30 @@ import Handsontable from "handsontable";
           <li>core functionalities</li>
           <li>"text" cell type</li>
         </ul>
-
-        Having this set up you can ackowledge which elements you can import as needed.
       </br>
+        Having this set up you can ackowledge which elements you can import as needed.
+      </p>
+      <p>
         Elements to be imported manually on demand:
         <ul>
-          <li>plugins</li>
-          <li>editors</li>
-          <li>renderers</li>
-          <li>validators</li>
-          <li>cell types</li>
-          <li>locales</li>
+          <li><a href="#plugins">plugins</a></li>
+          <li><a href="#editors">editors</a></li>
+          <li><a href="#renderers">renderers</a></li>
+          <li><a href="#validators">validators</a></li>
+          <li><a href="#cell-types">cell types</a></li>
+          <li><a href="#locales">locales</a></li>
           </ul>
+        </br>
         The usecases may wary greatly, this guide will go through the categories and present one example for each.
+        </p>
 
-        <h4>Importing plugins</h4>
+        <h4 id="plugins">Importing plugins</h4>
         <p>
         To use a specific plugin you need to import it alongside the registering method. For instance, let's try adding the context menu.
-        </br>
+        </p>
+        <p>
         Start with importing the base, <code>ContextMenu</code> and the <code>registerPlugin</code> method.
+        </p>
         <pre><code class="lang-js">
 // remember to have the base imported
 import Handsontable from 'handsontable/base';
@@ -191,12 +210,12 @@ import Handsontable from 'handsontable/base';
 // import the ContextMenu plugin
 import { registerPlugin, ContextMenu } from 'handsontable/plugins';
         </code></pre>
-        Afterwards you need to use the <code>registerPlugin</code> method to register the <code>ContextMenu</code> plugin:
+        <p>Afterwards you need to use the <code>registerPlugin</code> method to register the <code>ContextMenu</code> plugin:</p>
         <pre><code class="lang-js">
 // register the plugin before using it
 registerPlugin(ContextMenu);
         </code></pre>
-        Now, you can use the <code>ContextMenu</code> plugin, the full example looks like this:
+        <p>Now, you can use the <code>ContextMenu</code> plugin, the full example looks like this:</p>
         <pre><code class="lang-js">
 import Handsontable from 'handsontable/base';
 import { registerPlugin, ContextMenu } from 'handsontable/plugins';
@@ -213,14 +232,14 @@ new Handsontable(container, {
   // rest of the settings
 });
         </code></pre>
-        And that is all! You can use the <code>ContextMenu</code> plugin.
+        <p>And that is all! You can use the <code>ContextMenu</code> plugin.
           </p>
 
-          <h4>Importing editors</h4>
+          <h4 id="editors">Importing editors</h4>
           <p>
             To use a specific editor you need to import it alongside the registering method. For instance, let's try adding the password editor.
-          </br>
-          Start with importing the base, <code>PasswordEditor</code> and the <code>registerEditor</code> method.
+          </p>
+          <p>Start with importing the base, <code>PasswordEditor</code> and the <code>registerEditor</code> method.</p>
             <pre><code class="lang-js">
 // remember to have the base imported
 import Handsontable from 'handsontable/base';
@@ -228,12 +247,12 @@ import Handsontable from 'handsontable/base';
 // import the PasswordEditor
 import { registerEditor, PasswordEditor } from 'handsontable/editors';
         </code></pre>
-        Afterwards you need to use the <code>registerEditor</code> method to register <code>PasswordEditor</code>:
+        <p>Afterwards you need to use the <code>registerEditor</code> method to register <code>PasswordEditor</code>: </p>
         <pre><code class="lang-js">
 // register the editor before using it
 registerEditor(PasswordEditor);
         </code></pre>
-        Now, you can use <code>PasswordEditor</code>, the full example looks like this:
+        <p>Now, you can use <code>PasswordEditor</code>, the full example looks like this:</p>
         <pre><code class="lang-js">
 import Handsontable from 'handsontable/base';
 import { registerEditor, PasswordEditor } from 'handsontable/editors';
@@ -253,15 +272,15 @@ new Handsontable(container, {
   // rest of the settings
 });
             </code></pre>
-            And that is all! You can use the password editor!
-              </p>
+            <p>And that is all! You can use the password editor!</p>
 
-          <h4>Importing renderers</h4>
-      </p>
+
+          <h4 id="renderers">Importing renderers</h4>
+
       <p>
         To use a specific renderer you need to import it alongside the registering method. For instance, let's try adding the autocomplete renderer.
-      </br>
-      Start with importing the base, <code>autocompleteRenderer</code> and the <code>registerRenderer</code> method.
+      </p>
+      <p>Start with importing the base, <code>autocompleteRenderer</code> and the <code>registerRenderer</code> method.</p>
         <pre><code class="lang-js">
 // remember to have the base imported
 import Handsontable from 'handsontable/base';
@@ -269,12 +288,12 @@ import Handsontable from 'handsontable/base';
 // import the autocompleteRenderer
 import { registerRenderer, autocompleteRenderer } from 'handsontable/renderers';
     </code></pre>
-    Afterwards you need to use the <code>registerRenderer</code> method to register <code>autocompleteRenderer</code>:
+    <p>Afterwards you need to use the <code>registerRenderer</code> method to register <code>autocompleteRenderer</code>:</p>
     <pre><code class="lang-js">
 // register the renderer before using it
 registerRenderer(autocompleteRenderer);
     </code></pre>
-    Now, you can use <code>autocompleteRenderer</code>, the full example looks like this:
+    <p>Now, you can use <code>autocompleteRenderer</code>, the full example looks like this:</p>
     <pre><code class="lang-js">
 import Handsontable from 'handsontable/base';
 import { registerRenderer, autocompleteRenderer } from 'handsontable/renderers';
@@ -294,14 +313,13 @@ new Handsontable(container, {
 // rest of the settings
 });
         </code></pre>
-        And that is all! You can use the autocomplete renderer!
-          </p>
+        <p>And that is all! You can use the autocomplete renderer!</p>
 
-          <h4>Importing validators</h4>
+          <h4 id="validators">Importing validators</h4>
           <p>
             To use a specific validator you need to import it alongside the registering method. For instance, let's try adding the numeric validator.
-          </br>
-          Start with importing the base, <code>numericValidator</code> and the <code>registerValidator</code> method.
+          </p>
+          <p>Start with importing the base, <code>numericValidator</code> and the <code>registerValidator</code> method.</p>
             <pre><code class="lang-js">
 // remember to have the base imported
 import Handsontable from 'handsontable/base';
@@ -310,12 +328,12 @@ import Handsontable from 'handsontable/base';
 // import the numericValidator
 import { registerValidator, numericValidator } from 'handsontable/validators';
     </code></pre>
-    Afterwards you need to use the <code>registerValidator</code> method to register <code>numericValidator</code>:
+    <p>Afterwards you need to use the <code>registerValidator</code> method to register <code>numericValidator</code>:</p>
     <pre><code class="lang-js">
 // register the validator before using it
 registerValidator(numericValidator);
     </code></pre>
-    Now, you can use <code>numericValidator</code>, the full example looks like this:
+    <p>Now, you can use <code>numericValidator</code>, the full example looks like this:</p>
     <pre><code class="lang-js">
 import Handsontable from 'handsontable/base';
 import { registerValidator, numericValidator } from 'handsontable/validators';
@@ -325,7 +343,7 @@ registerValidator(numericValidator);
 const container = document.createElement('div');
 document.body.appendChild(container)
 
-// use the context menu as you need
+// use the numeric validator where you need
 new Handsontable(container, {
   columns: [
     {
@@ -335,13 +353,13 @@ new Handsontable(container, {
 // rest of the settings
 });
             </code></pre>
-            And that is all! You can use the numeric validator!
-              </p>
-              <h4>Importing cell types</h4>
+            <p>And that is all! You can use the numeric validator!</p>
+
+              <h4 id="cell-types">Importing cell types</h4>
               <p>
                 To use a specific cell type you need to import it alongside the registering method. Let's try adding the checkbox cell type.
-              </br>
-              Start with importing the base, <code>CheckboxCellType</code> and the <code>registerCellType</code> method.
+              </p>
+              <p>Start with importing the base, <code>CheckboxCellType</code> and the <code>registerCellType</code> method.</p>
                 <pre><code class="lang-js">
 // remember to have the base imported
 import Handsontable from 'handsontable/base';
@@ -350,12 +368,12 @@ import Handsontable from 'handsontable/base';
 // import the CheckboxCellType
 import { registerCellType, CheckboxCellType } from 'handsontable/cellTypes';
     </code></pre>
-    Afterwards you need to use the <code>registerCellType</code> method to register <code>CheckboxCellType</code>:
+    <p>Afterwards you need to use the <code>registerCellType</code> method to register <code>CheckboxCellType</code>:</p>
     <pre><code class="lang-js">
 // register the cell type before using it
 registerCellType(CheckboxCellType);
     </code></pre>
-    Now, you can use <code>CheckboxCellType</code>, the full example looks like this:
+    <p>Now, you can use <code>CheckboxCellType</code>, the full example looks like this:</p>
     <pre><code class="lang-js">
 import Handsontable from 'handsontable/base';
 import { registerCellType, CheckboxCellType } from 'handsontable/cellTypes';
@@ -365,7 +383,7 @@ registerCellType(CheckboxCellType);
 const container = document.createElement('div');
 document.body.appendChild(container)
 
-// use the context menu as you need
+// use the checkbox cell type where you need
 new Handsontable(container, {
   columns: [
     {
@@ -375,13 +393,13 @@ new Handsontable(container, {
 // rest of the settings
 });
                 </code></pre>
-                And that is all! You can use the checkbox cell type!
-                  </p>
-                  <h4>Importing locales</h4>
+                <p>And that is all! You can use the checkbox cell type!</p>
+
+                  <h4 id="locales">Importing locales</h4>
                   <p>
                     Importing locales works slightly different than in case of other elements. Let's try adding the PL-pl locale.
-                  </br>
-                  Start with importing the base and the language code:
+                  </p>
+                  <p>Start with importing the base and the language code:</p>
                     <pre><code class="lang-js">
 // remember to have the base imported
 import Handsontable from 'handsontable/base';
@@ -389,11 +407,11 @@ import Handsontable from 'handsontable/base';
 // import the language code
 import { plPL} from 'handsontable/i18n/languages';
     </code></pre>
-    Afterwards you need to register it:
+    <p>Afterwards you need to register it:</p>
     <pre><code class="lang-js">
 Handsontable.languages.registerLanguageDictionary(plPL.languageCode, plPL);
     </code></pre>
-    Now, you ccan use newly registered locale. The full example looks like this:
+    <p>Now, you can use newly registered locale. The full example looks like this:</p>
     <pre><code class="lang-js">
 import Handsontable from 'handsontable/base';
 import { plPL} from 'handsontable/i18n/languages';
@@ -404,21 +422,14 @@ Handsontable.languages.registerLanguageDictionary(plPL.languageCode, plPL);
 const container = document.createElement('div');
 document.body.appendChild(container)
 
-// use the context menu as you need
+// use the locales
 new Handsontable(container, {
   language: 'pl-PL',
 // rest of the settings
 });
                     </code></pre>
-                    And that is all! You can use the PL-pl locale!
-                      </p>
-  </p>
-  </div>
+                    <p>And that is all! You can use the PL-pl locale!</p>
 
-
-  <div class="example-container clearfix" name="last">
-      <h3 id="how-to-use-language">Registering and using an language</h3>
-      <p>Content</p>
   </div>
 
   <p class="gap-top-xsmall">
