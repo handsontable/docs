@@ -101,7 +101,7 @@ import {
 registerCellType(DropdownCellType);
 registerPlugin(AutoColumnSize);
 registerPlugin(CopyPaste);
-registerPlugin(Filter
+registerPlugin(Filters);
 
 // the rest of code remain exactly same as in the previous example!
 const container = document.createElement('div');
@@ -405,7 +405,7 @@ new Handsontable(container, {
 import Handsontable from 'handsontable/base';
 
 // import the language code
-import { plPL} from 'handsontable/i18n/languages';
+import {plPL} from 'handsontable/i18n/languages';
     </code></pre>
     <p>Afterwards you need to register it:</p>
     <pre><code class="lang-js">
