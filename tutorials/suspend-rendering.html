@@ -49,7 +49,7 @@ hot.batch(() => {
       The diagram shows a comparison, the same operations were performed with (deep blue columns) and without the batch (light blue columns).
       The gain in speed of execution time increases with the number of operations batched.
 
-      <img src="images/8.3.0_suspend_comparison.png" alt="suspend_diagram" />
+      <img src="images/batch_operations_comparison.png" alt="batch_diagram" />
       <br>
     </p>
     <p>
@@ -287,7 +287,7 @@ hot.resumeExecution(); // It updates the cache internally
               })
               printLog();
             }
-            alterTable();
+            //alterTable();
           </script>
       </div>
 
