@@ -23,7 +23,7 @@
     </p>
     <p>
       This can improve the overall performance of the application.
-      Batching several costly operations can decrease the number of reflows and render cycles for CRUD operations.
+      Batching several operations can decrease the number of renders, so any API call that ends with a render will benefit from this improvement.
       It results in less layout trashing, fewer freezes, and a more responsive feel.
     </p>
     <p>
@@ -132,9 +132,9 @@ hot.batch(() => {
       <pre>
         <code class="lang-js">
 hot.batchRender(() => {
-hot.alter('insert_row', 5, 45);
-hot.setDataAtCell(1, 1, 'x');
-// The table will be rendered once after executing the callback
+  hot.alter('insert_row', 5, 45);
+  hot.setDataAtCell(1, 1, 'x');
+  // The table will be rendered once after executing the callback
 });
         </code>
       </pre>
@@ -147,12 +147,12 @@ hot.setDataAtCell(1, 1, 'x');
     <pre>
       <code class="lang-js">
 hot.batchExecution(() => {
-const filters = hot.getPlugin('filters');
+  const filters = hot.getPlugin('filters');
 
-filters.addCondition(2, 'contains', ['3']);
-filters.filter();
-hot.getPlugin('columnSorting').sort({ column: 1, sortOrder: 'desc' });
-// The table cache will be recalculated once after executing the callback
+  filters.addCondition(2, 'contains', ['3']);
+  filters.filter();
+  hot.getPlugin('columnSorting').sort({ column: 1, sortOrder: 'desc' });
+  // The table cache will be recalculated once after executing the callback
 });
       </code>
     </pre>
