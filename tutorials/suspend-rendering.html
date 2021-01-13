@@ -126,8 +126,9 @@ hot.batch(() => {
     </p>
     <p>
       <p><strong>batchRender</strong> </p>
-      The <code>batchRender</code> method is less prone to human errors since the operations will be calculated after executing the callback.
-      You don't have to remember about resuming the operations.
+      The <code>batchRender</code> method is a callback function, excessive renders can be skipped by placing the API calls inside of it.
+      The table will be rendered after executing the callback.
+      It is less prone to errors as you don't have to remember about resuming the render.
       However, there is a drawback to this method: it doesn't support async operations.
       <pre>
         <code class="lang-js">
@@ -141,8 +142,9 @@ hot.batchRender(() => {
   </p>
   <p>
     <p><strong>batchExecution</strong> </p>
-    The <code>batchExecution</code> method is less prone to human errors since the operations will be calculated after executing the callback.
-    You don't have to remember about resuming the operations.
+    The <code>batchExecution</code> is a callback function, excessive renders can be skipped by placing the API calls inside of it.
+    The table will be rendered after executing the callback.
+    It is less prone to errors as you don't have to remember about resuming the operations.
     However, there is a drawback to this method: it doesn't support async operations.
     <pre>
       <code class="lang-js">
