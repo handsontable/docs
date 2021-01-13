@@ -222,10 +222,6 @@ import { registerPlugin, ContextMenu } from 'handsontable/plugins';
 
 registerPlugin(ContextMenu);
 
-// a container for Handsontable
-const container = document.createElement('div');
-document.body.appendChild(container);
-
 // switch the context menu on
 new Handsontable(container, {
   contextMenu: true,
@@ -257,10 +253,6 @@ registerEditor(PasswordEditor);
 import Handsontable from 'handsontable/base';
 import { registerEditor, PasswordEditor } from 'handsontable/editors';
 registerEditor(PasswordEditor);
-
-// a container for Handsontable
-const container = document.createElement('div');
-document.body.appendChild(container)
 
 // use the editor as needed
 new Handsontable(container, {
@@ -299,10 +291,6 @@ import Handsontable from 'handsontable/base';
 import { registerRenderer, autocompleteRenderer } from 'handsontable/renderers';
 registerRenderer(autocompleteRenderer);
 
-// a container for Handsontable
-const container = document.createElement('div');
-document.body.appendChild(container);
-
 // use the renderer as you need
 new Handsontable(container, {
   columns: [
@@ -338,10 +326,6 @@ registerValidator(numericValidator);
 import Handsontable from 'handsontable/base';
 import { registerValidator, numericValidator } from 'handsontable/validators';
 registerValidator(numericValidator);
-
-// a container for Handsontable
-const container = document.createElement('div');
-document.body.appendChild(container)
 
 // use the numeric validator where you need
 new Handsontable(container, {
@@ -379,10 +363,6 @@ import Handsontable from 'handsontable/base';
 import { registerCellType, CheckboxCellType } from 'handsontable/cellTypes';
 registerCellType(CheckboxCellType);
 
-// a container for Handsontable
-const container = document.createElement('div');
-document.body.appendChild(container)
-
 // use the checkbox cell type where you need
 new Handsontable(container, {
   columns: [
@@ -417,10 +397,6 @@ import Handsontable from 'handsontable/base';
 import { plPL} from 'handsontable/i18n/languages';
 
 Handsontable.languages.registerLanguageDictionary(plPL.languageCode, plPL);
-
-// a container for Handsontable
-const container = document.createElement('div');
-document.body.appendChild(container)
 
 // use the locales
 new Handsontable(container, {
