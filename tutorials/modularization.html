@@ -4,6 +4,15 @@
     <ul>
       <li><a href="#introduction">Usefulness of modularization</a></li>
       <li><a href="#how-to-use">How to use modularization</a></li>
+      <li><a href="#importing-plugins">Importing plugins</a></li>
+      <li><a href="#importing-editors">Importing editors</a></li>
+      <li><a href="#importing-renderers">Importing renderers</a></li>
+      <li><a href="#importing-validators">Importing validators</a></li>
+      <li><a href="#importing-cell-types">Importing cell types</a></li>
+      <li><a href="#importing-locales">Importing locales</a></li>
+      <li><a href="#moment-js-optimize">Optimizing moment.js locales</a></li>
+      <li><a href="#using-wrappers">Using with wrappers</a></li>
+      <li><a href="#tree-shaking">Tree shaking</a></li>
     </ul>
   </div>
 
@@ -185,18 +194,19 @@ import Handsontable from "handsontable";
       <p>
         Elements to be imported manually on demand:
         <ul>
-          <li><a href="#plugins">plugins</a></li>
-          <li><a href="#editors">editors</a></li>
-          <li><a href="#renderers">renderers</a></li>
-          <li><a href="#validators">validators</a></li>
-          <li><a href="#cell-types">cell types</a></li>
-          <li><a href="#locales">locales</a></li>
+          <li>plugins</a></li>
+          <li>editors</a></li>
+          <li>renderers</a></li>
+          <li>validators</a></li>
+          <li>cell types</a></li>
+          <li>locales</a></li>
           </ul>
         </br>
         The usecases may wary greatly, this guide will go through the categories and present one example for each.
         </p>
-
-        <h4 id="plugins">Importing plugins</h4>
+      </div>
+      <div class="example-container clearfix">
+        <h3 id="importing-plugins">Importing plugins</h3>
         <p>
         To use a specific plugin you need to import it alongside the registering method. For instance, let's try adding the context menu.
         </p>
@@ -230,8 +240,9 @@ new Handsontable(container, {
         </code></pre>
         <p>And that is all! You can use the <code>ContextMenu</code> plugin.
           </p>
-
-          <h4 id="editors">Importing editors</h4>
+        </div>
+        <div class="example-container clearfix">
+          <h3 id="importing-editors">Importing editors</h3>
           <p>
             To use a specific editor you need to import it alongside the registering method. For instance, let's try adding the password editor.
           </p>
@@ -266,8 +277,9 @@ new Handsontable(container, {
             </code></pre>
             <p>And that is all! You can use the password editor!</p>
 
-
-          <h4 id="renderers">Importing renderers</h4>
+        </div>
+        <div class="example-container clearfix">
+          <h3 id="importing-renderers">Importing renderers</h3>
 
       <p>
         To use a specific renderer you need to import it alongside the registering method. For instance, let's try adding the autocomplete renderer.
@@ -302,8 +314,9 @@ new Handsontable(container, {
 });
         </code></pre>
         <p>And that is all! You can use the autocomplete renderer!</p>
-
-          <h4 id="validators">Importing validators</h4>
+        </div>
+        <div class="example-container clearfix">
+          <h3 id="importing-validators">Importing validators</h3>
           <p>
             To use a specific validator you need to import it alongside the registering method. For instance, let's try adding the numeric validator.
           </p>
@@ -338,8 +351,9 @@ new Handsontable(container, {
 });
             </code></pre>
             <p>And that is all! You can use the numeric validator!</p>
-
-              <h4 id="cell-types">Importing cell types</h4>
+        </div>
+        <div class="example-container clearfix">
+          <h3 id="importing-cell-types">Importing cell types</h3>
               <p>
                 To use a specific cell type you need to import it alongside the registering method. Let's try adding the checkbox cell type.
               </p>
@@ -374,8 +388,9 @@ new Handsontable(container, {
 });
                 </code></pre>
                 <p>And that is all! You can use the checkbox cell type!</p>
-
-                  <h4 id="locales">Importing locales</h4>
+        </div>
+        <div class="example-container clearfix">
+          <h3 id="importing-locales">Importing locales</h3>
                   <p>
                     Importing locales works slightly different than in case of other elements. Let's try adding the PL-pl locale.
                   </p>
@@ -405,7 +420,6 @@ new Handsontable(container, {
 });
                     </code></pre>
                     <p>And that is all! You can use the PL-pl locale!</p>
-
   </div>
 
   <p class="gap-top-xsmall">
