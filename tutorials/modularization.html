@@ -39,12 +39,13 @@
      A mindful use of the modularization brings a lot of optimization to the application, yet, it only needs several lines of code.
     </p>
     <p>
-     Compare the following examples to see the difference in KB of the final build.
-     Note: this is an example in a nutshell, the next section shows how to do it step by step.
+      The graph presents a comparison of size in KB for a full bundle, basic optimization and with optimized locales. The sample code
+      is avaiable just below - it shows sample countries and cities and although it looks small it will generate over 345 KB (Gzipped):
+      <img src="images/modularization_comparison.png" alt="modularization_comparison_graph" />
     </p>
     <p>
-    <p>
-    This is a simple example that shows sample countries and cities and although it looks small it will generate over 345 KB (Gzipped):
+     You can compare the following examples to see the difference in KB of the final build.
+     Note: this is an example in a nutshell, the next section shows how to do it step by step.
     </p>
      <pre><code class="lang-js">
 // import a full build, all functionalities included
@@ -156,10 +157,6 @@ const hot = new Handsontable(container, {
       <p>
         You can go even further and optimize <strong>momentjs/locales</strong> by excluding unnecessary localizations and decrease the final bundle of the example to 150 KB (Gzipped).
         Eventually, over 56% of the final bundle size was saved!
-      </p>
-      <p>
-        The graph present the change in KB size of the presented example - a full bundle, basic optimization and with optimized locales:
-        <img src="images/modularization_comparison.png" alt="modularization_comparison_graph" />
       </p>
 
   </div>
