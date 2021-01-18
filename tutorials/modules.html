@@ -2,8 +2,8 @@
   <div class="index-list">
     <p>This page presents a guide on using modules.</p>
     <ul>
-      <li><a href="#introduction">Usefulness of modularization</a></li>
-      <li><a href="#how-to-use">How to use modularization</a></li>
+      <li><a href="#introduction">Usefulness of modules</a></li>
+      <li><a href="#how-to-use">How to use modules</a></li>
       <li><a href="#importing-plugins">Importing plugins</a></li>
       <li><a href="#importing-editors">Importing editors</a></li>
       <li><a href="#importing-renderers">Importing renderers</a></li>
@@ -19,10 +19,10 @@
   </div>
 
   <div class="example-container clearfix">
-    <h3 id="introduction">Usefulness of modularization</h3>
+    <h3 id="introduction">Usefulness of modules</h3>
 
     <p>
-      The full version of Handsontable consists of multiple built-in modules such as plugins, renderers, editors, validators, and cell-types.
+      The full bundle of Handsontable consists of multiple built-in modules such as plugins, renderers, editors, validators, and cell-types.
       It also includes the whole rendering functionality and advanced data management. This is a compact tool with plenty of options available.
     </p>
     <p>
@@ -38,7 +38,7 @@
       to run. The rest is customizable based on what you want to import.
     </p>
     <p>
-     A mindful use of the modularization brings a lot of optimization to the application, yet, it only needs several lines of code.
+     A mindful use of the modules brings a lot of optimization to the application, yet, it only needs several lines of code.
     </p>
     <p>
       The graph presents a comparison of size in KB for a full bundle, basic optimization and with optimized locales. The sample code
@@ -93,7 +93,7 @@ const hot = new Handsontable(container, {
 });
       </code></pre>
       <p>
-      Thanks to modularization you can achieve exactly same result but it will generate less KB.
+      Thanks to using modules you can achieve exactly same result but it will generate less KB.
       These steps decreased the final bundle to 200 KB (Gzipped).
       </p>
       <pre><code class="lang-js">
@@ -164,7 +164,7 @@ const hot = new Handsontable(container, {
   </div>
 
   <div class="example-container clearfix">
-      <h3 id="how-to-use">How to use modularization</h3>
+      <h3 id="how-to-use">How to use modules</h3>
       <p>
         The very first step towards using the modules is learning which independent parts you can import and which of them are mandatory.
         First, you need to import the <strong>base</strong> which contains the core elements of the component. Without them, Handsontable cannot be built
@@ -639,7 +639,7 @@ new Handsontable(container, {});
   </div>
 
   <p class="gap-top-xsmall">
-    <a href="https://github.com/handsontable/docs/edit/<?js= version ?>/tutorials/modularization.html" class="edit-doc" target="_blank">
+    <a href="https://github.com/handsontable/docs/edit/<?js= version ?>/tutorials/modules.html" class="edit-doc" target="_blank">
       Help us improve this page
     </a>
   </p>
