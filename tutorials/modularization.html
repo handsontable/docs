@@ -13,6 +13,8 @@
       <li><a href="#moment-js-optimize">Optimizing moment.js locales</a></li>
       <li><a href="#using-with-wrappers">Using with wrappers</a></li>
       <li><a href="#tree-shaking">Tree shaking</a></li>
+      <li><a href="#modules-cheatsheet">Modules cheatsheet</a></li>
+
     </ul>
   </div>
 
@@ -462,6 +464,178 @@ moment.locale('ja');
     <p>If you want to learn more about this topic, don't hesitate to look at the official documentation of <a href="https://webpack.js.org/guides/tree-shaking/">webpack</a>, 
       <a href="https://rollupjs.org/guide/en/#tree-shaking">rollup</a>, and <a href="https://parceljs.org/cli.html#enable-experimental-scope-hoisting/tree-shaking-support">parcel</a>.</p>
 
+  </div>
+
+  <div class="example-container clearfix">
+    <h3 id="modules-cheatsheet">Modules cheatsheet</h3>
+    <p>Here is an extensive list of all Handsontable parts imported and registered. This example builds Handsontable out of all fragments. You can copy and CopyPaste
+      the ones you need.
+    </p>
+    <pre><code class="lang-js">
+import Handsontable from 'handsontable/base';
+import {
+  registerEditor,
+  AutocompleteEditor,
+  BaseEditor,
+  CheckboxEditor,
+  DateEditor,
+  DropdownEditor,
+  HandsontableEditor,
+  NumericEditor,
+  PasswordEditor,
+  SelectEditor,
+  TextEditor,
+} from 'handsontable/editors';
+import {
+  registerRenderer,
+  baseRenderer,
+  autocompleteRenderer,
+  checkboxRenderer,
+  htmlRenderer,
+  numericRenderer,
+  passwordRenderer,
+  textRenderer,
+} from 'handsontable/renderers';
+import {
+  registerValidator,
+  autocompleteValidator,
+  dateValidator,
+  numericValidator,
+  timeValidator,
+} from 'handsontable/validators';
+import {
+  registerCellType,
+  AutocompleteCellType,
+  CheckboxCellType,
+  DateCellType,
+  DropdownCellType,
+  HandsontableCellType,
+  NumericCellType,
+  PasswordCellType,
+  TextCellType,
+  TimeCellType,
+} from 'handsontable/cellTypes';
+import {
+  AutoColumnSize,
+  AutoRowSize,
+  Autofill,
+  BasePlugin,
+  BindRowsWithHeaders,
+  CollapsibleColumns,
+  ColumnSorting,
+  ColumnSummary,
+  Comments,
+  ContextMenu,
+  CopyPaste,
+  CustomBorders,
+  DragToScroll,
+  DropdownMenu,
+  ExportFile,
+  Filters,
+  Formulas,
+  HeaderTooltips,
+  HiddenColumns,
+  HiddenRows,
+  ManualColumnFreeze,
+  ManualColumnMove,
+  ManualColumnResize,
+  ManualRowMove,
+  ManualRowResize,
+  MergeCells,
+  MultiColumnSorting,
+  MultipleSelectionHandles,
+  NestedHeaders,
+  NestedRows,
+  ObserveChanges,
+  PersistentState,
+  Search,
+  TouchScroll,
+  TrimRows,
+  UndoRedo,
+  registerPlugin,
+} from 'handsontable/plugins';
+import {
+  registerLanguageDictionary,
+} from 'handsontable/i18n';
+import {
+  plPL,
+  deDE,
+} from 'handsontable/i18n/languages';
+
+registerLanguageDictionary(plPL);
+registerLanguageDictionary(deDE);
+
+registerEditor(BaseEditor);
+registerEditor(AutocompleteEditor);
+registerEditor(CheckboxEditor);
+registerEditor(DateEditor);
+registerEditor(DropdownEditor);
+registerEditor(HandsontableEditor);
+registerEditor(NumericEditor);
+registerEditor(PasswordEditor);
+registerEditor(SelectEditor);
+registerEditor(TextEditor);
+
+registerRenderer(baseRenderer);
+registerRenderer(autocompleteRenderer);
+registerRenderer(checkboxRenderer);
+registerRenderer(htmlRenderer);
+registerRenderer(numericRenderer);
+registerRenderer(passwordRenderer);
+registerRenderer(textRenderer);
+
+registerValidator(autocompleteValidator);
+registerValidator(dateValidator);
+registerValidator(numericValidator);
+registerValidator(timeValidator);
+
+registerCellType(AutocompleteCellType);
+registerCellType(CheckboxCellType);
+registerCellType(DateCellType);
+registerCellType(DropdownCellType);
+registerCellType(HandsontableCellType);
+registerCellType(NumericCellType);
+registerCellType(PasswordCellType);
+registerCellType(TimeCellType);
+registerCellType(TextCellType);
+
+registerPlugin(AutoColumnSize);
+registerPlugin(Autofill);
+registerPlugin(AutoRowSize);
+registerPlugin(BindRowsWithHeaders);
+registerPlugin(CollapsibleColumns);
+registerPlugin(ColumnSorting);
+registerPlugin(ColumnSummary);
+registerPlugin(Comments);
+registerPlugin(ContextMenu);
+registerPlugin(CopyPaste);
+registerPlugin(CustomBorders);
+registerPlugin(DragToScroll);
+registerPlugin(DropdownMenu);
+registerPlugin(ExportFile);
+registerPlugin(Filters);
+registerPlugin(Formulas);
+registerPlugin(HeaderTooltips);
+registerPlugin(HiddenColumns);
+registerPlugin(HiddenRows);
+registerPlugin(ManualColumnFreeze);
+registerPlugin(ManualColumnMove);
+registerPlugin(ManualColumnResize);
+registerPlugin(ManualRowMove);
+registerPlugin(ManualRowResize);
+registerPlugin(MergeCells);
+registerPlugin(MultiColumnSorting);
+registerPlugin(MultipleSelectionHandles);
+registerPlugin(NestedHeaders);
+registerPlugin(NestedRows);
+registerPlugin(ObserveChanges);
+registerPlugin(PersistentState);
+registerPlugin(Search);
+registerPlugin(TouchScroll);
+registerPlugin(TrimRows);
+
+new Handsontable(container, {});
+</code></pre>
   </div>
 
   <p class="gap-top-xsmall">
