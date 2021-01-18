@@ -11,7 +11,7 @@
       <li><a href="#importing-cell-types">Importing cell types</a></li>
       <li><a href="#importing-locales">Importing locales</a></li>
       <li><a href="#moment-js-optimize">Optimizing moment.js locales</a></li>
-      <li><a href="#using-wrappers">Using with wrappers</a></li>
+      <li><a href="#using-with-wrappers">Using with wrappers</a></li>
       <li><a href="#tree-shaking">Tree shaking</a></li>
     </ul>
   </div>
@@ -41,8 +41,8 @@
     <p>
       The graph presents a comparison of size in KB for a full bundle, basic optimization and with optimized locales. The sample code
       is avaiable just below - it shows sample countries and cities and although it looks small it will generate over 345 KB (Gzipped):
-      <img src="images/modularization_comparison.png" alt="modularization_comparison_graph" />
     </p>
+      <img src="images/modularization_comparison.png" alt="modularization_comparison_graph" />
     <p>
      You can compare the following examples to see the difference in KB of the final build.
      Note: this is an example in a nutshell, the next section shows how to do it step by step.
@@ -155,7 +155,7 @@ const hot = new Handsontable(container, {
 
       </code></pre>
       <p>
-        You can go even further and optimize <strong>momentjs/locales</strong> by excluding unnecessary localizations and decrease the final bundle of the example to 150 KB (Gzipped).
+        You can go even further and optimize <a href="#moment-js-optimize">moment.js locales</a> by excluding unnecessary localizations and decrease the final bundle of the example to 150 KB (Gzipped).
         Eventually, over 56% of the final bundle size was saved!
       </p>
 
@@ -417,6 +417,51 @@ new Handsontable(container, {
 });
                     </code></pre>
                     <p>And that is all! You can use the PL-pl locale!</p>
+  </div>
+
+  <div class="example-container clearfix">
+    <h3 id="moment-js-optimize">Optimizing moment.js locales</h3>
+    <p>If you want to decrease the bundle size even more you can also focus on optimizing moment.js locales. There are different methods of doing so but this guide
+      focuses on using the webpack's <a href="https://webpack.js.org/plugins/ignore-plugin/">IgnorePlugin</a>. For another option, you can check
+      <a href="https://github.com/jmblog/how-to-optimize-momentjs-with-webpack">this tutorial</a> directly.</p>
+      <p>Moment.js can be heavyweight because when you type <code>var moment = require('moment')</code> in the code you get all locales as default.
+      To be more selective with your choice you can first, use the <code>IgnorePlugin</code> that removes all locales:</p>
+      <pre><code class="lang-js">
+const webpack = require('webpack');
+module.exports = {
+  //...
+  plugins: [
+    // Ignore all locale files of moment.js
+    new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
+  ],
+};
+        </code></pre>
+        <p>And then explicitly load selected locales:</p>
+        <pre><code class="lang-js">
+const moment = require('moment');
+require('moment/locale/ja');
+
+moment.locale('ja');
+          </code></pre>
+    </p>
+
+  </div>
+
+  <div class="example-container clearfix">
+    <h3 id="using-with-wrappers">Using with wrappers</h3>
+    <p>It is <strong>not yet</strong> possible to use modules alongside the wrappers.</p>
+  </div>
+
+  <div class="example-container clearfix">
+    <h3 id="tree-shaking">Tree shaking</h3>
+    <p>Tree shaking, also called dead code elimination, allows for the removal of unused code in the bundle during the build process.</p>
+    <p>The terms came in 2012, and currently, you can use them in most of the available and popular bundlers such as <strong>webpack</strong>,
+      <strong>rollup</strong>, <strong>parceljs</strong> (with an additional flag), and <strong>browserify</strong>.</p>
+    <p>In general, we re-export plugins, renderers, editors, validators, and cell types in the second level of package depth.</p>
+
+    <p>If you want to learn more about this topic, don't hesitate to look at the official documentation of <a href="https://webpack.js.org/guides/tree-shaking/">webpack</a>, 
+      <a href="https://rollupjs.org/guide/en/#tree-shaking">rollup</a>, and <a href="https://parceljs.org/cli.html#enable-experimental-scope-hoisting/tree-shaking-support">parcel</a>.</p>
+
   </div>
 
   <p class="gap-top-xsmall">
