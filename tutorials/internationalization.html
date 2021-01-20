@@ -8,7 +8,6 @@
       <li><a href="#demo">Demo</a></li>
       <li><a href="#internalization-for-features">Internationalization for features</a></li>
       <li><a href="#available-languages">Available languages</a></li>
-      <li><a href="#files-hierarchy">Hierarchy of all main files connected with internationalization</a></li>
       <li><a href="#custom-languages">Creating custom languages</a></li>
       <li><a href="#custom-keys">Using custom keys in the translation</a></li>
       <li><a href="#static-properties">Static Handsontable methods and properties</a></li>
@@ -31,32 +30,78 @@
   <div class="example-container clearfix">
     <h3 id="loading-language-files">Loading the prepared language files</h3>
 
-    <p>To properly use the internationalization feature, you'll need to load the language sets. It's important,
-      that they're included after the Handsontable files. You can do it by getting the necessary files (they were created using <a href="https://github.com/umdjs/umd">UMD standard</a>):
+    <p>To properly use the internationalization feature, you'll need to load the language sets.
+      It's important that they're included after the Handsontable files. You can do it by getting the necessary files in the following way:
     </p>
 
     <ol>
       <li>
-        <p>from <code>/dist/languages</code> folder inside your HTML file</p>
+        <p>ESM</p>
 
-        <pre><code class="lang-html">&lt;script type="text/javascript" src="dist/handsontable.full.js"&gt;&lt;/script&gt;
-&lt;script type="text/javascript" src="dist/languages/all.js"&gt;&lt;/script&gt;</code></pre>
+        <pre><code class="lang-js">
+import Handsontable from 'handsontable/base';
+import { registerLanguageDictionary } from 'handsontable/i18n';
+import xxXX from 'handsontable/i18n/languages/xx-XX';
 
-        <p>Note: Please keep in mind, that you can also use the minified versions of the files from the <code>/dist/languages</code> folder.</p>
+registerLanguageDictionary(xxXX);
+
+const hot = new Handsontable(container, {
+  language: xxXX.languageCode,
+});
+        </code></pre>
+
       </li>
 
       <li>
-        <p>from the <code>/languages</code> folder located in the root of the project, to be used by module systems;
-          the example below shows how to use it with ECMAScript 6 (you will need a bundler or TypeScript).</p>
+        <p>CJS</p>
 
-        <pre><code class="lang-js">import Handsontable from 'handsontable';
-import 'handsontable/languages/pl-PL';</code></pre>
+        <pre><code class="lang-js">
+const Handsontable = require('handsontable/base').default;
+const { registerLanguageDictionary } = require('handsontable/i18n');
+const xxXX = require('handsontable/i18n/languages/xx-XX').default;
+
+registerLanguageDictionary(xxXX);
+
+const hot = new Handsontable(container, {
+  language: xxXX.languageCode,
+});
+        </code></pre>
+      </li>
+
+      <li>
+        <p>UMD - Languages included this way are ready to use immediately after loading the file. </p>
+
+        <pre><code class="lang-html">&lt;script type="text/javascript" src="dist/handsontable.full.js"&gt;&lt;/script&gt;
+          &lt;script type="text/javascript" src="dist/languages/xx-XX.js"&gt;&lt;/script&gt;
+          &lt;script&gt;
+          const hot = new Handsontable(container, {
+            language: 'xx-XX',
+          });
+          &lt;/script&gt;
+        </code></pre>
       </li>
     </ol>
 
-    <p>Languages included this way are ready to use immediately after loading the file. More about other language-specific
-      files and language registration for Handsontable can be found in <a href="#files-hierarchy">this section</a>.
+  </div>
+
+  <div class="example-container clearfix">
+    <h3 id="loading-language-files">Legacy auto-registering</h3>
+
+    <p>UMD uses the same auto-registering mechanism which is implemented into legacy language files as in the following examples:
     </p>
+    <pre><code class="lang-js">
+      import Handsontable from 'handsontable';
+      import 'handsontable/languages/pl-PL';
+
+      </code>
+    </pre>
+
+    <pre><code class="lang-js">
+      const Handsontable = require('handsontable/base').default;
+      require('handsontable/languages/xx-XX');
+      </code>
+    </pre>
+  <p>In ESM and CJS auto-registering after import/require is used.  </p>
   </div>
 
   <div class="example-container clearfix">
@@ -176,81 +221,11 @@ import 'handsontable/languages/pl-PL';</code></pre>
   </div>
 
   <div class="example-container clearfix">
-    <h3 id="files-hierarchy">Hierarchy of all the main files connected with internationalization</h3>
-    <p>
-      Information within this paragraph may be useful mainly for people who would like to add new or edit already existing language.
-      The simple way of using the prepared languages is <a href="#loading-language-files">described here</a>.
-      All the changes we're mentioning below should be made to <a href="https://github.com/handsontable/handsontable">Handsontable</a>.
-    </p>
-
-    <p>In <code>Handsontable</code>, we currently have 3 folders with files that can be treated as languages files:</p>
-
-    <ul>
-      <li><code>/dist/languages</code>*</li>
-      <li><code>/languages</code>*</li>
-      <li><code>/src/i18n/languages</code></li>
-    </ul>
-
-    <p>Files from the two first folders are built as <a href="https://github.com/umdjs/umd">UMD</a> modules by <a href="https://webpack.js.org/">webpack</a>
-      (can be prepared by using the following npm scripts: <code>build:languages</code> and <code>build:languages.min</code>).
-      The last, <code>/src</code> directory contains modules created using the <code>ES2015</code> standard.
-    </p>
-
-    <p>
-      To use the language dictionaries, you'll have to register the language sets.
-      Registration is a process of loading the dictionaries globally for Handsontable using the <code>Handsontable.languages.registerLanguageDictionary</code> method.
-    </p>
-
-    <p>The general purpose of these directories is summarized in the table below:</p>
-
-    <table class="static-data features-table">
-      <thead>
-      <tr>
-        <th>Name</th>
-        <th>Files in <code>/dist/languages</code> and <code>/languages</code> folders</th>
-        <th>Files in <code>/src/i18n/languages</code> folder</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr>
-        <td>Usage</td>
-        <td>Included as separate file</td>
-        <td>Used inside Handsontable as a part of library (default language)</td>
-      </tr>
-      <tr>
-        <td>File source</td>
-        <td>Created by webpack during the build process, transpiled by Babel</td>
-        <td>Created manually, <b>can be</b> transpiled by Babel</td>
-      </tr>
-      <tr>
-        <td>Language registration</td>
-        <td>Applied in the process of building with webpack</td>
-        <td><b>Not</b> registered automatically</td>
-      </tr>
-      <tr>
-        <td>Modifications</td>
-        <td>Should <b>not</b> be edited, as they're created automatically</td>
-        <td>Created and edited manually</td>
-      </tr>
-      </tbody>
-    </table>
-
-    <p>
-      Please keep in mind that the files inside the <code>/dist/languages</code> folder are a copy of files located inside <code>/languages</code>, with two differences.
-      The first folder contains additional, minified versions of the files.
-      Also, it doesn't contain the <code>index.js</code> file (<code>/languages</code> folder contains it for the purpose of easier loading of all the languages).
-    </p>
-    <p>
-      Both of these folders contain the <code>all.js</code> file, containing all of the language dictionaries.
-    </p>
-  </div>
-
-  <div class="example-container clearfix">
     <h3 id="custom-languages">Creating custom languages</h3>
 
     <p>You can create custom language sets for your implementations, or share them, as they're easily appliable to any Handsontable implementation.</p>
 
-    <h4>Language file</h4>
+    <h4>Reusable language file</h4>
 
     <p>It's really important for us, that the community is a important part of the growth of our library. We encourage you to create and share your translations!</p>
     <p>Additional languages files should be placed in the <code>src/i18n/languages</code> folder
@@ -354,21 +329,47 @@ export default dictionary;</code></pre>
       </li>
     </ol>
 
-    <h4>Local language</h4>
+    <h4>App-specific custom language</h4>
 
     <p>
       You can register a language dictionary which is not a part of the <code>Handsontable</code> package. To do so, use the static
-      <code>Handsontable.languages.registerLanguageDictionary</code> method and the static constant <code>Handsontable.languages.dictionaryKeys</code>
-      which are described briefly in the next section.
+      <code>registerLanguageDictionary</code> method and the static constant <code>dictionaryKeys</code>
+      which are described briefly in the next section. ()
     </p>
 
-    <pre><code class="lang-js">const C = Handsontable.languages.dictionaryKeys;
+    <pre><code class="lang-js">
+import Handsontable from 'handsontable/base';
+import{ registerLanguageDictionary, dictionaryKeys } from 'handsontable/i18n';
+const xxXX = require('handsontable/i18n/languages/xx-XX').default;
 
-Handsontable.languages.registerLanguageDictionary({
-  languageCode: 'morse',
-  // Your translation in the Morse code
-  [C.FILTERS_BUTTONS_OK]: '--- -•-'
-});</code></pre>
+registerLanguageDictionary(xxXX);
+
+const hot = new Handsontable(container, {
+  language: xxXX.languageCode,
+});
+    </code></pre>
+
+    <h4>Overwrite language in app</h4>
+
+    <p>
+      By default, built-in translations use <code>en-US</code> as a fallback option if in your translation some keys are missing.
+    </p>
+    <pre><code class="lang-js">
+import Handsontable from 'handsontable/base';
+import { registerLanguageDictionary, dictionaryKeys } from 'handsontable/i18n';
+import xxXX from 'handsontable/i18n/languages/xxXX';
+
+const overwrittenXYZ = {
+  ...xxXX,
+  [dictionaryKeys.FILTERS_BUTTONS_OK]: 'Filter',
+}
+
+registerLanguageDictionary(overwrittenXYZ);
+
+const hot = new Handsontable(container, {
+  language: overwrittenXYZ.languageCode,
+});
+          </code></pre>
   </div>
 
   <div class="example-container clearfix">
@@ -376,40 +377,49 @@ Handsontable.languages.registerLanguageDictionary({
 
     <p>
       You can register a language dictionary containing custom keys. These entries can be used like any other keys, so you're not
-      limited to using our pre-defined constants (the ones that are present within <code>src/i18n/constants.js</code> file and may
-      be accessed by <code>Handsontable.languages.dictionaryKeys</code> alias).
-    <pre><code class="lang-js">const enUSDictionary = Handsontable.languages.getLanguageDictionary('en-US');
+      limited to using our pre-defined constants (the ones that are present within <code>dictionaryKeys</code> from <code>handsontable/i18n</code>
+      file and may be accessed by <code>Handsontable.languages.dictionaryKeys</code> in UMD builds).
+    <pre><code class="lang-js">
+import Handsontable from 'handsontable/base';
+import { registerLanguageDictionary } from 'handsontable/i18n';
 
-enUSDictionary.customKey = 'Hello world';
+const customDictionary = {
+  languageCode: 'customLang',
+  'MY:CUSTOM:KEY': 'Hello world',
+}
 
-Handsontable.languages.registerLanguageDictionary(enUSDictionary); // re-registration
-Handsontable.languages.getTranslatedPhrase('en-US', 'customKey'); // 'Hello world'</code></pre>
+registerLanguageDictionary(customDictionary);
+
+const hot = new Handsontable(container, {
+  language: customDictionary.languageCode,
+});
+</code></pre>
     </p>
   </div>
 
   <div class="example-container clearfix">
     <h3 id="static-properties">Static Handsontable methods and properties</h3>
 
-    <p>Handsontable has a few static methods and properties connected with languages. They are stored in the <code>languages</code> key of the global <code>Handsontable</code> variable.
-      All of them are described below.</p>
+    <p>Handsontable has a few static methods and properties connected with languages. In UMD they are stored in the languages key of the global Handsontable variable.
+      In CJS and ESM you can require/import them from the <code>handsontable/i18n/languages</code>. All of them are described below.</p>
 
-    <h4>Handsontable.languages.getLanguageDictionary(languageCode: <code>String</code>)</h4>
+    <h4>getLanguageDictionary(languageCode: <code>String</code>)</h4>
     <p>Get language dictionary for specific language code.</p>
     <p>Returns: <code>Object</code></p>
 
-    <h4>Handsontable.languages.getLanguagesDictionaries()</h4>
+    <h4>getLanguagesDictionaries()</h4>
     <p>Get the registered language dictionaries.</p>
     <p>Returns: <code>Array</code></p>
 
-    <h4>Handsontable.languages.getTranslatedPhrase(languageCode: <code>String</code>, dictionaryKey: <code>String</code>, extraArguments: <code>Mixed</code>)</h4>
+    <h4>getTranslatedPhrase(languageCode: <code>String</code>, dictionaryKey: <code>String</code>, extraArguments: <code>Mixed</code>)</h4>
     <p>Get the phrase for specified dictionary key.</p>
     <p>Returns: <code>Object</code></p>
 
-    <h4>Handsontable.languages.registerLanguageDictionary(languageCodeOrDictionary: <code>Mixed</code>, dictionary: <code>Object</code>)</h4>
+    <h4>registerLanguageDictionary(languageCodeOrDictionary: <code>Mixed</code>, dictionary: <code>Object</code>)</h4>
     <p>Register a language dictionary for a specific language code. After that, it will be possible to use it.</p>
     <p>Returns: <code>Object</code></p>
 
-    <h4>Handsontable.languages.dictionaryKeys</h4>
+    <h4>dictionaryKeys</h4>
     <p>Dictionary constants.</p>
     <p>Contains: <code>Object</code></p>
   </div>
