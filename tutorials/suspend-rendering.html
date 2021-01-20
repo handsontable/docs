@@ -225,22 +225,21 @@ hot.resumeExecution(); // It updates the cache internally
               background-color: #FF4136;
             }
 
-            #log {
+            #log1 {
               font-weight: bold;
             }
         </style>
         <script data-jsfiddle="example1">
-            let now = null;
+            var now = null;
 
             function startLog() {
-              if (now === null) {
-                now = Date.now();
-              }
+              now = Date.now();
             }
 
             function printLog() {
-              const elapsedTime = Date.now() - now;
-              log.appendChild(document.createTextNode(`All operations took: ${elapsedTime}ms`));
+              var elapsedTime = Date.now() - now;
+
+              log1.appendChild(document.createTextNode('All operations took (batch version): ' + elapsedTime + 'ms'));
               now = null;
             }
 
@@ -267,7 +266,7 @@ hot.resumeExecution(); // It updates the cache internally
               [14, 'Elise Eli', 'Regular shades', 'uni', 1, 'no']
             ];
 
-            const hot = new Handsontable(document.getElementById('example1'), {
+            var hot1 = new Handsontable(document.getElementById('example1'), {
               data: data1,
               width: 700,
               height: 300,
@@ -276,25 +275,25 @@ hot.resumeExecution(); // It updates the cache internally
 
             function alterTable() {
               startLog();
-              hot.batch(() => {
-                hot.alter('insert_row', 10, 10);
-                hot.alter('insert_col', 6, 1);
-                hot.populateFromArray(10, 0, data2);
-                hot.populateFromArray(11, 0, data3);
-                hot.setCellMeta(2, 2, 'className', 'green-bg');
-                hot.setCellMeta(4, 2, 'className', 'green-bg');
-                hot.setCellMeta(5, 2, 'className', 'green-bg');
-                hot.setCellMeta(6, 2, 'className', 'green-bg');
-                hot.setCellMeta(8, 2, 'className', 'green-bg');
-                hot.setCellMeta(9, 2, 'className', 'green-bg');
-                hot.setCellMeta(10, 2, 'className', 'green-bg');
-                hot.alter('remove_col', 6, 1);
-                hot.setCellMeta(0, 5, 'className', 'red-bg');
-                hot.setCellMeta(10, 5, 'className', 'red-bg');
-              })
+              hot1.batch(function() {
+                hot1.alter('insert_row', 10, 10);
+                hot1.alter('insert_col', 6, 1);
+                hot1.populateFromArray(10, 0, data2);
+                hot1.populateFromArray(11, 0, data3);
+                hot1.setCellMeta(2, 2, 'className', 'green-bg');
+                hot1.setCellMeta(4, 2, 'className', 'green-bg');
+                hot1.setCellMeta(5, 2, 'className', 'green-bg');
+                hot1.setCellMeta(6, 2, 'className', 'green-bg');
+                hot1.setCellMeta(8, 2, 'className', 'green-bg');
+                hot1.setCellMeta(9, 2, 'className', 'green-bg');
+                hot1.setCellMeta(10, 2, 'className', 'green-bg');
+                hot1.alter('remove_col', 6, 1);
+                hot1.setCellMeta(0, 5, 'className', 'red-bg');
+                hot1.setCellMeta(10, 5, 'className', 'red-bg');
+              });
               printLog();
             }
-            //alterTable();
+            alterTable();
           </script>
       </div>
 
@@ -327,22 +326,21 @@ hot.resumeExecution(); // It updates the cache internally
               background-color: #FF4136;
             }
 
-            #log {
+            #log2 {
               font-weight: bold;
             }
           </style>
           <script data-jsfiddle="example2">
-            let now = null;
+            var now = null;
 
             function startLog() {
-              if (now === null) {
-                now = Date.now();
-              }
+              now = Date.now();
             }
 
             function printLog() {
-              const elapsedTime = Date.now() - now;
-              log.appendChild(document.createTextNode(`All operations took: ${elapsedTime}ms`));
+              var elapsedTime = Date.now() - now;
+
+              log2.appendChild(document.createTextNode('All operations took (without batching): ' + elapsedTime + 'ms'));
               now = null;
             }
 
@@ -369,7 +367,7 @@ hot.resumeExecution(); // It updates the cache internally
               [14, 'Elise Eli', 'Regular shades', 'uni', 1, 'no']
             ];
 
-            const hot = new Handsontable(document.getElementById('example2'), {
+            var hot2 = new Handsontable(document.getElementById('example2'), {
               data: data1,
               width: 700,
               height: 300,
@@ -378,20 +376,20 @@ hot.resumeExecution(); // It updates the cache internally
 
             function alterTable() {
               startLog();
-              hot.alter('insert_row', 10, 10);
-              hot.alter('insert_col', 6, 1);
-              hot.populateFromArray(10, 0, data2);
-              hot.populateFromArray(11, 0, data3);
-              hot.setCellMeta(2, 2, 'className', 'green-bg');
-              hot.setCellMeta(4, 2, 'className', 'green-bg');
-              hot.setCellMeta(5, 2, 'className', 'green-bg');
-              hot.setCellMeta(6, 2, 'className', 'green-bg');
-              hot.setCellMeta(8, 2, 'className', 'green-bg');
-              hot.setCellMeta(9, 2, 'className', 'green-bg');
-              hot.setCellMeta(10, 2, 'className', 'green-bg');
-              hot.alter('remove_col', 6, 1);
-              hot.setCellMeta(0, 5, 'className', 'red-bg');
-              hot.setCellMeta(10, 5, 'className', 'red-bg');
+              hot2.alter('insert_row', 10, 10);
+              hot2.alter('insert_col', 6, 1);
+              hot2.populateFromArray(10, 0, data2);
+              hot2.populateFromArray(11, 0, data3);
+              hot2.setCellMeta(2, 2, 'className', 'green-bg');
+              hot2.setCellMeta(4, 2, 'className', 'green-bg');
+              hot2.setCellMeta(5, 2, 'className', 'green-bg');
+              hot2.setCellMeta(6, 2, 'className', 'green-bg');
+              hot2.setCellMeta(8, 2, 'className', 'green-bg');
+              hot2.setCellMeta(9, 2, 'className', 'green-bg');
+              hot2.setCellMeta(10, 2, 'className', 'green-bg');
+              hot2.alter('remove_col', 6, 1);
+              hot2.setCellMeta(0, 5, 'className', 'red-bg');
+              hot2.setCellMeta(10, 5, 'className', 'red-bg');
               printLog();
             }
 
