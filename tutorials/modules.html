@@ -160,7 +160,7 @@ import Handsontable from "handsontable";
           <li>"text" cell type</li>
         </ul>
       </br>
-        Having this set up you can ackowledge which elements you can import as needed.
+        Having this set up you can acknowledge which elements you can import as needed.
       </p>
       <p>
         Elements to be imported manually on demand:
@@ -173,7 +173,7 @@ import Handsontable from "handsontable";
           <li>locales</a></li>
           </ul>
         </br>
-        The usecases may wary greatly, this guide will go through the categories and present one example for each.
+        The use cases may wary greatly, this guide will go through the categories and present one example for each.
         </p>
       </div>
       <div class="example-container clearfix">
@@ -199,8 +199,9 @@ registerPlugin(ContextMenu);
         <p>Now, you can use the <code>ContextMenu</code> plugin, the full example looks like this:</p>
         <pre><code class="lang-js">
 import Handsontable from 'handsontable/base';
-import { registerPlugin, ContextMenu } from 'handsontable/plugins';
+import { registerPlugin, AutoColumnSize, ContextMenu } from 'handsontable/plugins';
 
+registerPlugin(AutoColumnSize);
 registerPlugin(ContextMenu);
 
 // switch the context menu on
@@ -241,7 +242,7 @@ registerEditor(PasswordEditor);
 new Handsontable(container, {
   columns: [
     {
-      type: 'password',
+      editor: 'password',
     },
   ]
   // rest of the settings
@@ -365,7 +366,7 @@ new Handsontable(container, {
         <div class="example-container clearfix">
           <h3 id="importing-locales">Importing locales</h3>
                   <p>
-                    Importing locales works slightly different than in case of other elements. Let's try adding the PL-pl locale.
+                    Importing locales works slightly different than in case of other elements. Let's try adding the <code>pl-PL</code> locale.
                   </p>
                   <p>Start with importing the base and the language code:</p>
                     <pre><code class="lang-js">
