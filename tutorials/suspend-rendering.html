@@ -52,10 +52,8 @@ hot.batch(() => {
       As mentioned - suspending the render results in better performance, this is especially visible for numerous operations batched.
       The diagram shows a comparison, the same operations were performed with (deep blue columns) and without the batch (light blue columns).
       The gain in speed of execution time increases with the number of operations batched.
-
-      <img src="images/batch_operations_comparison.png" alt="batch_diagram" />
-      <br>
     </p>
+      <img src="images/batch_operations_comparison.png" alt="batch_diagram" />
     <p>
       Note that there are other methods that can be used to batch operations, however they are slightly more advanced and should
       be used with caution. Flickering, glitches, or other visual distortion may happen when you forget to <code>resume</code> render after
