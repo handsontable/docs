@@ -36,7 +36,7 @@
 
     <ol>
       <li>
-        <p>ESM</p>
+        <h4>ES modules (ESM)</h4>
 
         <pre><code class="lang-js">
 import Handsontable from 'handsontable/base';
@@ -53,7 +53,7 @@ const hot = new Handsontable(container, {
       </li>
 
       <li>
-        <p>CJS</p>
+        <h4>CommonJS (CJS)</h4>
 
         <pre><code class="lang-js">
 const Handsontable = require('handsontable/base').default;
@@ -69,15 +69,16 @@ const hot = new Handsontable(container, {
       </li>
 
       <li>
-        <p>UMD - Languages included this way are ready to use immediately after loading the file. </p>
+        <h4>Universal Module Definition (UMD)</h4>
+        <p>Languages included this way are ready to use immediately after loading the file.</p>
 
         <pre><code class="lang-html">&lt;script type="text/javascript" src="dist/handsontable.full.js"&gt;&lt;/script&gt;
-          &lt;script type="text/javascript" src="dist/languages/xx-XX.js"&gt;&lt;/script&gt;
-          &lt;script&gt;
-          const hot = new Handsontable(container, {
-            language: 'xx-XX',
-          });
-          &lt;/script&gt;
+&lt;script type="text/javascript" src="dist/languages/xx-XX.js"&gt;&lt;/script&gt;
+  &lt;script&gt;
+  const hot = new Handsontable(container, {
+    language: 'xx-XX',
+  });
+&lt;/script&gt;
         </code></pre>
       </li>
     </ol>
@@ -89,16 +90,17 @@ const hot = new Handsontable(container, {
 
     <p>UMD uses the same auto-registering mechanism which is implemented into legacy language files as in the following examples:
     </p>
-    <pre><code class="lang-js">
-      import Handsontable from 'handsontable';
-      import 'handsontable/languages/pl-PL';
-
+    <pre>
+      <code class="lang-js">
+import Handsontable from 'handsontable';
+import 'handsontable/languages/pl-PL';
       </code>
     </pre>
 
-    <pre><code class="lang-js">
-      const Handsontable = require('handsontable/base').default;
-      require('handsontable/languages/xx-XX');
+    <pre>
+      <code class="lang-js">
+const Handsontable = require('handsontable/base').default;
+require('handsontable/languages/xx-XX');
       </code>
     </pre>
   <p>In ESM and CJS auto-registering after import/require is used.  </p>
