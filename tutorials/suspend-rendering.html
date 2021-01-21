@@ -390,6 +390,7 @@ hot.resumeExecution(); // It updates the cache internally
               hot2.alter('remove_col', 6, 1);
               hot2.setCellMeta(0, 5, 'className', 'red-bg');
               hot2.setCellMeta(10, 5, 'className', 'red-bg');
+              hot2.render(); // The render call is needed here as the cells got a new classNames
               printLog();
             }
 
