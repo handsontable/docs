@@ -38,7 +38,8 @@
     </p>
     <p>
       The graph presents a comparison of size in KB for a full bundle, basic optimization and with optimized locales. The sample code
-      is avaiable just below - it shows sample countries and cities and although it looks small it will generate over 345 KB (Gzipped):
+      is avaiable just below - it shows sample countries and cities and although it looks small it will generate over 345 KB (Gzipped).
+      <a href="https://webpack.js.org/">Webpack 5</a> with a default configuration for production builds was used to prepare this example.
     </p>
       <img src="images/modularization_comparison1.png" alt="modularization_comparison_graph" />
     <p>
@@ -376,10 +377,13 @@ import Handsontable from 'handsontable/base';
 
 // import the language code
 import { plPL } from 'handsontable/i18n/languages';
+
+// and interface to register language
+import { registerLanguageDictionary } from 'handsontable/i18n';
     </code></pre>
     <p>Afterwards you need to register it:</p>
     <pre><code class="lang-js">
-Handsontable.languages.registerLanguageDictionary(plPL.languageCode, plPL);
+registerLanguageDictionary(plPL.languageCode, plPL);
     </code></pre>
     <p>Now, you can use newly registered locale. The full example looks like this:</p>
     <pre><code class="lang-js">
@@ -417,10 +421,17 @@ module.exports = {
         </code></pre>
         <p>And then explicitly load selected locales:</p>
         <pre><code class="lang-js">
-const moment = require('moment');
-require('moment/locale/ja');
+import moment from 'moment';
+import 'moment/locale/ja';
+import Handsontable from 'handsontable/base';
+import { registerCellType, DateCellType } from 'handsontable/cellTypes';
 
 moment.locale('ja');
+registerCellType(DateCellType);
+
+new Handsontable(container, {
+  type: 'date',
+});
           </code></pre>
     </p>
 
@@ -436,11 +447,19 @@ moment.locale('ja');
     <p>Tree shaking, also called dead code elimination, allows for the removal of unused code in the bundle during the build process.</p>
     <p>The terms came in 2012, and currently, you can use them in most of the available and popular bundlers such as <strong>webpack</strong>,
       <strong>rollup</strong>, <strong>parceljs</strong> (with an additional flag), and <strong>browserify</strong>.</p>
-    <p>In general, we re-export plugins, renderers, editors, validators, and cell types in the second level of package depth.</p>
 
-    <p>If you want to learn more about this topic, don't hesitate to look at the official documentation of <a href="https://webpack.js.org/guides/tree-shaking/">webpack</a>, 
-      <a href="https://rollupjs.org/guide/en/#tree-shaking">rollup</a>, and <a href="https://parceljs.org/cli.html#enable-experimental-scope-hoisting/tree-shaking-support">parcel</a>.</p>
-
+    <p>If you want to learn more about this topic, don't hesitate to look at the official documentation of <a href="https://webpack.js.org/guides/tree-shaking/">Webpack</a>,
+      <a href="https://rollupjs.org/guide/en/#tree-shaking">Rollup</a>, and <a href="https://parceljs.org/cli.html#enable-experimental-scope-hoisting/tree-shaking-support">Parcel</a>.</p>
+    <p>
+      <strong>Important note</strong>: this guide was prepared based on the newest version of Webpack.
+      For the Webpack 3 and older, Parcel, and few other bundlers, those load CommonJS modules, three shaking might not work as presented above.
+      For the modules to be imported correctly you need to split them and import them one by one from their respective files, just like this:
+    <p>
+    <pre><code class="lang-js">
+import { registerPlugin } from 'handsontable/plugins/registry';
+import { DropdownMenu } from 'handsontable/plugins/dropdownMenu';
+import { ContextMenu } from 'handsontable/plugins/contextMenu';
+    </code></pre>
   </div>
 
   <div class="example-container clearfix">
