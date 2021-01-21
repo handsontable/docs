@@ -456,10 +456,93 @@ new Handsontable(container, {
       For the modules to be imported correctly you need to split them and import them one by one from their respective files, just like this:
     <p>
     <pre><code class="lang-js">
+// import the registering method directly from the file
 import { registerPlugin } from 'handsontable/plugins/registry';
+
+// import the plugins you need
 import { DropdownMenu } from 'handsontable/plugins/dropdownMenu';
 import { ContextMenu } from 'handsontable/plugins/contextMenu';
     </code></pre>
+    <p>The list below presents all registering methods and their files of origin alongside all parts of the component
+      to be imported.
+    </p>
+    <details>
+      <summary>See the full list</summary>
+      <pre><code class="lang-js">
+import { registerEditor } from 'handsontable/editors/registry';
+import { AutocompleteEditor } from 'handsontable/editors/autocompleteEditor';
+import { BaseEditor } from 'handsontable/editors/baseEditor';
+import { CheckboxEditor } from 'handsontable/editors/checkboxEditor';
+import { DateEditor } from 'handsontable/editors/dateEditor';
+import { DropdownEditor } from 'handsontable/editors/dropdownEditor';
+import { HandsontableEditor } from 'handsontable/editors/handsontableEditor';
+import { NumericEditor } from 'handsontable/editors/numericEditor';
+import { PasswordEditor } from 'handsontable/editors/passwordEditor';
+import { SelectEditor } from 'handsontable/editors/selectEditor';
+import { TextEditor } from 'handsontable/editors/textEditor';
+
+import { registerCellType } from 'handsontable/cellTypes/registry';
+import { AutocompleteCellType } from 'handsontable/cellTypes/autocompleteType';
+import { CheckboxCellType } from 'handsontable/cellTypes/checkboxType';
+import { DateCellType } from 'handsontable/cellTypes/dateType';
+import { DropdownCellType } from 'handsontable/cellTypes/dropdownType';
+import { HandsontableCellType } from 'handsontable/cellTypes/handsontableType';
+import { NumericCellType } from 'handsontable/cellTypes/numericType';
+import { PasswordCellType } from 'handsontable/cellTypes/passwordType';
+import { TextCellType } from 'handsontable/cellTypes/textType';
+import { TimeCellType } from 'handsontable/cellTypes/timeType';
+
+import { registerPlugin } from 'handsontable/plugins/registry';
+import { AutoColumnSize } from 'handsontable/plugins/autoColumnSize';
+import { Autofill } from 'handsontable/plugins/autofill';
+import { AutoRowSize } from 'handsontable/plugins/autoRowSize';
+import { BasePlugin } from 'handsontable/plugins/base';
+import { BindRowsWithHeaders } from 'handsontable/plugins/bindRowsWithHeaders';
+import { CollapsibleColumns } from 'handsontable/plugins/collapsibleColumn';
+import { ColumnSorting } from 'handsontable/plugins/columnSorting';
+import { Comments } from 'handsontable/plugins/comments';
+import { ContextMenu } from 'handsontable/plugins/contextMenu';
+import { CopyPaste } from 'handsontable/plugins/copyPaste';
+import { CustomBorders } from 'handsontable/plugins/customBorders';
+import { DragToScroll } from 'handsontable/plugins/dragToScroll';
+import { DropdownMenu } from 'handsontable/plugins/dropdownMenu';
+import { ExportFile } from 'handsontable/plugins/exportFile';
+import { Filters } from 'handsontable/plugins/filters';
+import { HeaderTooltips } from 'handsontable/plugins/headerTooltips';
+import { HiddenColumns } from 'handsontable/plugins/hiddenColumns';
+import { HiddenRows } from 'handsontable/plugins/hiddenRows';
+import { ManualColumnFreeze } from 'handsontable/plugins/manualColumnFreeze';
+import { ManualColumnMove } from 'handsontable/plugins/manualColumnMove';
+import { ManualColumnResize } from 'handsontable/plugins/manualColumnResize';
+import { ManualRowMove } from 'handsontable/plugins/manualRowMove';
+import { ManualRowResize } from 'handsontable/plugins/manualRowResize';
+import { MergeCells } from 'handsontable/plugins/mergeCells';
+import { MultipleSelectionHandles } from 'handsontable/plugins/multipleSelectionHandles';
+import { NestedHeaders } from 'handsontable/plugins/nestedHeaders';
+import { NestedRows } from 'handsontable/plugins/nestedRows';
+import { ObserveChanges } from 'handsontable/plugins/observeChanges';
+import { PersistentState } from 'handsontable/plugins/persistentState';
+import { Search } from 'handsontable/plugins/search';
+import { TouchScroll } from 'handsontable/plugins/touchScroll';
+import { TrimRows } from 'handsontable/plugins/trimRows';
+import { UndoRedo } from 'handsontable/plugins/undoRedo';
+
+import { registerRenderer } from 'handsontable/renderers/registry';
+import { autocompleteRenderer } from 'handsontable/renderers/autocompleteRenderer';
+import { baseRenderer } from 'handsontable/renderers/baseRenderer';
+import { checkboxRenderer } from 'handsontable/renderers/checkboxRenderer';
+import { htmlRenderer } from 'handsontable/renderers/htmlRenderer';
+import { numericRenderer } from 'handsontable/renderers/numericRenderer';
+import { passwordRenderer } from 'handsontable/renderers/passwordRenderer';
+import { textRenderer } from 'handsontable/renderers/textRenderer';
+
+import { registerValidator } from 'handsontable/validators/registry';
+import { autocompleteValidator } from 'handsontable/validators/autocompleteValidator';
+import { dateValidator } from 'handsontable/validators/dateValidator';
+import { numericValidator } from 'handsontable/validators/numericValidator';
+import { timeValidator } from 'handsontable/validators/timeValidator';
+    </code></pre>
+    </details>
   </div>
 
   <div class="example-container clearfix">
