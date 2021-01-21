@@ -48,7 +48,7 @@
     </p>
 
 <pre><code class="lang-js">
-  const settings =  {
+const settings =  {
   colHeaders: true,
   filters: true,
   data: [
@@ -91,7 +91,7 @@
 
     <pre><code class="lang-js">
 // import a full bundle, all functionalities included
-import Handsontable from 'handsontable',
+import Handsontable from 'handsontable';
 
 const container = document.createElement('div');
 document.body.appendChild(container);
@@ -349,6 +349,7 @@ registerCellType(CheckboxCellType);
     <pre><code class="lang-js">
 import Handsontable from 'handsontable/base';
 import { registerCellType, CheckboxCellType } from 'handsontable/cellTypes';
+
 registerCellType(CheckboxCellType);
 
 // use the checkbox cell type where you need
@@ -383,9 +384,10 @@ Handsontable.languages.registerLanguageDictionary(plPL.languageCode, plPL);
     <p>Now, you can use newly registered locale. The full example looks like this:</p>
     <pre><code class="lang-js">
 import Handsontable from 'handsontable/base';
+import { registerLanguageDictionary } from 'handsontable/i18n';
 import { plPL } from 'handsontable/i18n/languages';
 
-Handsontable.languages.registerLanguageDictionary(plPL.languageCode, plPL);
+registerLanguageDictionary(plPL);
 
 // use the locales
 new Handsontable(container, {
@@ -608,6 +610,7 @@ registerPlugin(PersistentState);
 registerPlugin(Search);
 registerPlugin(TouchScroll);
 registerPlugin(TrimRows);
+registerPlugin(UndoRedo);
 
 new Handsontable(container, {});
 </code></pre>
