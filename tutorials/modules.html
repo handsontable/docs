@@ -41,7 +41,7 @@
       is avaiable just below - it shows sample countries and cities and although it looks small it will generate over 345 KB (Gzipped).
       <a href="https://webpack.js.org/">Webpack 5</a> with a default configuration for production builds was used to prepare this example.
     </p>
-      <img src="images/modularization_comparison1.png" alt="modularization_comparison_graph" />
+      <img src="images/bundle_size_comparison.png" alt="bundle_size_comparison" />
     <p>
      You can compare the following examples to see the difference in the size of the final build.
      Note: this is an example in a nutshell, just to present a comparison, the next section shows how to do it step by step.
@@ -146,6 +146,9 @@ const hot = new Handsontable(container, settings);
         <pre><code class="lang-js">
 // this part is crucial to be imported
 import Handsontable from 'handsontable/base';
+
+// import the css file - this is not modularized;
+import 'handsontable/dist/handsontable.full.css';
           </code></pre>
         <p>If you had already an import of Handsontable just remove this line:</p>
           <pre><code class="lang-js">
