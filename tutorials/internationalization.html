@@ -41,12 +41,12 @@
         <pre><code class="lang-js">
 import Handsontable from 'handsontable/base';
 import { registerLanguageDictionary } from 'handsontable/i18n';
-import xxXX from 'handsontable/i18n/languages/xx-XX';
+import daDK from 'handsontable/i18n/languages/da-DK';
 
-registerLanguageDictionary(xxXX);
+registerLanguageDictionary(daDK);
 
 const hot = new Handsontable(container, {
-  language: xxXX.languageCode,
+  language: daDK.languageCode,
 });
         </code></pre>
 
@@ -58,12 +58,12 @@ const hot = new Handsontable(container, {
         <pre><code class="lang-js">
 const Handsontable = require('handsontable/base').default;
 const { registerLanguageDictionary } = require('handsontable/i18n');
-const xxXX = require('handsontable/i18n/languages/xx-XX').default;
+const daDK = require('handsontable/i18n/languages/da-DK').default;
 
-registerLanguageDictionary(xxXX);
+registerLanguageDictionary(daDK);
 
 const hot = new Handsontable(container, {
-  language: xxXX.languageCode,
+  language: daDK.languageCode,
 });
         </code></pre>
       </li>
@@ -73,10 +73,10 @@ const hot = new Handsontable(container, {
         <p>Languages included this way are ready to use immediately after loading the file.</p>
 
         <pre><code class="lang-html">&lt;script type="text/javascript" src="dist/handsontable.full.js"&gt;&lt;/script&gt;
-&lt;script type="text/javascript" src="dist/languages/xx-XX.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript" src="dist/languages/da-DK.js"&gt;&lt;/script&gt;
   &lt;script&gt;
   const hot = new Handsontable(container, {
-    language: 'xx-XX',
+    language: 'da-DK',
   });
 &lt;/script&gt;
         </code></pre>
@@ -100,7 +100,7 @@ import 'handsontable/languages/pl-PL';
     <pre>
       <code class="lang-js">
 const Handsontable = require('handsontable/base').default;
-require('handsontable/languages/xx-XX');
+require('handsontable/languages/da-DK');
       </code>
     </pre>
   <p>In ESM and CJS auto-registering after import/require is used.  </p>
@@ -342,12 +342,12 @@ export default dictionary;</code></pre>
     <pre><code class="lang-js">
 import Handsontable from 'handsontable/base';
 import{ registerLanguageDictionary, dictionaryKeys } from 'handsontable/i18n';
-const xxXX = require('handsontable/i18n/languages/xx-XX').default;
+const daDK = require('handsontable/i18n/languages/da-DK').default;
 
-registerLanguageDictionary(xxXX);
+registerLanguageDictionary(daDK);
 
 const hot = new Handsontable(container, {
-  language: xxXX.languageCode,
+  language: daDK.languageCode,
 });
     </code></pre>
 
@@ -359,10 +359,10 @@ const hot = new Handsontable(container, {
     <pre><code class="lang-js">
 import Handsontable from 'handsontable/base';
 import { registerLanguageDictionary, dictionaryKeys } from 'handsontable/i18n';
-import xxXX from 'handsontable/i18n/languages/xxXX';
+import daDK from 'handsontable/i18n/languages/daDK';
 
 const overwrittenXYZ = {
-  ...xxXX,
+  ...daDK,
   [dictionaryKeys.FILTERS_BUTTONS_OK]: 'Filter',
 }
 
