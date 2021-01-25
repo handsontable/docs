@@ -86,27 +86,6 @@ const hot = new Handsontable(container, {
   </div>
 
   <div class="example-container clearfix">
-    <h3 id="loading-language-files">Legacy auto-registering</h3>
-
-    <p>UMD uses the same auto-registering mechanism which is implemented into legacy language files as in the following examples:
-    </p>
-    <pre>
-      <code class="lang-js">
-import Handsontable from 'handsontable';
-import 'handsontable/languages/pl-PL';
-      </code>
-    </pre>
-
-    <pre>
-      <code class="lang-js">
-const Handsontable = require('handsontable/base').default;
-require('handsontable/languages/da-DK');
-      </code>
-    </pre>
-  <p>In ESM and CJS auto-registering after import/require is used.  </p>
-  </div>
-
-  <div class="example-container clearfix">
     <h3 id="demo">Demo</h3>
 
     <p>Please right click on a cell to see the translated context menu. Language files were loaded after loading Handsontable.</p>
