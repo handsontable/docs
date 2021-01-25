@@ -137,6 +137,24 @@
   float: none;
 }
 
+/* details tag styling override */
+details {
+  cursor: pointer;
+}
+
+summary {
+  margin-bottom: 10px;
+}
+
+summary::-webkit-details-marker {
+  display: none;
+}
+
+summary:before {
+  content: "\25B6";
+  margin-right: 5px;
+}
+
 /* Boostrap demo */
 .bootstrap-container {
   width: 567px;
