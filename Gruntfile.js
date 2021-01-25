@@ -161,6 +161,12 @@ module.exports = function(grunt) {
               src: ['dist/polyfill.min.js'],
               dest: 'generated/components/promise-polyfill/',
             },
+            {
+              expand: true,
+              cwd: 'node_modules/details-element-polyfill',
+              src: ['dist/details-element-polyfill.js'],
+              dest: 'generated/components/details-element-polyfill/',
+            },
           ]
         }
       },
