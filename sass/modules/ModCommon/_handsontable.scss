@@ -152,7 +152,14 @@ summary::-webkit-details-marker {
 
 summary:before {
   content: "\25B6";
-  margin-right: 5px;
+  display: inline-block;
+  width: 20px;
+}
+
+details[open] > summary:before {
+  content: "\25BC";
+  display: inline-block;
+  width: 20px;
 }
 
 /* Boostrap demo */
