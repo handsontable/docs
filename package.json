@@ -16,6 +16,7 @@
     "axios": "^0.18.0",
     "bluebird": "^2.9.25",
     "copy-object": "^1.0.0",
+    "details-element-polyfill": "^2.4.0",
     "fastclick": "^1.0.6",
     "font-awesome": "^4.7.0",
     "git-repo-info": "^1.1.1",
