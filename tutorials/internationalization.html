@@ -117,16 +117,16 @@ const hot = new Handsontable(container, {
       <script data-jsfiddle="example1">
         import Handsontable from 'handsontable/base';
         import { registerLanguageDictionary } from 'handsontable/i18n';
-        import daDK from 'handsontable/i18n/languages/da-DK';
+        import plPL from 'handsontable/i18n/languages/pl-PL';
 
-        registerLanguageDictionary(daDK);
+        registerLanguageDictionary(plPL);
 
         const example1 = document.getElementById('example1');
 
         const hot = new Handsontable(example1, {
           data: dataObj,
           contextMenu: true,
-          language: daDK.languageCode
+          language: plPL.languageCode
         });</script>
     </div>
   </div>
