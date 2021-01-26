@@ -325,34 +325,31 @@ hot.resumeExecution(); // It updates the cache internally
             });
 
             function standardAlterTable() {
-              const t1 = performance.now();
-
+              var t1 = performance.now();
               alterTable();
-              const t2 = performance.now();
+              var t2 = performance.now();
 
-              logOutput(`Time without batch ${t2 - t1} ms`);
+              logOutput('Time without batch ' + (t2 - t1).toFixed(2) + 'ms');
             }
 
             function batchedAlterTable() {
-              const t1 = performance.now();
+              var t1 = performance.now();
               hot.batch(alterTable);
-              const t2 = performance.now();
+              var t2 = performance.now();
 
-              logOutput(`Time with batch ${t2 - t1} ms`);
+              logOutput('Time with batch ' + (t2 - t1).toFixed(2) + 'ms');
             }
 
             function logOutput(msg) {
-              const logDiv = document.querySelector('#logOuput');
-              const div = document.createElement('div');
-              const now = new Date();
+              var logDiv = document.querySelector('#logOuput');
+              var div = document.createElement('div');
+              var now = new Date();
 
-              div.innerText = `[${now.toTimeString().slice(0,8)}] ${msg}`;
+              div.innerText = '[' + now.toTimeString().slice(0, 8) + '] ' + msg;
               logDiv.prepend(div);
             }
           </script>
       </div>
-
-      </p>
   </div>
 
   <p class="gap-top-xsmall">
