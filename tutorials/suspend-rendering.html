@@ -312,12 +312,12 @@ hot.resumeExecution(); // It updates the cache internally
               hot.alter('remove_row', 10, 10);
               hot.setCellMeta(0, 5, 'className', 'red-bg');
               hot.setCellMeta(10, 5, 'className', 'red-bg');
-              hot.render(); // Render here is needed to populate the new "className"s
             }
 
             Handsontable.dom.addEvent(buttonWithout, 'click', function() {
               var t1 = performance.now();
               alterTable();
+              hot.render(); // Render here is needed to populate the new "className"s
               var t2 = performance.now();
 
               logOutput('Time without batch ' + (t2 - t1).toFixed(2) + 'ms');
