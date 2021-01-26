@@ -60,6 +60,7 @@ hot.batch(() => {
       suspending it several times. Mixing methods of a render type with those focused on operations can also result in some unexpected behavior.
       Above all, <code>batch</code> should be sufficient in most use cases, and it is safe to work with.
     </p>
+  </div>
 
   <div class="example-container head-gap clearfix" name="suspend-api">
     <h3 id="page-suspend-api">API methods</h3>
@@ -190,6 +191,7 @@ hot.getPlugin('columnSorting').sort({ column: 1, sortOrder: 'desc' });
 hot.resumeExecution(); // It updates the cache internally
         </code>
       </pre>
+  </div>
 
   <div class="example-container clearfix" name="suspend-demo">
     <h3 id="page-suspend-demo">Live demo of suspend feature</h3>
@@ -197,11 +199,10 @@ hot.resumeExecution(); // It updates the cache internally
       Both of the examples share the same dataset and operations. The first one shows how much time lapsed
       when the <code>batch</code> method was used. You can run the second example to check how much it takes
       to render without the <code>batch</code> method.
-
     </p>
 
       <div data-jsfiddle="example1">
-        <div id="example1"></div>
+        <div id="example1" class="hot"></div>
         <button id="buttonWithout">Without batch</button>
         <button id="buttonWith">With batch</button>
         <div id="logOuput"></div>
@@ -293,6 +294,7 @@ hot.resumeExecution(); // It updates the cache internally
             var hot = new Handsontable(document.getElementById('example1'), {
               data: data1,
               width: 700,
+              height: 260,
               colHeaders: ['ID', 'Customer name', 'Product name', 'Size', 'qty', 'Return'],
               licenseKey: 'non-commercial-and-evaluation',
             });
@@ -313,12 +315,12 @@ hot.resumeExecution(); // It updates the cache internally
               hot.alter('remove_row', 10, 10);
               hot.setCellMeta(0, 5, 'className', 'red-bg');
               hot.setCellMeta(10, 5, 'className', 'red-bg');
+              hot.render(); // Render here is needed to populate the new "className"s
             }
 
             Handsontable.dom.addEvent(buttonWithout, 'click', function() {
               var t1 = performance.now();
               alterTable();
-              hot.render(); // Render here is needed to populate the new "className"s
               var t2 = performance.now();
 
               logOutput('Time without batch ' + (t2 - t1).toFixed(2) + 'ms');
