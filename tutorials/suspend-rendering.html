@@ -199,9 +199,12 @@ hot.resumeExecution(); // It updates the cache internally
       to render without the <code>batch</code> method.
 
     </p>
+
       <div data-jsfiddle="example1">
-        <div id="example1" class="hot"></div>
-        <p id="log1"></p>
+        <div id="example1"></div>
+        <button id="buttonWithout" onclick="standardAlterTable">Without batch</button>
+        <button id="buttonWith" onclick="batchedAlterTable">With batch</button>
+        <div id="logOuput"></div>
       </div>
 
       <div class="codeLayout">
@@ -225,24 +228,45 @@ hot.resumeExecution(); // It updates the cache internally
               background-color: #FF4136;
             }
 
-            #log1 {
+            #buttonWith {
+              background-color: #104ACC;
+              color: #F5F5F5;
+              border: #E0E0E0;
+              padding: 10px;
+              border-radius: 3px;
+              margin-top: 10px;
+            }
+
+            #buttonWithout {
+              background-color: #568afb;
+              color: #F5F5F5;
+              border: #487ff5;
+              padding: 10px;
+              border-radius: 3px;
+              margin-top: 10px;
+            }
+
+            #buttonWith:hover {
+              background-color: #0039B5;
+              cursor: pointer;
+            }
+
+            #buttonWithout:hover {
+              background-color: #3e78f7;
+              cursor: pointer;
+            }
+
+            #logOuput {
+              padding: 15px 0 10px 0;
+              overflow-y: scroll;
+              max-height:400px;
+            }
+
+            #logOuput div:first-child {
               font-weight: bold;
             }
         </style>
         <script data-jsfiddle="example1">
-            var now = null;
-
-            function startLog() {
-              now = Date.now();
-            }
-
-            function printLog() {
-              var elapsedTime = Date.now() - now;
-
-              log1.appendChild(document.createTextNode('All operations took (batch version): ' + elapsedTime + 'ms'));
-              now = null;
-            }
-
             var data1 = [
               [1, 'Gary Nash', 'Speckled trousers', 'S', 1, 'yes'],
               [2, 'Gloria Brown', '100% Stainless sweater', 'M', 2, 'no'],
@@ -266,137 +290,69 @@ hot.resumeExecution(); // It updates the cache internally
               [14, 'Elise Eli', 'Regular shades', 'uni', 1, 'no']
             ];
 
-            var hot1 = new Handsontable(document.getElementById('example1'), {
+            var hot = new Handsontable(document.getElementById('example1'), {
               data: data1,
               width: 700,
-              height: 300,
+              height: 250,
               colHeaders: ['ID', 'Customer name', 'Product name', 'Size', 'qty', 'Return'],
+              licenseKey: 'non-commercial-and-evaluation',
             });
 
             function alterTable() {
-              startLog();
-              hot1.batch(function() {
-                hot1.alter('insert_row', 10, 10);
-                hot1.alter('insert_col', 6, 1);
-                hot1.populateFromArray(10, 0, data2);
-                hot1.populateFromArray(11, 0, data3);
-                hot1.setCellMeta(2, 2, 'className', 'green-bg');
-                hot1.setCellMeta(4, 2, 'className', 'green-bg');
-                hot1.setCellMeta(5, 2, 'className', 'green-bg');
-                hot1.setCellMeta(6, 2, 'className', 'green-bg');
-                hot1.setCellMeta(8, 2, 'className', 'green-bg');
-                hot1.setCellMeta(9, 2, 'className', 'green-bg');
-                hot1.setCellMeta(10, 2, 'className', 'green-bg');
-                hot1.alter('remove_col', 6, 1);
-                hot1.setCellMeta(0, 5, 'className', 'red-bg');
-                hot1.setCellMeta(10, 5, 'className', 'red-bg');
-              });
-              printLog();
+              hot.alter('insert_row', 10, 10);
+              hot.alter('insert_col', 6, 1);
+              hot.populateFromArray(10, 0, data2);
+              hot.populateFromArray(11, 0, data3);
+              hot.setCellMeta(2, 2, 'className', 'green-bg');
+              hot.setCellMeta(4, 2, 'className', 'green-bg');
+              hot.setCellMeta(5, 2, 'className', 'green-bg');
+              hot.setCellMeta(6, 2, 'className', 'green-bg');
+              hot.setCellMeta(8, 2, 'className', 'green-bg');
+              hot.setCellMeta(9, 2, 'className', 'green-bg');
+              hot.setCellMeta(10, 2, 'className', 'green-bg');
+              hot.alter('remove_col', 6, 1);
+              hot.alter('remove_row', 10, 10);
+              hot.setCellMeta(0, 5, 'className', 'red-bg');
+              hot.setCellMeta(10, 5, 'className', 'red-bg');
             }
-            alterTable();
+
+            Handsontable.dom.addEvent(buttonWithout, 'click', function() {
+              standardAlterTable();
+            });
+
+            Handsontable.dom.addEvent(buttonWith, 'click', function() {
+              batchedAlterTable();
+            });
+
+            function standardAlterTable() {
+              const t1 = performance.now();
+
+              alterTable();
+              const t2 = performance.now();
+
+              logOutput(`Time without batch ${t2 - t1} ms`);
+            }
+
+            function batchedAlterTable() {
+              const t1 = performance.now();
+              hot.batch(alterTable);
+              const t2 = performance.now();
+
+              logOutput(`Time with batch ${t2 - t1} ms`);
+            }
+
+            function logOutput(msg) {
+              const logDiv = document.querySelector('#logOuput');
+              const div = document.createElement('div');
+              const now = new Date();
+
+              div.innerText = `[${now.toTimeString().slice(0,8)}] ${msg}`;
+              logDiv.prepend(div);
+            }
           </script>
       </div>
 
-      <p>No <code>batch</code> used. The results are very same but it takes longer.
-
       </p>
-        <div data-jsfiddle="example2">
-          <div id="example2" class="hot"></div>
-          <p id="log2"></p>
-        </div>
-
-        <div class="codeLayout">
-          <div class="buttons">
-            <button class="jsFiddleLink" data-runfiddle="example2">
-              <i class="fa fa-jsfiddle"></i>
-              Edit
-            </button>
-            <button class="dump" name="dump" data-dump="#example2" data-instance="hot2"
-                    title="Print current data source to console">
-              <i class="fa fa-terminal"></i>
-              Log to console
-            </button>
-          </div>
-          <style data-jsfiddle="example2">
-            .handsontable .green-bg {
-              background-color: #2ECC40;
-            }
-
-            .handsontable .red-bg {
-              background-color: #FF4136;
-            }
-
-            #log2 {
-              font-weight: bold;
-            }
-          </style>
-          <script data-jsfiddle="example2">
-            var now = null;
-
-            function startLog() {
-              now = Date.now();
-            }
-
-            function printLog() {
-              var elapsedTime = Date.now() - now;
-
-              log2.appendChild(document.createTextNode('All operations took (without batching): ' + elapsedTime + 'ms'));
-              now = null;
-            }
-
-            var data1 = [
-              [1, 'Gary Nash', 'Speckled trousers', 'S', 1, 'yes'],
-              [2, 'Gloria Brown', '100% Stainless sweater', 'M', 2, 'no'],
-              [3, 'Ronald Carver', 'Sunny T-shirt', 'S', 1, 'no'],
-              [4, 'Samuel Watkins', 'Floppy socks', 'S', 3, 'no'],
-              [5, 'Stephanie Huddart', 'Bushy-bush cap', 'XXL', 1, 'no'],
-              [6, 'Madeline McGillivray', 'Long skirt', 'L', 1, 'no'],
-              [7, 'Jai Moor', 'Happy dress', 'XS', 1, 'no'],
-              [8, 'Ben Lower', 'Speckled trousers', 'M', 1, 'no'],
-              [9, 'Ali Tunbridge', 'Speckled trousers', 'M', 2, 'no'],
-              [10, 'Archie Galvin', 'Regular shades', 'uni', 10, 'no']
-            ];
-
-            var data2 = [
-              [11, 'Gavin Elle', 'Floppy socks', 'XS', 3, 'yes'],
-            ];
-
-            var data3 = [
-              [12, 'Gary Erre', 'Happy dress', 'M', 1, 'no'],
-              [13, 'Anna Moon', 'Unicorn shades', 'uni', 200, 'no'],
-              [14, 'Elise Eli', 'Regular shades', 'uni', 1, 'no']
-            ];
-
-            var hot2 = new Handsontable(document.getElementById('example2'), {
-              data: data1,
-              width: 700,
-              height: 300,
-              colHeaders: ['ID', 'Customer name', 'Product name', 'Size', 'qty', 'Return'],
-            });
-
-            function alterTable() {
-              startLog();
-              hot2.alter('insert_row', 10, 10);
-              hot2.alter('insert_col', 6, 1);
-              hot2.populateFromArray(10, 0, data2);
-              hot2.populateFromArray(11, 0, data3);
-              hot2.setCellMeta(2, 2, 'className', 'green-bg');
-              hot2.setCellMeta(4, 2, 'className', 'green-bg');
-              hot2.setCellMeta(5, 2, 'className', 'green-bg');
-              hot2.setCellMeta(6, 2, 'className', 'green-bg');
-              hot2.setCellMeta(8, 2, 'className', 'green-bg');
-              hot2.setCellMeta(9, 2, 'className', 'green-bg');
-              hot2.setCellMeta(10, 2, 'className', 'green-bg');
-              hot2.alter('remove_col', 6, 1);
-              hot2.setCellMeta(0, 5, 'className', 'red-bg');
-              hot2.setCellMeta(10, 5, 'className', 'red-bg');
-              hot2.render(); // The render call is needed here as the cells got a new classNames
-              printLog();
-            }
-
-            alterTable();
-          </script>
-        </div>
   </div>
 
   <p class="gap-top-xsmall">
