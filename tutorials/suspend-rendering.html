@@ -346,7 +346,7 @@ hot.resumeExecution(); // It updates the cache internally
               var now = new Date();
 
               div.innerText = '[' + now.toTimeString().slice(0, 8) + '] ' + msg;
-              logDiv.prepend(div);
+              logDiv.insertBefore(div, logDiv.firstChild);
             }
           </script>
       </div>
