@@ -107,7 +107,7 @@ const hot = new Handsontable(container, {
         </button>
       </div>
       <script data-jsfiddle="example1" data-dont-display="true">
-        var dataObj = [
+        const dataObj = [
           ['Lorem', 'ipsum', 'dolor', 'sit', '12/1/2015', 23],
           ['adipiscing', 'elit', 'Ut', 'imperdiet', '5/12/2015', 6],
           ['Pellentesque', 'vulputate', 'leo', 'semper', '10/23/2015', 26],
@@ -115,12 +115,18 @@ const hot = new Handsontable(container, {
           ['orci', 'et', 'dignissim', 'hendrerit', '12/1/2016', 8.5]
         ];</script>
       <script data-jsfiddle="example1">
-        var example1 = document.getElementById('example1');
+        import Handsontable from 'handsontable/base';
+        import { registerLanguageDictionary } from 'handsontable/i18n';
+        import daDK from 'handsontable/i18n/languages/da-DK';
 
-        var hot = new Handsontable(example1, {
+        registerLanguageDictionary(daDK);
+
+        const example1 = document.getElementById('example1');
+
+        const hot = new Handsontable(example1, {
           data: dataObj,
           contextMenu: true,
-          language: 'pl-PL'
+          language: daDK.languageCode
         });</script>
     </div>
   </div>
