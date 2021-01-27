@@ -38,32 +38,28 @@
       <li>
         <h4>ES modules (ESM)</h4>
 
-        <pre><code class="lang-js">
-import Handsontable from 'handsontable/base';
+        <pre><code class="lang-js">import Handsontable from 'handsontable/base';
 import { registerLanguageDictionary, daDK } from 'handsontable/i18n';
 
 registerLanguageDictionary(daDK);
 
 const hot = new Handsontable(container, {
   language: daDK.languageCode,
-});
-        </code></pre>
+});</code></pre>
 
       </li>
 
       <li>
         <h4>CommonJS (CJS)</h4>
 
-        <pre><code class="lang-js">
-const Handsontable = require('handsontable/base').default;
+        <pre><code class="lang-js">const Handsontable = require('handsontable/base').default;
 const { registerLanguageDictionary, daDK } = require('handsontable/i18n');
 
 registerLanguageDictionary(daDK);
 
 const hot = new Handsontable(container, {
   language: daDK.languageCode,
-});
-        </code></pre>
+});</code></pre>
       </li>
 
       <li>
@@ -77,8 +73,7 @@ const hot = new Handsontable(container, {
   const hot = new Handsontable(container, {
     language: 'da-DK',
   });
-&lt;/script&gt;
-        </code></pre>
+&lt;/script&gt;</code></pre>
       </li>
     </ol>
 
@@ -114,7 +109,6 @@ const hot = new Handsontable(container, {
           ['orci', 'et', 'dignissim', 'hendrerit', '12/1/2016', 8.5]
         ];</script>
       <script data-jsfiddle="example1">
-
         var example1 = document.getElementById('example1');
 
         var hot = new Handsontable(example1, {
@@ -318,10 +312,9 @@ export default dictionary;</code></pre>
       which are described briefly in the next section. ()
     </p>
 
-    <pre><code class="lang-js">
-import Handsontable from 'handsontable/base';
-import { 
-  registerLanguageDictionary, 
+    <pre><code class="lang-js">import Handsontable from 'handsontable/base';
+import {
+  registerLanguageDictionary,
   dictionaryKeys,
   daDK
 } from 'handsontable/i18n';
@@ -330,18 +323,16 @@ registerLanguageDictionary(daDK);
 
 const hot = new Handsontable(container, {
   language: daDK.languageCode,
-});
-    </code></pre>
+});</code></pre>
 
     <h4>Overwrite language in app</h4>
 
     <p>
       By default, built-in translations use <code>en-US</code> as a fallback option if in your translation some keys are missing.
     </p>
-    <pre><code class="lang-js">
-import Handsontable from 'handsontable/base';
-import { 
-  registerLanguageDictionary, 
+    <pre><code class="lang-js">import Handsontable from 'handsontable/base';
+import {
+  registerLanguageDictionary,
   dictionaryKeys,
   daDK
 } from 'handsontable/i18n';
@@ -355,8 +346,7 @@ registerLanguageDictionary(overwrittenXYZ);
 
 const hot = new Handsontable(container, {
   language: overwrittenXYZ.languageCode,
-});
-          </code></pre>
+});</code></pre>
   </div>
 
   <div class="example-container clearfix">
@@ -366,8 +356,7 @@ const hot = new Handsontable(container, {
       You can register a language dictionary containing custom keys. These entries can be used like any other keys, so you're not
       limited to using our pre-defined constants (the ones that are present within <code>dictionaryKeys</code> from <code>handsontable/i18n</code>
       file and may be accessed by <code>Handsontable.languages.dictionaryKeys</code> in UMD builds).
-    <pre><code class="lang-js">
-import Handsontable from 'handsontable/base';
+    <pre><code class="lang-js">import Handsontable from 'handsontable/base';
 import { registerLanguageDictionary } from 'handsontable/i18n';
 
 const customDictionary = {
@@ -379,8 +368,7 @@ registerLanguageDictionary(customDictionary);
 
 const hot = new Handsontable(container, {
   language: customDictionary.languageCode,
-});
-</code></pre>
+});</code></pre>
     </p>
   </div>
 
