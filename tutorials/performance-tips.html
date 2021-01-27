@@ -62,6 +62,59 @@
             however adding too many CSS animations, transitions and other calculation-consuming attributes may
             impact the performance, so keep them at a reasonable level.
         </p>
+
+        <h3>Suspend rendering</h3>
+        <p>
+            By default, Handsontable will call the render after each CRUD operation. Usually, this is expected behavior, however,
+            in some use cases, you may find it slightly excessive.
+            By using one of batching methods you can suspend render and call it just once, in the end, for example:
+        </p>
+
+        <pre><code class="lang-js">hot.batch(() => {
+    hot.alter('insert_row', 5, 45);
+    hot.setDataAtCell(1, 1, 'x');
+
+    const filters = hot.getPlugin('filters');
+
+    filters.addCondition(2, 'contains', ['3']);
+    filters.filter();
+    hot.getPlugin('columnSorting').sort({ column: 1, sortOrder: 'desc' });
+    // The table cache will be recalculated and table render will be called once after executing the callback
+});</code></pre>
+
+        <p>
+            Visit the <a href="/docs/<?js= version ?>/tutorial-suspend-rendering.html">suspend rendering</a> page to
+            find more information on how to use batching.
+        </p>
+
+        <h3>Use modules</h3>
+        <p>
+            If you need only a few parts of Handsontable you can think of importing them as <strong>modules</strong>.
+            Eventually, this can lead to lowering the bundle size.
+            In short - it can be done in several steps:
+        </p>
+        <ul>
+            <li>import the base</li>
+            <li>import the module you want to use and its registering method</li>
+            <li>register it</li>
+            <li>use it</li>
+        </ul>
+        <p>The example shows to import and register <code>ContextMenu</code></p>
+        <pre><code class="lang-js">import Handsontable from 'handsontable/base';
+import { registerPlugin, ContextMenu } from 'handsontable/plugins';
+
+registerPlugin(ContextMenu);
+
+// switch the context menu on
+new Handsontable(container, {
+  contextMenu: true,
+  // rest of the settings
+});</code></pre>
+        <p>
+        You can also optimize the use of <strong>moment.js</strong>. To find out more about this topic check out the
+        <a href="/docs/<?js= version ?>/tutorial-modules.html">modules page</a>.
+        </p>
+
     </div>
     <p class="gap-top-xsmall">
       <a href="https://github.com/handsontable/docs/edit/<?js= version ?>/tutorials/performance-tips.html" class="edit-doc" target="_blank">
