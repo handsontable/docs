@@ -371,21 +371,21 @@ new Handsontable(container, {
                     <pre><code class="lang-js">// remember to have the base imported
 import Handsontable from 'handsontable/base';
 
-// import the language code
-import { plPL } from 'handsontable/i18n/languages';
-
-// and interface to register language
-import { registerLanguageDictionary } from 'handsontable/i18n';</code></pre>
-
+// import the language code and interface to register language
+import { registerLanguageDictionary, plPL } from 'handsontable/i18n';
+    </code></pre>
     <p>Afterwards you need to register it:</p>
+    <pre><code class="lang-js">
+registerLanguageDictionary(plPL.languageCode, plPL);
 
-    <pre><code class="lang-js">registerLanguageDictionary(plPL.languageCode, plPL);</code></pre>
-
+// or if the language dictionary object contains the "languageCode" property,
+// the registration can be simplified to something like this
+registerLanguageDictionary(plPL);
+    </code></pre>
     <p>Now, you can use newly registered locale. The full example looks like this:</p>
-
-    <pre><code class="lang-js">import Handsontable from 'handsontable/base';
-import { registerLanguageDictionary } from 'handsontable/i18n';
-import { plPL } from 'handsontable/i18n/languages';
+    <pre><code class="lang-js">
+import Handsontable from 'handsontable/base';
+import { registerLanguageDictionary, plPL } from 'handsontable/i18n';
 
 registerLanguageDictionary(plPL);
 
@@ -535,7 +535,10 @@ import { registerValidator } from 'handsontable/validators/registry';
 import { autocompleteValidator } from 'handsontable/validators/autocompleteValidator';
 import { dateValidator } from 'handsontable/validators/dateValidator';
 import { numericValidator } from 'handsontable/validators/numericValidator';
-import { timeValidator } from 'handsontable/validators/timeValidator';</code></pre>
+import { timeValidator } from 'handsontable/validators/timeValidator';
+
+import { registerLanguageDictionary } from 'handsontable/i18n/registry';
+    </code></pre>
     </details>
   </div>
 
@@ -628,14 +631,40 @@ import {
 } from 'handsontable/plugins';
 import {
   registerLanguageDictionary,
-} from 'handsontable/i18n';
-import {
-  plPL,
+  deCH,
   deDE,
-} from 'handsontable/i18n/languages';
+  enUS,
+  esMX,
+  frFR,
+  itIT,
+  jaJP,
+  koKR,
+  lvLV,
+  nbNO,
+  nlNL,
+  plPL,
+  ptBR,
+  ruRU,
+  zhCN,
+  zhTW,
+} from 'handsontable/i18n';
 
-registerLanguageDictionary(plPL);
+registerLanguageDictionary(deCH);
 registerLanguageDictionary(deDE);
+registerLanguageDictionary(enUS);
+registerLanguageDictionary(esMX);
+registerLanguageDictionary(frFR);
+registerLanguageDictionary(itIT);
+registerLanguageDictionary(jaJP);
+registerLanguageDictionary(koKR);
+registerLanguageDictionary(lvLV);
+registerLanguageDictionary(nbNO);
+registerLanguageDictionary(nlNL);
+registerLanguageDictionary(plPL);
+registerLanguageDictionary(ptBR);
+registerLanguageDictionary(ruRU);
+registerLanguageDictionary(zhCN);
+registerLanguageDictionary(zhTW);
 
 registerEditor(BaseEditor);
 registerEditor(AutocompleteEditor);
