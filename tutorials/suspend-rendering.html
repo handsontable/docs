@@ -36,18 +36,16 @@
       them inside the batch callback each single operation would end with a <code>render</code>. Thanks to the batching feature you can skip two renders and end the whole
       action with one render at the end. This is more optimal, and the gain grows with the number of operations placed inside the <code>batch</code>.
     </p>
-      <pre>
-        <code class="lang-js">
-// call the method on an instance
+
+      <pre><code class="lang-js">// call the method on an instance
 hot.batch(() => {
   // run the operations as needed
   hot.alter('insert_row', 5, 45);
   hot.setDataAtCell(1, 1, 'x');
   hot.selectCell(0, 0);
   // the render is executed right after all of the operations are completed
-});
-        </code>
-      </pre>
+});</code></pre>
+
     <p>
       As mentioned - suspending the render results in better performance, this is especially visible for numerous operations batched.
       The diagram shows a comparison, the same operations were performed with (deep blue columns) and without the batch (light blue columns).
@@ -106,9 +104,9 @@ hot.batch(() => {
       <p><strong>batch</strong> </p>
       This method supsends both rendering and other operations.
       It is universal and especially useful if you want to batch multiple API calls within the application.
-      <pre>
-        <code class="lang-js">
-hot.batch(() => {
+    </p>
+
+      <pre><code class="lang-js">hot.batch(() => {
   hot.alter('insert_row', 5, 45);
   hot.setDataAtCell(1, 1, 'x');
 
@@ -118,46 +116,38 @@ hot.batch(() => {
   filters.filter();
   hot.getPlugin('columnSorting').sort({ column: 1, sortOrder: 'desc' });
   // The table cache will be recalculated and table render will be called once after executing the callback
-});
-        </code>
-      </pre>
+});</code></pre>
 
-    </p>
     <p>
       <p><strong>batchRender</strong> </p>
       The <code>batchRender</code> method is a callback function, excessive renders can be skipped by placing the API calls inside of it.
       The table will be rendered after executing the callback.
       It is less prone to errors as you don't have to remember about resuming the render.
       However, there is a drawback to this method: it doesn't support async operations.
-      <pre>
-        <code class="lang-js">
-hot.batchRender(() => {
+    </p>
+
+      <pre><code class="lang-js">hot.batchRender(() => {
   hot.alter('insert_row', 5, 45);
   hot.setDataAtCell(1, 1, 'x');
   // The table will be rendered once after executing the callback
-});
-        </code>
-      </pre>
-  </p>
+});</code></pre>
+
   <p>
     <p><strong>batchExecution</strong> </p>
     The <code>batchExecution</code> is a callback function, excessive renders can be skipped by placing the API calls inside of it.
     The table will be rendered after executing the callback.
     It is less prone to errors as you don't have to remember about resuming the operations.
     However, there is a drawback to this method: it doesn't support async operations.
-    <pre>
-      <code class="lang-js">
-hot.batchExecution(() => {
+  </p>
+
+    <pre><code class="lang-js">hot.batchExecution(() => {
   const filters = hot.getPlugin('filters');
 
   filters.addCondition(2, 'contains', ['3']);
   filters.filter();
   hot.getPlugin('columnSorting').sort({ column: 1, sortOrder: 'desc' });
   // The table cache will be recalculated once after executing the callback
-});
-      </code>
-    </pre>
-  </p>
+});</code></pre>
 
   <h4>suspend* and resume* methods</h4>
 
@@ -166,31 +156,26 @@ hot.batchExecution(() => {
       <br>
       To suspend the rendering process you can use <code>suspendRender</code> method just before the actions you want to batch.
       This is a manual approach - after suspending you have to remember to resume the process with the <code>resumeRender</code> method.
-      <pre>
-        <code class="lang-js">
-hot.suspendRender(); // suspend rendering
+    </p>
+
+      <pre><code class="lang-js">hot.suspendRender(); // suspend rendering
 hot.alter('insert_row', 5, 45);
 hot.setDataAtCell(1, 1, 'x');
-hot.resumeRender(); // remember to resume rendering
-        </code>
-      </pre>
-    </p>
+hot.resumeRender(); // remember to resume rendering</code></pre>
 
     <p>
       <p><strong>suspendExecution</strong> and <strong>resumeExecution</strong></p>
       To suspend the rendering process you can use <code>suspendExecution</code> method just before the actions you want to batch.
       This is a manual approach - after suspending you have to remember to resume the process with the <code>resumeExecution</code> method.
-      <pre>
-        <code class="lang-js">
-hot.suspendExecution();
+    </p>
+
+      <pre><code class="lang-js">hot.suspendExecution();
 const filters = hot.getPlugin('filters');
 
 filters.addCondition(2, 'contains', ['3']);
 filters.filter();
 hot.getPlugin('columnSorting').sort({ column: 1, sortOrder: 'desc' });
-hot.resumeExecution(); // It updates the cache internally
-        </code>
-      </pre>
+hot.resumeExecution(); // It updates the cache internally</code></pre>
   </div>
 
   <div class="example-container clearfix" name="suspend-demo">
