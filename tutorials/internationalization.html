@@ -68,7 +68,8 @@ const hot = new Handsontable(container, {
 
       <li>
         <h4>Universal Module Definition (UMD)</h4>
-        <p>Languages included this way are ready to use immediately after loading the file.</p>
+        <p>Languages included this way are ready to use immediately after loading the file. Each file contains a UMD loader that looks for <code>Handsontable</code> in a global/externals context.
+          If <code>Handsontable</code> is available then it registers itself in the proper context.</p>
 
         <pre><code class="lang-html">&lt;script type="text/javascript" src="dist/handsontable.full.js"&gt;&lt;/script&gt;
 &lt;script type="text/javascript" src="dist/languages/da-DK.js"&gt;&lt;/script&gt;
