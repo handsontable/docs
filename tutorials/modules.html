@@ -372,19 +372,19 @@ new Handsontable(container, {
 import Handsontable from 'handsontable/base';
 
 // import the language code and interface to register language
-import { registerLanguageDictionary, plPL } from 'handsontable/i18n';
-    </code></pre>
+import { registerLanguageDictionary, plPL } from 'handsontable/i18n';</code></pre>
+
     <p>Afterwards you need to register it:</p>
-    <pre><code class="lang-js">
-registerLanguageDictionary(plPL.languageCode, plPL);
+
+    <pre><code class="lang-js">registerLanguageDictionary(plPL.languageCode, plPL);
 
 // or if the language dictionary object contains the "languageCode" property,
 // the registration can be simplified to something like this
-registerLanguageDictionary(plPL);
-    </code></pre>
+registerLanguageDictionary(plPL);</code></pre>
+
     <p>Now, you can use newly registered locale. The full example looks like this:</p>
-    <pre><code class="lang-js">
-import Handsontable from 'handsontable/base';
+
+    <pre><code class="lang-js">import Handsontable from 'handsontable/base';
 import { registerLanguageDictionary, plPL } from 'handsontable/i18n';
 
 registerLanguageDictionary(plPL);
